@@ -4,8 +4,8 @@ import Home from "./Pages/Home"
 import About from "./Pages/About"
 import Cart from "./Pages/Cart"
 import Contact from "./Pages/Contact"
-import { useContext } from "react"
-import DataProvider from "./Context/DataProvider"
+// import { useContext } from "react"
+// import DataProvider from "./Context/DataProvider"
 
 
 
@@ -36,9 +36,9 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <DataProvider>
-      <RouterProvider router={router} />
-    </DataProvider>
+    // <DataProvider>
+    <RouterProvider router={router} />
+    /* </DataProvider> */
   )
 }
 

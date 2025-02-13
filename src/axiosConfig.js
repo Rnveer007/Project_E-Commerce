@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const intance = axios.create({
+const instance = axios.create({
     baseURL : "https://ecommerce-api-8ga2.onrender.com/api",
 });
 
-export default intance;
+export default instance;
 
 
 
