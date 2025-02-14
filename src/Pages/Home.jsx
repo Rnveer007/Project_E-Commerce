@@ -32,13 +32,11 @@ function Home() {
       {
         products.map((item) => {
           return (
-            <div key={item._id} className="w-[300px] h-[300] ">
-              <img src={item.url} alt="" className=" object-cover" />
-              <h1>{item.name}</h1>
-              <p> {item.price} </p>
-
-              <button>Add to Cart</button>
-              <button>Add to Wishlist</button>
+            <div key={item._id} className=" text-center ">
+              <img src={item.url} alt="" className=" w-[300px] h-[300px] object-contain" />
+              <h1 className=" my-4">{item.name.split(" ").slice(0, 5).join(" ") + "..."}</h1>
+              <p className=" my-4">$ {item.price} </p>
+              <button className="border-2 px-3 py-1 mx-3 cursor-pointer bg-cyan-300 border-cyan-50 font-bold hover:transition-all hover:text-white hover:bg-black">Add to Wishlist</button>
             </div>
           )
         })
