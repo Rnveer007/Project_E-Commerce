@@ -1,11 +1,15 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import { dataContext } from "../Context/DataProvider";
 
 function Header() {
-  const { cart } = useContext(dataContext);
+  const { cart, categories, fetchCategories, loading } = useContext(dataContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    fetchCategories()
+  }, [])
 
   return (
     <div className="flex justify-between px-16 py-3 mb-4 bg-amber-200 relative">
@@ -37,10 +41,18 @@ function Header() {
         {dropdownOpen && (
           <div className="absolute right-16 top-14 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44">
             <ul className="py-2 text-sm text-gray-700">
-              <li><a href="#" className="block px-4 py-2 hover:bg-gray-100">Dashboard</a></li>
-              <li><a href="#" className="block px-4 py-2 hover:bg-gray-100">Settings</a></li>
-              <li><a href="#" className="block px-4 py-2 hover:bg-gray-100">Earnings</a></li>
-              <li><a href="#" className="block px-4 py-2 hover:bg-gray-100">Sign out</a></li>
+              {
+                categories.length > 0 &&
+                categories.map((category, index) => {
+                  return (
+                    <li key={index}
+                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                      <Link> {category.category} </Link>
+                    </li>
+                  )
+                })
+
+              }
             </ul>
           </div>
         )}

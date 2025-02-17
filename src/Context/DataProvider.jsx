@@ -81,6 +81,7 @@ function DataProvider({ children }) {
                 products,
                 cart,
                 loading,
+                categories,
                 fetchData,
                 addToCart,
                 existInCart,
