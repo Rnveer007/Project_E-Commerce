@@ -4,7 +4,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { dataContext } from "../Context/DataProvider";
 
 function Header() {
-  const { cart, categories, fetchCategories, loading } = useContext(dataContext);
+  const { cart, categories, fetchCategories, productFilterByCategory } = useContext(dataContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
@@ -45,10 +45,10 @@ function Header() {
                 categories.length > 0 &&
                 categories.map((category, index) => {
                   return (
-                    <li key={index}
+                    <a key={index} href={`/category/${category.category.toLowerCase()}`}
                       className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                      <Link> {category.category} </Link>
-                    </li>
+                      {category.category}
+                    </a>
                   )
                 })
 
