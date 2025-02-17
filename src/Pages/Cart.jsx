@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from "react";
-import { dataContext } from "../Context/DataProvider";
+import { useEcom } from "../Context/DataProvider";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { MdOutlineCurrencyRupee } from "react-icons/md";
 import { Link } from "react-router-dom";
 
+
 function Cart() {
-  const { cart, updateProductQuantity, removeFromCart } = useContext(dataContext);
+  const { cart, updateProductQuantity, removeFromCart } = useEcom();
   const [totalPrice, setTotalPrice] = useState(0)
 
   useEffect(() => {

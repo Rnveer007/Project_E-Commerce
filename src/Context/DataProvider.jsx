@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import instance from '../axiosConfig';
 import { FaLeaf } from "react-icons/fa";
 
@@ -112,6 +112,10 @@ function DataProvider({ children }) {
             {children}
         </dataContext.Provider>
     );
+
 }
 
+export function useEcom() {
+    return useContext(dataContext);
+}
 export default DataProvider;

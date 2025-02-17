@@ -13,7 +13,7 @@ function Header() {
 
   return (
     <div className="flex justify-between px-16 py-3 mb-4 bg-amber-200 relative">
-      <h1 className="font-bold text-xl">E-Commerce</h1>
+      <h1 className="font-bold text-xl"><Link to="/">E-Commerce</Link></h1>
       <ul className="flex gap-12 items-center">
         <li><Link to="/">Home</Link></li>
         <li><Link to="/about">About</Link></li>
