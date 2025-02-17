@@ -38,7 +38,7 @@ function DataProvider({ children }) {
         }
     }
 
-    async function productFilterByCategory() {
+    async function productFilterByCategory(category) {
         try {
             setLoading(true)
             setSingleProductByCat([]);

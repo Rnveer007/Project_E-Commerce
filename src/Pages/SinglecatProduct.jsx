@@ -6,13 +6,13 @@ import { dataContext } from '../Context/DataProvider';
 
 function SingleCatProduct() {
   const { id } = useParams()
-  const { productFilterByCategory, singleCatProduct, loading } = useContext(dataContext);
+  const { productFilterByCategory, singleProductByCat, loading } = useContext(dataContext);
 
   useEffect(() => {
-    if(id)
-    productFilterByCategory(id)
+    if (id)
+      productFilterByCategory(id)
   }, [id])
-  return loading ? <Loader /> : <DisplayProducts products={singleCatProduct} />
+  return loading ? <Loader /> : <DisplayProducts products={singleProductByCat} />
 }
 
 export default SingleCatProduct
