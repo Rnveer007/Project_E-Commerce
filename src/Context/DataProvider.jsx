@@ -8,7 +8,8 @@ function DataProvider({ children }) {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [categories, setCotegories] = useState([])
+    const [categories, setCotegories] = useState([]);
+    const [singleCatProduct, setSingleCatProduct] = useState([]);
 
     async function fetchData() {
         try {
@@ -35,6 +36,22 @@ function DataProvider({ children }) {
         finally {
             setLoading(false)
         }
+    }
+
+    async function productFilterByCategory() {
+        try {
+            setLoading(true)
+            setSingleCatProduct([]);
+            const response = await instance.get("/product/?category=" + category)
+            setSingleCatProduct(response.data)
+        } catch (error) {
+            console.log(error)
+            setLoading(false)
+        }
+        finally {
+            setLoading(false)
+        }
+
     }
 
     function addToCart(product) {
@@ -82,12 +99,14 @@ function DataProvider({ children }) {
                 cart,
                 loading,
                 categories,
+                singleCatProduct,
                 fetchData,
                 addToCart,
                 existInCart,
                 removeFromCart,
                 updateProductQuantity,
                 fetchCategories,
+                productFilterByCategory,
             }}
         >
             {children}
