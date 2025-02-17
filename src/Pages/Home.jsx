@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react"
 import { dataContext } from "../Context/DataProvider"
 import { Link } from "react-router-dom"
+import Loader from "../Components/Loader"
 
 function Home() {
   const { products, loading, fetchData } = useContext(dataContext)
@@ -10,7 +11,7 @@ function Home() {
     fetchData()
   }, [])
 
-  if (loading) return <h3>Loading...</h3>;
+  if (loading) return <Loader/>;
   return (
     <div className="flex flex-wrap gap-20 justify-center">
       {
