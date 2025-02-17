@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 import instance from '../axiosConfig';
+import { FaLeaf } from "react-icons/fa";
 
 export const dataContext = createContext();
 
@@ -7,6 +8,7 @@ function DataProvider({ children }) {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [categories, setCotegories] = useState([])
 
     async function fetchData() {
         try {
@@ -15,8 +17,23 @@ function DataProvider({ children }) {
             setProducts(response.data);
         } catch (error) {
             console.log(error);
+            setLoading(false);
         } finally {
             setLoading(false);
+        }
+    }
+
+    async function fetchCategories() {
+        try {
+            setLoading(true)
+            const response = await instance.get("/product/categories/all");
+            setCotegories(response.data);
+        } catch (error) {
+            console.log(error)
+            setLoading(false)
+        }
+        finally {
+            setLoading(false)
         }
     }
 
@@ -69,6 +86,7 @@ function DataProvider({ children }) {
                 existInCart,
                 removeFromCart,
                 updateProductQuantity,
+                fetchCategories,
             }}
         >
             {children}
