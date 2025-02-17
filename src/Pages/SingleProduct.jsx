@@ -6,7 +6,7 @@ import { dataContext } from "../Context/DataProvider";
 function SingleProduct() {
     const [product, setProduct] = useState([]);
     const [loading, setLoading] = useState(false)
-    const { addToCart } = useContext(dataContext)
+    const { addToCart, existInCart, removeFromCart } = useContext(dataContext)
     const { id } = useParams()
 
     async function singleProductShow(id) {
@@ -48,7 +48,13 @@ function SingleProduct() {
                 <h1 className="my-3"><strong>Brand :</strong> {product.brand}</h1>
                 <p className="my-3"><strong>Description :</strong> {product.description} </p>
                 <div className="mt-5">
-                    <button onClick={() => addToCart(product)} className="border-2 px-3 py-1 cursor-pointer  ">Add to Cart</button>
+                    {
+                        existInCart(product._id) ? (
+                            <button onClick={() => removeFromCart(product._id)} className="border-2 px-3 py-1 cursor-pointer ">Remove from Cart</button>
+
+                        ) :
+                            <button onClick={() => addToCart(product)} className="border-2 px-3 py-1 cursor-pointer  ">Add to Cart</button>
+                    }
                     <button className="border-2 px-3 py-1 cursor-pointer ml-3">Add to Wishlist</button>
                 </div>
             </div>

@@ -7,8 +7,6 @@ import Contact from "./Pages/Contact"
 import SingleProduct from "./Pages/SingleProduct"
 import DataProvider from "./Context/DataProvider"
 
-
-
 const router = createBrowserRouter([
   {
     path: '/',
