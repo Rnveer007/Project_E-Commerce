@@ -8,8 +8,8 @@ function DataProvider({ children }) {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [categories, setCotegories] = useState([]);
-    const [singleCatProduct, setSingleCatProduct] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [singleProductByCat, setSingleProductByCat] = useState([]);
 
     async function fetchData() {
         try {
@@ -28,7 +28,7 @@ function DataProvider({ children }) {
         try {
             setLoading(true)
             const response = await instance.get("/product/categories/all");
-            setCotegories(response.data);
+            setCategories(response.data);
         } catch (error) {
             console.log(error)
             setLoading(false)
@@ -41,9 +41,9 @@ function DataProvider({ children }) {
     async function productFilterByCategory() {
         try {
             setLoading(true)
-            setSingleCatProduct([]);
+            setSingleProductByCat([]);
             const response = await instance.get("/product/?category=" + category)
-            setSingleCatProduct(response.data)
+            setSingleProductByCat(response.data)
         } catch (error) {
             console.log(error)
             setLoading(false)
@@ -99,7 +99,7 @@ function DataProvider({ children }) {
                 cart,
                 loading,
                 categories,
-                singleCatProduct,
+                singleProductByCat,
                 fetchData,
                 addToCart,
                 existInCart,

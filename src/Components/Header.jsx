@@ -4,7 +4,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { dataContext } from "../Context/DataProvider";
 
 function Header() {
-  const { cart, categories, fetchCategories, productFilterByCategory } = useContext(dataContext);
+  const { cart, categories, fetchCategories } = useContext(dataContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
