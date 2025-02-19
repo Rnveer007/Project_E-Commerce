@@ -8,11 +8,14 @@ function AddProduct() {
         category: "",
         usualPrice: "",
         discountPrice: "",
+        image: '',
 
     })
 
     function handleChange(e) {
-        const { name, value } = e.target
+        if (e.target.name === "image") {
+            setForm({ ...form, image: e.target.files[0] })
+        } const { name, value } = e.target;
         setForm({ ...form, [name]: value })
     }
 
@@ -36,7 +39,7 @@ function AddProduct() {
     }
     return (
         <>
-            <form action="" onSubmit={handleSubmit}>
+            <form action="" onSubmit={handleSubmit} encType='multipart/form-data'>
                 <input type="text"
                     placeholder='Enter Product Title'
                     name='title'
@@ -62,6 +65,7 @@ function AddProduct() {
                     name='discountPrice'
                     value={form.discountPrice}
                     onChange={handleChange} />
+                <input type="file" nanme="image" onChange={handleChange} />
                 <button type="submit">Add Poduct</button>
             </form>
         </>

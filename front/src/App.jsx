@@ -7,6 +7,7 @@ import Contact from "./Pages/Contact"
 import SingleProduct from "./Pages/SingleProduct"
 import DataProvider from "./Context/DataProvider"
 import SingleCatProduct from "./Pages/SinglecatProduct"
+import AddProduct from "./admin/AddProduct"
 
 const router = createBrowserRouter([
   {
@@ -36,7 +37,11 @@ const router = createBrowserRouter([
       {
         path: "/category/:id",
         element: <SingleCatProduct />
-      }
+      },
+      {
+        path: "/admin/Addproduct",
+        element: <AddProduct />
+      },
     ]
   }
 ])
