@@ -1,14 +1,14 @@
-import express from 'express';
 import cors from 'cors';
+import express from 'express';
 import { connectDb } from './connection/db.js';
 import productRouter from './routes/productRoute.js';
 
 
-const port = 4000;
 const app = express();
+const port = 4000;
 
 app.use(cors({ origin: "http://localhost:5173" }));
-app.use(express.json);
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // app.post("/api/product/add", (req, res) => {
@@ -16,6 +16,6 @@ app.use(express.urlencoded({ extended: true }));
 // })
 
 app.use("/api", productRouter)
-connectDb()
+connectDb() 
 
 app.listen(port, () => console.log("server started"));

@@ -8,28 +8,29 @@ function AddProduct() {
         category: "",
         usualPrice: "",
         discountPrice: "",
-        image: '',
+        // image: '',
 
     })
 
     function handleChange(e) {
-        if (e.target.name === "image") {
-            setForm({ ...form, image: e.target.files[0] })
-        } const { name, value } = e.target;
+        // if (e.target.name === "image") {
+            // setForm({ ...form, image: e.target.files[0] })
+        // Í} 
+        const { name, value } = e.target;
         setForm({ ...form, [name]: value })
     }
 
     async function handleSubmit(e) {
         e.preventDefault();
         try {
-            const frm = new FormData();
-            frm.append("title", form.title)
-            frm.append("brand", form.brand)
-            frm.append("category", form.category)
-            frm.append("usualPrice", form.usualPrice)
-            frm.append("discountPrice", form.discountPrice);
+            // const frm = new FormData();
+            // frm.append("title", form.title)
+            // frm.append("brand", form.brand)
+            // frm.append("category", form.category)
+            // frm.append("usualPrice", form.usualPrice)
+            // frm.append("discountPrice", form.discountPrice);
 
-            const response = await instance.post("/product/add", frm)
+            const response = await instance.post("/product/add", form)
             console.log(response)
 
         } catch (error) {
@@ -65,7 +66,7 @@ function AddProduct() {
                     name='discountPrice'
                     value={form.discountPrice}
                     onChange={handleChange} />
-                <input type="file" nanme="image" onChange={handleChange} />
+                {/* <input type="file" name="image" onChange={handleChange} /> */}
                 <button type="submit">Add Poduct</button>
             </form>
         </>
