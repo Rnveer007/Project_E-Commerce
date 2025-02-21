@@ -1,6 +1,7 @@
 import productData from "../models/productModel.js";
 
 export async function addToProduct(req, res) {
+    console.log(req.body)
     try {
         const latestProduct = new productData(req.body)
         await latestProduct.save()

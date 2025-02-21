@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import instance from 'axios'
+import instance from '../axiosConfig'
 
 function AddProduct() {
     const [form, setForm] = useState({
@@ -8,14 +8,14 @@ function AddProduct() {
         category: "",
         usualPrice: "",
         discountPrice: "",
-        // image: '',
+        image: '',
 
     })
 
     function handleChange(e) {
-        // if (e.target.name === "image") {
-            // setForm({ ...form, image: e.target.files[0] })
-        // Í} 
+        if (e.target.name === "image") {
+            setForm({ ...form, image: e.target.files[0] })
+        }
         const { name, value } = e.target;
         setForm({ ...form, [name]: value })
     }
@@ -23,12 +23,13 @@ function AddProduct() {
     async function handleSubmit(e) {
         e.preventDefault();
         try {
-            // const frm = new FormData();
-            // frm.append("title", form.title)
-            // frm.append("brand", form.brand)
-            // frm.append("category", form.category)
-            // frm.append("usualPrice", form.usualPrice)
-            // frm.append("discountPrice", form.discountPrice);
+            const frm = new FormData();
+            frm.append("title", form.title)
+            frm.append("brand", form.brand)
+            frm.append("category", form.category)
+            frm.append("usualPrice", form.usualPrice)
+            frm.append("discountPrice", form.discountPrice);
+            frm.append("image", form.image)
 
             const response = await instance.post("/product/add", form)
             console.log(response)
@@ -66,7 +67,7 @@ function AddProduct() {
                     name='discountPrice'
                     value={form.discountPrice}
                     onChange={handleChange} />
-                {/* <input type="file" name="image" onChange={handleChange} /> */}
+                <input type="file" name="image" onChange={handleChange} />
                 <button type="submit">Add Poduct</button>
             </form>
         </>
