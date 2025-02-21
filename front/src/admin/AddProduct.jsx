@@ -8,17 +8,19 @@ function AddProduct() {
         category: "",
         usualPrice: "",
         discountPrice: "",
-        image: '',
-
+        image: "",
     })
 
     function handleChange(e) {
         if (e.target.name === "image") {
-            setForm({ ...form, image: e.target.files[0] })
+            console.log("Selected File:", e.target.files[0]); // Debugging
+            setForm(prevForm => ({ ...prevForm, image: e.target.files[0] }));
+        } else {
+            const { name, value } = e.target;
+            setForm(prevForm => ({ ...prevForm, [name]: value }));
         }
-        const { name, value } = e.target;
-        setForm({ ...form, [name]: value })
     }
+
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -30,6 +32,8 @@ function AddProduct() {
             frm.append("usualPrice", form.usualPrice)
             frm.append("discountPrice", form.discountPrice);
             frm.append("image", form.image)
+
+            // console.log(form); 
 
             const response = await instance.post("/product/add", frm)
             console.log(response)
