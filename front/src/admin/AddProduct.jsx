@@ -19,8 +19,8 @@ function AddProduct() {
             const { name, value } = e.target;
             setForm(prevForm => ({ ...prevForm, [name]: value }));
         }
-    }
-
+    };
+    
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -34,7 +34,7 @@ function AddProduct() {
             frm.append("image", form.image)
 
             // console.log(form); 
-
+            
             const response = await instance.post("/product/add", frm)
             console.log(response)
 

@@ -6,7 +6,7 @@ import Cart from "./Pages/Cart"
 import Contact from "./Pages/Contact"
 import SingleProduct from "./Pages/SingleProduct"
 import DataProvider from "./Context/DataProvider"
-import SingleCatProduct from "./Pages/SinglecatProduct"
+import SingleCatProduct from "./Pages/SingleCatProduct"
 import AddProduct from "./admin/AddProduct"
 
 const router = createBrowserRouter([

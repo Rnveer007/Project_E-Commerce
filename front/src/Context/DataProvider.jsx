@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, use, useContext, useState } from "react";
 import instance from '../axiosConfig';
 import { FaLeaf } from "react-icons/fa";
 
@@ -10,6 +10,7 @@ function DataProvider({ children }) {
     const [loading, setLoading] = useState(false);
     const [categories, setCategories] = useState([]);
     const [singleProductByCat, setSingleProductByCat] = useState([]);
+    const [similiarProduct, setSimiliarProduct] = useState([]);
 
     async function fetchData() {
         try {
@@ -38,12 +39,14 @@ function DataProvider({ children }) {
         }
     }
 
-    async function productFilterByCategory(category) {
+    async function productFilterByCategory(category, productId) {
         try {
             setLoading(true)
             setSingleProductByCat([]);
             const response = await instance.get("/product/?category=" + category)
             setSingleProductByCat(response.data)
+
+            setSimiliarProduct(singleProductByCat.filter((item) => item._id !== productId))
         } catch (error) {
             console.log(error)
             setLoading(false)
@@ -51,7 +54,6 @@ function DataProvider({ children }) {
         finally {
             setLoading(false)
         }
-
     }
 
     function addToCart(product) {
@@ -100,6 +102,7 @@ function DataProvider({ children }) {
                 loading,
                 categories,
                 singleProductByCat,
+                similiarProduct,
                 fetchData,
                 addToCart,
                 existInCart,
