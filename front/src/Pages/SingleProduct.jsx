@@ -74,7 +74,7 @@ function SingleProduct() {
             <div>
                 <h1>What other items do customers buy after viewing this item?</h1>
                 <div>
-                    <DisplayProducts products={similiarProduct} />
+                    <DisplayProducts products={similiarProduct.filter((item) =>item._id !== product._id)} />
                 </div>
             </div>
         </>

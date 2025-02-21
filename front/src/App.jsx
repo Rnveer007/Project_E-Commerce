@@ -8,6 +8,9 @@ import SingleProduct from "./Pages/SingleProduct"
 import DataProvider from "./Context/DataProvider"
 import SingleCatProduct from "./Pages/SingleCatProduct"
 import AddProduct from "./admin/AddProduct"
+import Register from "./Pages/Register"
+import Login from "./Pages/Login"
+
 
 const router = createBrowserRouter([
   {
@@ -29,6 +32,14 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />
+      },
+      {
+        path: "/user/login",
+        element: <Login />
+      },
+      {
+        path: "/user/register",
+        element: <Register />
       },
       {
         path: "/product/:id",

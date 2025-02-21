@@ -17,6 +17,7 @@ function Header() {
       <ul className="flex gap-12 items-center">
         <li><Link to="/">Home</Link></li>
         <li><Link to="/about">About</Link></li>
+        <li><Link to="/user/login">Login</Link></li>
         <li className="relative">
           <Link to="/cart"><FaShoppingCart className="text-xl" /></Link>
           <p className="absolute -top-3 -right-7 text-white bg-red-600 w-[25px] h-[25px] flex justify-center items-center text-sm border-2 rounded-full">

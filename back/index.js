@@ -2,6 +2,7 @@ import cors from 'cors';
 import express from 'express';
 import { connectDb } from './connection/db.js';
 import productRouter from './routes/productRoute.js';
+import userRouter from './routes/userRoutes.js';
 
 
 const app = express();
@@ -15,7 +16,8 @@ app.use(express.urlencoded({ extended: true }));
 //     console.log(req.body);
 // })
 
-app.use("/api", productRouter)
-connectDb() 
+app.use("/api/product", productRouter)
+app.use("/api/user", userRouter)
+connectDb()
 
 app.listen(port, () => console.log("server started"));
