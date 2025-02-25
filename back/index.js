@@ -1,14 +1,17 @@
 import cors from 'cors';
+import "dotenv/config"
+
 import express from 'express';
 import { connectDb } from './connection/db.js';
 import productRouter from './routes/productRoute.js';
 import userRouter from './routes/userRoutes.js';
 
 
-const app = express();
-const port = 4000;
 
-app.use(cors({ origin: "http://localhost:5173" }));
+const port = process.env.PORT;
+const app = express();
+
+app.use(cors({ origin: process.env.FRONTEND_URI}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

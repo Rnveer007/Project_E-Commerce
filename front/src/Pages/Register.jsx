@@ -17,9 +17,9 @@ function Register() {
         })
     }
 
-    async function handleSubmit() {
+    async function handleSubmit(e) {
         try {
-            e.preventDefault()
+            e.preventDefault();
             const response = await instance.post("./user/register", data)
             console.log(response)
         } catch (error) {
@@ -36,7 +36,7 @@ function Register() {
     }
     return (
         <>
-            <form action="" onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <input type="text"
                     name='name'
                     value={data.name}

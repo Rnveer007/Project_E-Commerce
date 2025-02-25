@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom';
+import instance from '../axiosConfig';
 
 function Login() {
     const [data, setData] = useState({
@@ -15,8 +16,16 @@ function Login() {
         })
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault()
+        try {
+            const response = await instance.post("/user/login", data)
+            console.log(response.data);
+
+        } catch (error) {
+            console.log(error);
+
+        }
     }
 
     return (

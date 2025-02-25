@@ -1,6 +1,7 @@
 import { createContext, use, useContext, useState } from "react";
 import instance from '../axiosConfig';
 import { FaLeaf } from "react-icons/fa";
+import axios from "axios";
 
 export const dataContext = createContext();
 
@@ -15,7 +16,7 @@ function DataProvider({ children }) {
     async function fetchData() {
         try {
             setLoading(true);
-            const response = await instance.get("/product");
+            const response = await axios.get("https://ecommerce-api-8ga2.onrender.com/api/product");
             setProducts(response.data);
         } catch (error) {
             console.log(error);
@@ -28,7 +29,7 @@ function DataProvider({ children }) {
     async function fetchCategories() {
         try {
             setLoading(true)
-            const response = await instance.get("/product/categories/all");
+            const response = await axios.get("https://ecommerce-api-8ga2.onrender.com/api/product/categories/all");
             setCategories(response.data);
         } catch (error) {
             console.log(error)
@@ -43,7 +44,7 @@ function DataProvider({ children }) {
         try {
             setLoading(true)
             setSingleProductByCat([]);
-            const response = await instance.get("/product/?category=" + category)
+            const response = await axios.get("https://ecommerce-api-8ga2.onrender.com/api/product/?category=" + category)
             setSingleProductByCat(response.data)
 
             setSimiliarProduct(singleProductByCat.filter((item) => item._id !== productId))

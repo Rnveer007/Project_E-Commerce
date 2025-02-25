@@ -1,15 +1,16 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import First from "./First"
-import Home from "./Pages/Home"
-import About from "./Pages/About"
-import Cart from "./Pages/Cart"
-import Contact from "./Pages/Contact"
-import SingleProduct from "./Pages/SingleProduct"
-import DataProvider from "./Context/DataProvider"
-import SingleCatProduct from "./Pages/SingleCatProduct"
-import AddProduct from "./admin/AddProduct"
-import Register from "./Pages/Register"
-import Login from "./Pages/Login"
+import First from "./First.jsx"
+import Home from "./Pages/Home.jsx"
+import About from "./Pages/About.jsx"
+import Cart from "./Pages/Cart.jsx"
+import Contact from "./Pages/Contact.jsx"
+import SingleProduct from "./Pages/SingleProduct.jsx"
+import DataProvider from "./Context/DataProvider.jsx"
+import SingleCatProduct from "./Pages/SingleCatProduct.jsx"
+import AddProduct from "./admin/AddProduct.jsx"
+import Register from "./Pages/Register.jsx"
+import Login from "./Pages/Login.jsx"
+import AuthProvider from "./Context/AuthProvider.jsx"
 
 
 const router = createBrowserRouter([
@@ -59,9 +60,11 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <DataProvider>
-      <RouterProvider router={router} />
-    </DataProvider>
+    <AuthProvider>
+      <DataProvider>
+        <RouterProvider router={router} />
+      </DataProvider>
+    </AuthProvider>
   )
 }
 
