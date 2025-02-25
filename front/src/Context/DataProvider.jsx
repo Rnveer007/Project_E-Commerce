@@ -11,7 +11,7 @@ function DataProvider({ children }) {
     const [loading, setLoading] = useState(false);
     const [categories, setCategories] = useState([]);
     const [singleProductByCat, setSingleProductByCat] = useState([]);
-    const [similiarProduct, setSimiliarProduct] = useState([]);
+    // const [similiarProduct, setSimiliarProduct] = useState([]);
 
     async function fetchData() {
         try {
@@ -40,14 +40,13 @@ function DataProvider({ children }) {
         }
     }
 
-    async function productFilterByCategory(category, productId) {
+    async function productFilterByCategory(category) {
         try {
             setLoading(true)
             setSingleProductByCat([]);
             const response = await axios.get("https://ecommerce-api-8ga2.onrender.com/api/product/?category=" + category)
             setSingleProductByCat(response.data)
 
-            setSimiliarProduct(singleProductByCat.filter((item) => item._id !== productId))
         } catch (error) {
             console.log(error)
             setLoading(false)
@@ -103,7 +102,7 @@ function DataProvider({ children }) {
                 loading,
                 categories,
                 singleProductByCat,
-                similiarProduct,
+                // similiarProduct,
                 fetchData,
                 addToCart,
                 existInCart,

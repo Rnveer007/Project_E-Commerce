@@ -1,8 +1,8 @@
-import { useContext, useEffect, useState } from "react"
-import instance from "../axiosConfig";
+import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
-import { dataContext } from "../Context/DataProvider";
+import { useEcom } from "../Context/DataProvider";
 import DisplayProducts from "../Components/DisplayProducts";
+import axios from "axios";
 
 function SingleProduct() {
     const [product, setProduct] = useState([]);
@@ -10,16 +10,17 @@ function SingleProduct() {
     const { addToCart,
         existInCart,
         removeFromCart,
-        similiarProduct,
+        singleProductByCat,
         productFilterByCategory,
-    } = useContext(dataContext)
+    } = useEcom()
+
 
     const { id } = useParams()
 
     async function singleProductShow(id) {
         try {
             setLoading(true)
-            const response = await instance.get(`/product/${id}`);
+            const response = await axios.get(`https://ecommerce-api-8ga2.onrender.com/api/product/${id}`);
             setProduct(response.data);
             console.log(response.data)
         } catch (error) {
@@ -35,7 +36,7 @@ function SingleProduct() {
             singleProductShow(id)
         }
         if (product.category) {
-            productFilterByCategory(product.category, product._id)
+            productFilterByCategory(product.category)
         }
     }, [id, product.category])
 
@@ -74,7 +75,8 @@ function SingleProduct() {
             <div>
                 <h1>What other items do customers buy after viewing this item?</h1>
                 <div>
-                    <DisplayProducts products={similiarProduct.filter((item) =>item._id !== product._id)} />
+                    <DisplayProducts products={singleProductByCat.filter((item) => item._id !== product._id)} />
+                    
                 </div>
             </div>
         </>

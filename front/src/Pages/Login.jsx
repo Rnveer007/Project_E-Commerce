@@ -1,13 +1,16 @@
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import instance from '../axiosConfig';
+import { useAuth } from '../Context/AuthProvider';
+
 
 function Login() {
     const [data, setData] = useState({
         email: "",
         password: "",
-
     })
+    const { checkAuth } = useAuth();
+    const navigate = useNavigate()
 
     function handleChange(e) {
         const { name, value } = e.target;
@@ -19,8 +22,15 @@ function Login() {
     async function handleSubmit(e) {
         e.preventDefault()
         try {
-            const response = await instance.post("/user/login", data)
+            const response = await instance.post("/user/login", data, {
+                withCredentials: true
+            })
             console.log(response.data);
+            checkAuth();
+            if (
+                response.status === 200 && response.data.message === "Login Successful"
+            )
+                navigate("/")
 
         } catch (error) {
             console.log(error);
