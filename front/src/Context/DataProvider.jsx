@@ -1,6 +1,4 @@
 import { createContext, use, useContext, useState } from "react";
-import instance from '../axiosConfig';
-import { FaLeaf } from "react-icons/fa";
 import axios from "axios";
 
 export const dataContext = createContext();

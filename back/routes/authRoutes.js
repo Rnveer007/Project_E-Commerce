@@ -1,5 +1,5 @@
 import express from "express"
-
+import { check } from '../middleware/auth.js'
 // const authRouter = express.Router()
 // authRouter.get("/check", (req, res) => {
 //   console.log("cookies", req.cookies)
