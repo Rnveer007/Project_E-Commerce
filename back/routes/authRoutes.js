@@ -20,8 +20,10 @@ authRouter.post("/logout", async (req, res) => {
       secure: false,
       sameSite: "strict",
     })
-    res.status(500).send({ error: error.message });
+    res.status(200).send({ message: "Logged out" });
   } catch (error) {
+    console.log(error);
+    return res.status(500).send({mesage: error.message})
   }
 })
 

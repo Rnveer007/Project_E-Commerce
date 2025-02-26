@@ -11,7 +11,7 @@ function AuthProvider({ children }) {
 
     async function checkAuth() {
         try {
-            await instance.get("/auth/check", { withCredentials: true, })
+            await instance.get("/auth/check",{ withCredentials: true, })
             setIsUserLoggedIn(true)
         } catch (error) {
             console.log(error)
@@ -21,7 +21,7 @@ function AuthProvider({ children }) {
 
     async function logout() {
         try {
-            await instance.post("/LogoutUser", { withCredentials: true })
+            await instance.post("/auth/logout",{}, { withCredentials: true })
             setIsUserLoggedIn(false)
             checkAuth()
         } catch (error) {

@@ -5,7 +5,7 @@ import express from 'express';
 import { connectDb } from './connection/db.js';
 import productRouter from './routes/productRoute.js';
 import userRouter from './routes/userRoutes.js';
-import authRouter from './routes/authRouter.js';
+import authRouter from './routes/authRoutes.js';
 import cookieParser from 'cookie-parser';
 // import cookieParser from 'cookie-parser';
 
