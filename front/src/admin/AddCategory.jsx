@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import instance from '../axiosConfig';
 
 function AddCategory() {
@@ -10,7 +10,7 @@ function AddCategory() {
     function handleChange(e) {
         let { name, value } = e.target;
         if (name === "image") {
-            value = e.target.file[0]
+            value = e.target.files[0]
         }
         setform((prev) => { return { ...prev, [name]: value } })
     }
@@ -39,7 +39,8 @@ function AddCategory() {
                 <input type="file"
                     name='image'
                     onChange={handleChange}
-                    placeholder='' />
+                />
+                <button type='submit'> submit</button>
             </form>
         </>
     )

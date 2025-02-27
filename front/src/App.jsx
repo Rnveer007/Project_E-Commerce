@@ -11,6 +11,7 @@ import AddProduct from "./admin/AddProduct.jsx"
 import Register from "./Pages/Register.jsx"
 import Login from "./Pages/Login.jsx"
 import AuthProvider from "./Context/AuthProvider.jsx"
+import AddCategory from "./admin/AddCategory.jsx"
 
 
 const router = createBrowserRouter([
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: "/admin/Addproduct",
         element: <AddProduct />
+      },
+      {
+        path: "/admin/AddCategory",
+        element: <AddCategory />
       },
     ]
   }
