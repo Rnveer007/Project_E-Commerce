@@ -6,7 +6,7 @@ import DisplayProducts from "../Components/DisplayProducts"
 
 function Home() {
   const { products, loading, fetchData } = useContext(dataContext)
-  console.log(products)
+  // console.log(products)
 
   useEffect(() => {
     fetchData()

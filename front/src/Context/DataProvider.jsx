@@ -1,5 +1,6 @@
 import { createContext, use, useContext, useState } from "react";
 import axios from "axios";
+import instance from "../axiosConfig";
 
 export const dataContext = createContext();
 
@@ -14,8 +15,9 @@ function DataProvider({ children }) {
     async function fetchData() {
         try {
             setLoading(true);
-            const response = await axios.get("https://ecommerce-api-8ga2.onrender.com/api/product");
+            const response = await instance.get("/product/get");
             setProducts(response.data);
+            console.log(response)
         } catch (error) {
             console.log(error);
             setLoading(false);

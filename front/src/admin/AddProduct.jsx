@@ -13,7 +13,7 @@ function AddProduct() {
 
     function handleChange(e) {
         if (e.target.name === "image") {
-            console.log("Selected File:", e.target.files[0]); // Debugging
+            // console.log("Selected File:", e.target.files[0]); // Debugging
             setForm(prevForm => ({ ...prevForm, image: e.target.files[0] }));
         } else {
             const { name, value } = e.target;
@@ -35,7 +35,7 @@ function AddProduct() {
 
             // console.log(form); 
             
-            const response = await instance.post("/product/add", frm)
+            const response = await instance.post("/product/add", frm, {withCredentials : true})
             console.log(response)
 
         } catch (error) {
