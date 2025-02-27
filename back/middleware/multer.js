@@ -1,14 +1,16 @@
 import multer from "multer";
 import path from 'path';
 import { fileURLToPath } from "url";
+// import { v2 as cloudinary } from 'cloudinary';
+// import "dotenv/config"
 
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const storage = multer.diskStorage({
-    destination: function (req, file, callback) {
-        callback(null, path.join(__dirname, "../uploads"))
+    destination: function (req, file, cb) {
+        cb(null, path.join(__dirname, "../uploads"))
         // cb(null, 'uploads')
     },
     filename: function (req, file, cb) {
@@ -18,6 +20,7 @@ const storage = multer.diskStorage({
     }
 })
 
-export const upload = multer({ storage: storage })
 
-// console.log(upload)
+// const storage = multer.memoryStorage()
+
+export const upload = multer({ storage: storage })

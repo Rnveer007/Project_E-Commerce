@@ -1,9 +1,14 @@
+import uploadToCloudinary from "../middleware/cloudinary.js";
+import categoryModel from "../models/categoryModel.js";
 import productData from "../models/productModel.js";
 
 export async function addToProduct(req, res) {
-    console.log(req.file)
+    // console.log(req.file)
     try {
-        const latestProduct = new productData({ ...req.body, image: req.file.path });
+        const file = req.file;
+        if (!file) return res.status(404).send({ message: "File Not Found" })
+        const secure_url = await uploadToCloudinary(req)
+        const latestProduct = new productData({ ...req.body, image: secure_url });
         await latestProduct.save()
         res.status(201).send({ message: "product Added" })
     } catch (error) {
@@ -12,12 +17,24 @@ export async function addToProduct(req, res) {
 };
 
 export async function fetchProducts(req, res) {
-    console.log("Ranveer")
+    // console.log("Ranveer")
     try {
         const products = await productData.find({})
         console.log(products)
         res.send(products)
     } catch (error) {
         res.status(500).send({ message: "product not found", error: error.message })
+    }
+}
+
+
+
+export async function fetchCategories(req, res) {
+    try {
+        const category = await categoryModel.find({})
+        res.send(category)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({ message: error.message }) // complete this line first
     }
 }
