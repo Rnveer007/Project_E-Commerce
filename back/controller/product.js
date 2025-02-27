@@ -35,6 +35,20 @@ export async function fetchCategories(req, res) {
         res.send(category)
     } catch (error) {
         console.log(error)
-        res.status(500).send({ message: error.message }) // complete this line first
+        res.status(500).send({ message: error.message })
+    }
+}
+
+export async function addCategory(req, res) {
+    try {
+        const file = req.file;
+        if (!file) return res.status(404).send({ message: "File Not Found" })
+        const secure_url = await uploadToCloudinary(req)
+        const newCategory = new categoryModel({ ...req.body, image: secure_url });
+        await newCategory.save()
+        res.status(201).send({ message: "category Added" })
+    } catch (error) {
+        res.status(500).send({ message: "category not found", error: error.message })
+
     }
 }
