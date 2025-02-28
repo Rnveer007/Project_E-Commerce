@@ -9,12 +9,8 @@ import authRouter from './routes/authRoutes.js';
 import cookieParser from 'cookie-parser';
 // import cookieParser from 'cookie-parser';
 
-
-
 const port = process.env.PORT;
 const app = express();
-
-
 
 // app.use(cors({ origin: process.env.FRONTEND_URI }));
 
@@ -22,7 +18,6 @@ const corsOptinos = {
     origin: process.env.FRONTEND_URI,
     credentials: true,
     method: ["GET", "PUT", "POST", "DELETE", "OPTIONS"]
-
 }
 
 app.use(cors(corsOptinos));

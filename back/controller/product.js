@@ -19,14 +19,18 @@ export async function addToProduct(req, res) {
 export async function fetchProducts(req, res) {
     // console.log("Ranveer")
     try {
-        const products = await productData.find({})
-        console.log(products)
+        let query = {};
+        if (req.query.category) {
+            query.category = {$regex: new RegExp(`^${req.query.category}$`, "i")}
+        }
+
+        const products = await productData.find(query)
+        // console.log(products)
         res.send(products)
     } catch (error) {
         res.status(500).send({ message: "product not found", error: error.message })
     }
 }
-
 
 
 export async function fetchCategories(req, res) {

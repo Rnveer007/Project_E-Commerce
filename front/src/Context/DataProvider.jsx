@@ -29,7 +29,8 @@ function DataProvider({ children }) {
     async function fetchCategories() {
         try {
             setLoading(true)
-            const response = await axios.get("https://ecommerce-api-8ga2.onrender.com/api/product/categories/all");
+            // const response = await axios.get("https://ecommerce-api-8ga2.onrender.com/api/product/categories/all");
+            const response = await instance.get("/product/category");
             setCategories(response.data);
         } catch (error) {
             console.log(error)
@@ -44,7 +45,8 @@ function DataProvider({ children }) {
         try {
             setLoading(true)
             setSingleProductByCat([]);
-            const response = await axios.get("https://ecommerce-api-8ga2.onrender.com/api/product/?category=" + category)
+            // const response = await axios.get("https://ecommerce-api-8ga2.onrender.com/api/product/?category=" + category)
+            const response = await instance.get("/product/get/?category=" + category)
             setSingleProductByCat(response.data)
 
         } catch (error) {

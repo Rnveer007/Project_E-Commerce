@@ -4,10 +4,9 @@ import { MdOutlineDeleteForever } from "react-icons/md";
 import { MdOutlineCurrencyRupee } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-
 function Cart() {
   const { cart, updateProductQuantity, removeFromCart } = useEcom();
-  const [totalPrice, setTotalPrice] = useState(0)
+  const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     if (cart) {
@@ -17,7 +16,7 @@ function Cart() {
         }, 0)
       )
     }
-  }, [totalPrice, cart])
+  }, [totalPrice, cart]);
 
   return (
     <div>

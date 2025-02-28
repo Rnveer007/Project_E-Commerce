@@ -28,6 +28,7 @@ function AddCategory() {
             console.log(error)
         }
     }
+    
     return (
         <>
             <form action="" encType='multipart/form-data' onSubmit={handleSubmit}>

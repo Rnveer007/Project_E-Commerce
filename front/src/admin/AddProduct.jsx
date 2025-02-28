@@ -20,7 +20,7 @@ function AddProduct() {
             setForm(prevForm => ({ ...prevForm, [name]: value }));
         }
     };
-    
+
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -34,15 +34,15 @@ function AddProduct() {
             frm.append("image", form.image)
 
             // console.log(form); 
-            
-            const response = await instance.post("/product/add", frm, {withCredentials : true})
+
+            const response = await instance.post("/product/add", frm, { withCredentials: true })
             console.log(response)
 
         } catch (error) {
             console.log(error)
         }
-
     }
+    
     return (
         <>
             <form action="" onSubmit={handleSubmit} encType='multipart/form-data'>
