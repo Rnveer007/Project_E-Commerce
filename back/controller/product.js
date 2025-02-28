@@ -21,7 +21,7 @@ export async function fetchProducts(req, res) {
     try {
         let query = {};
         if (req.query.category) {
-            query.category = {$regex: new RegExp(`^${req.query.category}$`, "i")}
+            query.category = { $regex: new RegExp(`^${req.query.category}$`, "i") }
         }
 
         const products = await productData.find(query)
@@ -52,6 +52,15 @@ export async function addCategory(req, res) {
         res.status(201).send({ message: "category Added" })
     } catch (error) {
         res.status(500).send({ message: "category not found", error: error.message })
+
+    }
+}
+
+
+export async function hotDeals(req, res) {
+    try {
+
+    } catch (error) {
 
     }
 }

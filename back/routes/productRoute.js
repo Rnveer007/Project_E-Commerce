@@ -10,6 +10,6 @@ productRouter.get("/get", fetchProducts)
 productRouter.get("/product/:id", fetchProducts)
 productRouter.get("/category", fetchCategories)
 productRouter.post("/category/add", upload.single("image"), addCategory)
-// productRouter.get("/hotDeals", fetchHotDeals)
+productRouter.get("/hotDeals", fetchHotDeals)
 
 export default productRouter;

@@ -96,6 +96,16 @@ function DataProvider({ children }) {
         );
     }
 
+
+    async function fetchHotDeals() {
+        try {
+            const response = await instance.get("/deals", { withCredentials: true });
+            console.log(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <dataContext.Provider
             value={{
@@ -112,6 +122,7 @@ function DataProvider({ children }) {
                 updateProductQuantity,
                 fetchCategories,
                 productFilterByCategory,
+                fetchHotDeals,
             }}
         >
             {children}
