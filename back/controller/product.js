@@ -8,7 +8,7 @@ export async function addToProduct(req, res) {
         const file = req.file;
         if (!file) return res.status(404).send({ message: "File Not Found" })
         const secure_url = await uploadToCloudinary(req)
-        const latestProduct = new productData({ ...req.body, image: secure_url });
+        const latestProduct = new productData({ ...req.body, image: secure_url })
         await latestProduct.save()
         res.status(201).send({ message: "product Added" })
     } catch (error) {
@@ -32,7 +32,6 @@ export async function fetchProducts(req, res) {
     }
 }
 
-
 export async function fetchCategories(req, res) {
     try {
         const category = await categoryModel.find({})
@@ -48,7 +47,7 @@ export async function addCategory(req, res) {
         const file = req.file;
         if (!file) return res.status(404).send({ message: "File Not Found" })
         const secure_url = await uploadToCloudinary(req)
-        const newCategory = new categoryModel({ ...req.body, image: secure_url });
+        const newCategory = new categoryModel({ ...req.body, image: secure_url })
         await newCategory.save()
         res.status(201).send({ message: "category Added" })
     } catch (error) {

@@ -5,10 +5,11 @@ import { upload } from "../middleware/multer.js"
 
 const productRouter = express.Router();
 
-productRouter.post("/add", upload.single("image"), addToProduct);
-productRouter.get("/get", fetchProducts);
-productRouter.get("/product/:id", fetchProducts);
-productRouter.get("/category", fetchCategories);
-productRouter.post("/category/add", upload.single("image"), addCategory);
+productRouter.post("/add", upload.single("image"), addToProduct)
+productRouter.get("/get", fetchProducts)
+productRouter.get("/product/:id", fetchProducts)
+productRouter.get("/category", fetchCategories)
+productRouter.post("/category/add", upload.single("image"), addCategory)
+// productRouter.get("/hotDeals", fetchHotDeals)
 
 export default productRouter;

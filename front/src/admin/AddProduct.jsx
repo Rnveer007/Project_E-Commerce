@@ -42,37 +42,37 @@ function AddProduct() {
             console.log(error)
         }
     }
-    
+
     return (
         <>
-            <form action="" onSubmit={handleSubmit} encType='multipart/form-data'>
+            <form action="" onSubmit={handleSubmit} encType='multipart/form-data' className='flex gap-10 px-2'>
                 <input type="text"
                     placeholder='Enter Product Title'
                     name='title'
                     value={form.title}
-                    onChange={handleChange} />
+                    onChange={handleChange} className='border-2 ' />
                 <input type="text"
                     placeholder='Enter Product Brand'
                     name='brand'
                     value={form.brand}
-                    onChange={handleChange} />
+                    onChange={handleChange} className='border-2 ' />
                 <input type="text"
                     placeholder='Enter Product Category'
                     name='category'
                     value={form.category}
-                    onChange={handleChange} />
+                    onChange={handleChange} className='border-2 ' />
                 <input type="text"
                     placeholder='Enter Product Usual Price'
                     name='usualPrice'
                     value={form.usualPrice}
-                    onChange={handleChange} />
+                    onChange={handleChange} className='border-2 ' />
                 <input type="text"
                     placeholder='Enter Product Discount Price'
                     name='discountPrice'
                     value={form.discountPrice}
-                    onChange={handleChange} />
-                <input type="file" name="image" onChange={handleChange} />
-                <button type="submit">Add Poduct</button>
+                    onChange={handleChange} className='border-2 ' />
+                <input type="file" name="image" onChange={handleChange} className='border-2 ' />
+                <button type="submit" className='border-2'>Add Poduct</button>
             </form>
         </>
     )

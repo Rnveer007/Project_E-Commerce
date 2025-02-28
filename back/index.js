@@ -16,12 +16,11 @@ const app = express();
 
 const corsOptinos = {
     origin: process.env.FRONTEND_URI,
-    credentials: true,
+    credentials: true,  
     method: ["GET", "PUT", "POST", "DELETE", "OPTIONS"]
 }
 
 app.use(cors(corsOptinos));
-// app.use(cookieParser());
 app.use(cookieParser());    
 
 
