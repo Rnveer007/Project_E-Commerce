@@ -99,10 +99,10 @@ function DataProvider({ children }) {
 
     async function fetchHotDeals() {
         try {
-            const response = await instance.get("/deals", { withCredentials: true });
-            console.log(response.data);
+            const response = await instance.get("/api/deals", { withCredentials: true })
+            console.log(response)
         } catch (error) {
-            console.log(error);
+            console.log(error)
         }
     }
 
@@ -122,7 +122,7 @@ function DataProvider({ children }) {
                 updateProductQuantity,
                 fetchCategories,
                 productFilterByCategory,
-                fetchHotDeals,
+                fetchHotDeals
             }}
         >
             {children}
