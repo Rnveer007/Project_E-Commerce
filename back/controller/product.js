@@ -59,8 +59,14 @@ export async function addCategory(req, res) {
 
 export async function hotDeals(req, res) {
     try {
-
+        const hotDeals = await productData.find(
+            {
+                discountPrice: { $gte: 500 }
+            })
+        console.log(hotDeals)
+        res.status(200).json(hotDeals)
     } catch (error) {
-
+        console.error("Error fetching hot deals:", error)
+        res.status(500).json({ error: "Internal Server Error" });
     }
 }

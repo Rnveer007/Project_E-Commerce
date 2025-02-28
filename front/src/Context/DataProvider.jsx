@@ -10,6 +10,7 @@ function DataProvider({ children }) {
     const [loading, setLoading] = useState(false);
     const [categories, setCategories] = useState([]);
     const [singleProductByCat, setSingleProductByCat] = useState([]);
+    const [dealProducts, setDealProducts] = useState([]);
     // const [similiarProduct, setSimiliarProduct] = useState([]);
 
     async function fetchData() {
@@ -99,8 +100,9 @@ function DataProvider({ children }) {
 
     async function fetchHotDeals() {
         try {
-            const response = await instance.get("/api/deals", { withCredentials: true })
-            console.log(response)
+            const response = await instance.get("/deals", { withCredentials: true })
+            // console.log(response.data)
+            setDealProducts(response.data)
         } catch (error) {
             console.log(error)
         }
@@ -114,6 +116,7 @@ function DataProvider({ children }) {
                 loading,
                 categories,
                 singleProductByCat,
+                dealProducts,
                 // similiarProduct,
                 fetchData,
                 addToCart,

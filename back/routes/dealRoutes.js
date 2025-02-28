@@ -1,8 +1,8 @@
 import express from 'express';
-import { fetchDeals } from '../controller/deals.js';
+import { hotDeals } from '../controller/product.js';
 
 const dealRouter = express.Router();
 
-dealRouter.get('/', fetchDeals)
+dealRouter.get('/', hotDeals)
 
 export default dealRouter;
