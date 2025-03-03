@@ -1,6 +1,6 @@
 import { createContext, use, useContext, useState } from "react";
-import axios from "axios";
 import instance from "../axiosConfig";
+// import axios from "axios";
 
 export const dataContext = createContext();
 
@@ -11,14 +11,14 @@ function DataProvider({ children }) {
     const [categories, setCategories] = useState([]);
     const [singleProductByCat, setSingleProductByCat] = useState([]);
     const [dealProducts, setDealProducts] = useState([]);
-    // const [similiarProduct, setSimiliarProduct] = useState([]);
 
     async function fetchData() {
         try {
             setLoading(true);
-            const response = await instance.get("/product/get");
+            const response = await instance.get("/product/get", { withCredentials: true });
             setProducts(response.data);
-            console.log(response)
+            // console.log(response.data)
+            console.log("ranveer " + response.data)
         } catch (error) {
             console.log(error);
             setLoading(false);
