@@ -8,7 +8,7 @@ function DisplayHotDealsProducts() {
 
     useEffect(() => {
         fetchHotDeals();
-    }, []); // Best practice to include dependencies
+    }, []); 
 
     return (loading) ? <Loader /> : <DisplayProducts products={dealProducts} />
 }

@@ -6,7 +6,7 @@ import { useAuth } from "../Context/AuthProvider";
 
 function Header() {
   const { cart, categories, fetchCategories } = useEcom();
-  const { isUserLoggedIn, logout } = useAuth()
+  const { isUserLoggedIn, logout, isAdminLoggedin } = useAuth()
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ function Header() {
         <li><Link to="/">Home</Link></li>
         <li><Link to="/about">About</Link></li>
         {/* <li><Link to="/user/login">Login</Link></li> */}
-        {isUserLoggedIn ? (
+        {isUserLoggedIn || isAdminLoggedin ? (
           <li>
             <button onClick={logout} className="cursor-pointer">Logout</button>
           </li>
