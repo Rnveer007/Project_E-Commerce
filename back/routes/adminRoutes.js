@@ -2,7 +2,6 @@ import express from "express";
 import { loginAdmin } from "../controller/admin.js"
 import { checkAdmin } from "../middleware/auth.js"
 
-//import checkadmin
 
 const adminRouter = express.Router();
 
