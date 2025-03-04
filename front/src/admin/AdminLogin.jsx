@@ -39,18 +39,18 @@ function AdminLogin() {
 
     return (
         <div>
-            <form action="" onSubmit={handleSubmit}>
+            <form action="" onSubmit={handleSubmit} className='flex gap-10'>
                 <input type="email"
                     name='email'
                     value={data.email}
                     placeholder='Enter Email'
-                    onChange={handleChange} />
+                    onChange={handleChange} className='border-2 w-[250px] px-3 py-1' />
                 <input type="password"
                     name='password'
                     value={data.password}
                     placeholder='Choose a Strong Password'
-                    onChange={handleChange} />
-                <button type="submit">Login</button>
+                    onChange={handleChange} className='border-2 w-[250px] px-3 py-1' />
+                <button type="submit" className='border-2 rounded px-3 bg-cyan-600 text-white  cursor-pointer font-bold'>Login</button>
             </form>
         </div>
     )

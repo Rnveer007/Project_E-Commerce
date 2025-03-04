@@ -28,7 +28,7 @@ function AddCategory() {
             console.log(error)
         }
     }
-    
+
     return (
         <>
             <form action="" encType='multipart/form-data' onSubmit={handleSubmit}>
@@ -41,7 +41,7 @@ function AddCategory() {
                     name='image'
                     onChange={handleChange}
                 />
-                <button type='submit'> submit</button>
+                <button type='submit' className='border-2 rounded px-3 bg-cyan-600 text-white  cursor-pointer font-bold' > submit</button>
             </form>
         </>
     )
