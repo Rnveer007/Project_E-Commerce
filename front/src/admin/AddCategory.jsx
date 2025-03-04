@@ -31,17 +31,19 @@ function AddCategory() {
 
     return (
         <>
-            <form action="" encType='multipart/form-data' onSubmit={handleSubmit}>
+            <form action="" encType='multipart/form-data' onSubmit={handleSubmit} className=' w-[800px] px-10 flex   gap-10'>
                 <input type="text"
                     name='name'
                     value={form.name}
                     onChange={handleChange}
-                    placeholder='Enter Category' />
+                    placeholder='Enter Category' className='border-2 px-3 py-1' />
+
                 <input type="file"
                     name='image'
                     onChange={handleChange}
+                    className='cursor-pointer'
                 />
-                <button type='submit' className='border-2 rounded px-3 bg-cyan-600 text-white  cursor-pointer font-bold' > submit</button>
+                <button type='submit' className='border-2 rounded px-3 py-1 bg-cyan-600 text-white  cursor-pointer font-bold' > submit</button>
             </form>
         </>
     )
