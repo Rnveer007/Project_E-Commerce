@@ -20,6 +20,9 @@ export async function fetchProducts(req, res) {
     // console.log("Ranveer")
     try {
         let query = {};
+        if (req.params.id) {
+            query._id = req.params.id
+        }
         if (req.query.category) {
             query.category = { $regex: new RegExp(`^${req.query.category}$`, "i") }
         }
@@ -28,7 +31,7 @@ export async function fetchProducts(req, res) {
         // console.log(products)
         res.send(products)
     } catch (error) {
-        res.status(500).send({ message: "product not found", error: error.message })
+        res.status(500).send({ message: "could not fetch product", error: error.message })
     }
 }
 

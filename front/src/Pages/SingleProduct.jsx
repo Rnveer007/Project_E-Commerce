@@ -2,7 +2,8 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
 import { useEcom } from "../Context/DataProvider";
 import DisplayProducts from "../Components/DisplayProducts";
-import axios from "axios";
+// import axios from "axios";
+import instance from "../axiosConfig";
 
 function SingleProduct() {
     const [product, setProduct] = useState([]);
@@ -20,8 +21,8 @@ function SingleProduct() {
     async function singleProductShow(id) {
         try {
             setLoading(true)
-            const response = await axios.get(`https://ecommerce-api-8ga2.onrender.com/api/product/${id}`);
-            setProduct(response.data);
+            const response = await instance.get(`/product/get/${id}`);
+            setProduct(response.data[0]);
             console.log(response.data)
         } catch (error) {
             console.log(error)
@@ -45,13 +46,13 @@ function SingleProduct() {
         <>
             <div className="flex gap-30 items-center justify-center py-26">
                 <div>
-                    <img src={product.url} alt="" className="w-[300px] h-[300px]" />
+                    <img src={product.image} alt="" className="w-[300px] h-[300px]" />
                 </div>
                 <div className="">
                     <h1 className="my-3 text-3xl font-bold ">
-                        {product.name}
+                        {product.title}
                     </h1>
-                    <p className="my-3">$ {product.price} </p>
+                    <p className="my-3">$ {product.usualPrice} </p>
                     <div className="flex">
                         <h1 className="my-3"><strong>Rating :</strong></h1>
                         <p className="my-3">{product.totalRating}</p>
@@ -76,7 +77,7 @@ function SingleProduct() {
                 <h1>What other items do customers buy after viewing this item?</h1>
                 <div>
                     <DisplayProducts products={singleProductByCat.filter((item) => item._id !== product._id)} />
-                    
+
                 </div>
             </div>
         </>
