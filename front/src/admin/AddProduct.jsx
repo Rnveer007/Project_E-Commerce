@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import instance from '../axiosConfig'
+import { useEcom } from '../Context/DataProvider';
 
 function AddProduct() {
+    const { categories } = useEcom()
     const [form, setForm] = useState({
         title: "",
         brand: "",
@@ -56,11 +58,23 @@ function AddProduct() {
                     name='brand'
                     value={form.brand}
                     onChange={handleChange} className='border-2 ' />
-                <input type="text"
+
+                {/* <input type="text"
                     placeholder='Enter Product Category'
                     name='category'
                     value={form.category}
-                    onChange={handleChange} className='border-2 ' />
+                    onChange={handleChange} className='border-2 ' /> */}
+
+                <select name="category" id="" value={form.category} onChange={handleChange}>
+                    <option value="" selected disabled>Select Category</option>
+                    {categories.map((category, index) => {
+                        return (
+                            <option value={category._id} key={index}> {category.name} </option>
+                        )
+                    })
+                    }
+                </select>
+
                 <input type="text"
                     placeholder='Enter Product Usual Price'
                     name='usualPrice'

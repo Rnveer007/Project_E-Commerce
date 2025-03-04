@@ -10,7 +10,8 @@ const productSchema = new mongoose.Schema({
         required: true
     },
     category: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "category",
         required: true
     },
     usualPrice: {
