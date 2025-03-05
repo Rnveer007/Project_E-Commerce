@@ -35,12 +35,12 @@ function Cart() {
                   return (
                     <div key={item.product._id} className="flex justify-center gap-30 py-8">
                       <div>
-                        <img src={item.product.url} alt="" className="w-[300px] h-[300px]" />
+                        <img src={item.product.image} alt="" className="w-[300px] h-[300px]" />
                       </div>
 
                       <div className="">
                         <h1 className="my-3 text-3xl font-bold ">
-                          {item.product.name}
+                          {item.product.title}
                         </h1>
                         <p className="my-3">$ {item.product.price} </p>
                         <div>
