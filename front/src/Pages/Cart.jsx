@@ -12,7 +12,7 @@ function Cart() {
     if (cart) {
       setTotalPrice(
         cart.reduce((acc, curr) => {
-          return acc + curr.product.price * curr.quantity
+          return acc + curr.product.usualPrice * curr.quantity
         }, 0)
       )
     }
@@ -42,7 +42,7 @@ function Cart() {
                         <h1 className="my-3 text-3xl font-bold ">
                           {item.product.title}
                         </h1>
-                        <p className="my-3">$ {item.product.price} </p>
+                        <p className="my-3">$ {item.product.usualPrice} </p>
                         <div>
                           <h1 className="my-3"><strong>Rating :</strong> {item.product.totalRating}</h1>
                           {/* <p>{product.totalRating.rating}</p> */}

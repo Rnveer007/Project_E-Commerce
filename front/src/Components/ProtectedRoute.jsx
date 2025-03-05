@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import instance from '../axiosConfig';
+import { Navigate } from 'react-router-dom';
 
 
 function ProtectedRoute({ children }) {
   const [allowed, setAllowed] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     fetchAllowedStatus()
@@ -17,17 +18,13 @@ function ProtectedRoute({ children }) {
       setAllowed(true)
     } catch (error) {
       console.log(error)
-      setLoading(false);
       setAllowed(false)
     } finally {
       setLoading(false)
     }
   }
-
   if (loading) return <div>LOADING...</div>
-  return allowed ? children : (window.location.href = "/admin/login")
-
+  return allowed ? children : <Navigate to="/admin/login" replace />;
 }
 
 export default ProtectedRoute;
- 

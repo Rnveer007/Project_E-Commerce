@@ -13,7 +13,7 @@ function AuthProvider({ children }) {
 
     async function checkAuth() {
         try {
-            await instance.get("/auth/check", { withCredentials: true, })
+            const response = await instance.get("/auth/check", { withCredentials: true, })
             if (response.status === 200) setIsUserLoggedIn(true)
         } catch (error) {
             console.log(error)
@@ -23,7 +23,7 @@ function AuthProvider({ children }) {
 
     async function checkAuthAdmin() {
         try {
-            await instance.get("/admin/check", { withCredentials: true, })
+            const response = await instance.get("/admin/check", { withCredentials: true, })
             if (response.status === 200) setIsAdminLoggedIn(true)
         } catch (error) {
             console.log(error)
@@ -38,12 +38,12 @@ function AuthProvider({ children }) {
                     { withCredentials: true })
                 setIsUserLoggedIn(false)
                 checkAuth()
-                // window.location.herf = "/user/login"
             } else {
                 await instance.post("/admin/logout", {},
                     { withCredentials: true })
                 setIsAdminLoggedIn(false)
                 checkAuthAdmin()
+                window.location.href = "/admin/login"
             }
         } catch (error) {
             console.log(error)

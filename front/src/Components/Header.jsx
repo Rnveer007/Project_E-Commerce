@@ -6,9 +6,10 @@ import { useAuth } from "../Context/AuthProvider";
 
 function Header() {
   const { cart, categories, fetchCategories } = useEcom();
-  const { isUserLoggedIn, logout, isAdminLoggedin } = useAuth()
+  const { isUserLoggedIn, logout, isAdminLoggedIn } = useAuth()
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
+  console.log("isAdminLoggedin", isAdminLoggedIn)
+  console.log("isUserLoggedin", isUserLoggedIn)
   useEffect(() => {
     fetchCategories()
   }, [])
@@ -20,7 +21,7 @@ function Header() {
         <li><Link to="/">Home</Link></li>
         <li><Link to="/about">About</Link></li>
         {/* <li><Link to="/user/login">Login</Link></li> */}
-        {isUserLoggedIn || isAdminLoggedin ? (
+        {isUserLoggedIn || isAdminLoggedIn ? (
           <li>
             <button onClick={logout} className="cursor-pointer">Logout</button>
           </li>

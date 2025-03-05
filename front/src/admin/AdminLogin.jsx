@@ -5,12 +5,13 @@ import { useAuth } from '../Context/AuthProvider';
 
 
 function AdminLogin() {
+    const { checkAuthAdmin } = useAuth();
+    const navigate = useNavigate()
+
     const [data, setData] = useState({
         email: "",
         password: "",
     })
-    const { checkAuthAdmin } = useAuth();
-    const navigate = useNavigate()
 
     function handleChange(e) {
         const { name, value } = e.target;
@@ -28,9 +29,8 @@ function AdminLogin() {
             // console.log(response.data);
             checkAuthAdmin();
             if (
-                response.status === 200 && response.data.message === "Login Successful"
-            )
-                navigate("/admin/addProduct")
+                response.status === 200
+            ) { navigate("/admin/Addproduct") }
         } catch (error) {
             console.log(error);
 
