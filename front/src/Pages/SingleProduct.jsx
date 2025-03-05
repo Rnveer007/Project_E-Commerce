@@ -8,11 +8,14 @@ import instance from "../axiosConfig";
 function SingleProduct() {
     const [product, setProduct] = useState([]);
     const [loading, setLoading] = useState(false)
+    const [categoryName, setCategoryName] = useState("");
+
     const { addToCart,
         existInCart,
         removeFromCart,
         singleProductByCat,
         productFilterByCategory,
+        categories,
     } = useEcom()
 
 
@@ -37,9 +40,18 @@ function SingleProduct() {
             singleProductShow(id)
         }
         if (product.category) {
-            productFilterByCategory(product.category)
+            // productFilterByCategory(product.category)
+            setCategoryName(
+                categories.find((obj) => {
+                    return obj._id === product.category
+                }).name
+            )
         }
     }, [id, product.category])
+
+    useEffect(() => {
+        productFilterByCategory(categoryName)
+    }, [categoryName])
 
 
     return (
@@ -59,7 +71,7 @@ function SingleProduct() {
                         {/* <p>{product.totalRating.rating}</p> */}
                     </div>
                     <h1 className="my-3"><strong>Brand :</strong> {product.brand}</h1>
-                    <h1 className="my-3"><strong>Category :</strong> {product.category}</h1>
+                    <h1 className="my-3"><strong>Category :</strong> {categoryName}</h1>
                     <p className="my-3"><strong>Description :</strong> {product.description} </p>
                     <div className="mt-5">
                         {
