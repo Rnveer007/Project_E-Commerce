@@ -86,8 +86,8 @@ function SingleProduct() {
             </div>
 
             <div>
-                <h1>What other items do customers buy after viewing this item?</h1>
-                <div>
+                <h1 className="text-center bg-blue-400 py-1 my-4">What other items do customers buy after viewing this item?</h1>
+                <div className="mt-8">
                     <DisplayProducts products={singleProductByCat.filter((item) => item._id !== product._id)} />
 
                 </div>

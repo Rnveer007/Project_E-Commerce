@@ -29,11 +29,11 @@ function Cart() {
 
         ) : (
           <>
-            <div>
+            <div className="flex items-center justify-around">
               {
                 cart.map((item) => {
                   return (
-                    <div key={item.product._id} className="flex justify-center gap-30 py-8">
+                    <div key={item.product._id} className="flex gap-30 py-8">
                       <div>
                         <img src={item.product.image} alt="" className="w-[300px] h-[300px]" />
                       </div>
