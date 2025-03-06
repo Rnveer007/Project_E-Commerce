@@ -24,7 +24,10 @@ function ProtectedRoute({ children }) {
     }
   }
   if (loading) return <div>LOADING...</div>
-  return allowed ? children : <Navigate to="/admin/login" replace />;
+  return allowed ? (
+    children
+  ) :
+    <Navigate to={"/" + children.props.destination} replace />; //updated
 }
 
 export default ProtectedRoute;
