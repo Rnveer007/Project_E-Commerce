@@ -13,6 +13,12 @@ function AddProduct() {
         image: "",
     })
 
+    //     function handleDiscountPriceChange() {
+    //   const a =
+    //   form.discountType === "%" 
+    //   ? form.OriginalPrice - (e.target.value : )
+    //     }
+
     function handleChange(e) {
         if (e.target.name === "image") {
             // console.log("Selected File:", e.target.files[0]); // Debugging
@@ -80,6 +86,16 @@ function AddProduct() {
                     name='usualPrice'
                     value={form.usualPrice}
                     onChange={handleChange} className='border-2 pl-3 py-1 w-[250px]' />
+
+                <div>
+                    <select name="discountType" id="discountType" >
+                        <option value="%">In Percentage</option>
+                        <option value="inr">In Rupees</option>
+                    </select>
+                    <input type="text" name='dicount' placeholder={form.dicountType === " %  " ? "Discount in Percentage" : "Discount in Rupees"} />
+                </div>
+
+
                 <input type="text"
                     placeholder='Enter Product Dis. Price'
                     name='discountPrice'
