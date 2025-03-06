@@ -110,7 +110,7 @@ function AddProduct() {
                     value={form.discountPrice}
                     onChange={handleChange} className='border-2 pl-3 w-[250px]' />
 
-                <input type="file" name="image" onChange={handleChange} className='border-2 items-center pl-3  w-[250px] py-1' />
+                <input type="file" name="image" onChange={handleChange} className='border-2 items-center pl-3 w-[250px] py-1' />
                 <button type="submit" className='border-2 py-1 px-3 bg-cyan-600 text-white cursor-pointer font-bold w-[250px] '>Add Poduct</button>
             </form>
         </>
