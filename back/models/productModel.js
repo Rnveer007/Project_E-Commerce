@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { disconnect } from "mongoose";
 
 const productSchema = new mongoose.Schema({
     title: {
@@ -17,6 +17,10 @@ const productSchema = new mongoose.Schema({
     usualPrice: {
         type: Number,
         required: true
+    },
+    discount: {
+        type: Number,
+        required: true,
     },
     discountPrice: {
         type: Number
