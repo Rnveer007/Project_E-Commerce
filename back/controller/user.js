@@ -1,6 +1,5 @@
 import bcrypt from "bcrypt"
 import User from "../models/userModels.js";
-import mongoose from "mongoose";
 import jwt from "jsonwebtoken"
 import "dotenv/config";
 
@@ -45,7 +44,7 @@ export async function loginUser(req, res) {
                 expiresIn: "1h"
             }
         )
-        console.log("loginToken", loginToken)
+        // console.log("loginToken", loginToken)
 
         res.cookie("loginToken", loginToken, {
             httpOnly: false,

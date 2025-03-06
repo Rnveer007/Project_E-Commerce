@@ -47,17 +47,17 @@ function AddProduct() {
 
     return (
         <>
-            <form action="" onSubmit={handleSubmit} encType='multipart/form-data' className='flex gap-10 px-2'>
+            <form action="" onSubmit={handleSubmit} encType='multipart/form-data' className='flex flex-col items-center py-8 gap-10 '>
                 <input type="text"
                     placeholder='Enter Product Title'
                     name='title'
                     value={form.title}
-                    onChange={handleChange} className='border-2 ' />
+                    onChange={handleChange} className='border-2 pl-3 w-[250px]  py-1' />
                 <input type="text"
                     placeholder='Enter Product Brand'
                     name='brand'
                     value={form.brand}
-                    onChange={handleChange} className='border-2 ' />
+                    onChange={handleChange} className='border-2 pl-3 w-[250px]  py-1' />
 
                 {/* <input type="text"
                     placeholder='Enter Product Category'
@@ -65,28 +65,28 @@ function AddProduct() {
                     value={form.category}
                     onChange={handleChange} className='border-2 ' /> */}
 
-                <select name="category" id="" value={form.category} onChange={handleChange}>
+                <select name="category" id="" value={form.category} onChange={handleChange} className='capitalize border-2 w-[250px] py-1'>
                     <option value="" selected disabled>Select Category</option>
                     {categories.map((category, index) => {
                         return (
-                            <option value={category._id} key={index}> {category.name} </option>
+                            <option value={category._id} key={index} > {category.name} </option>
                         )
                     })
                     }
                 </select>
 
                 <input type="text"
-                    placeholder='Enter Product Usual Price'
+                    placeholder='Enter M.R.P.'
                     name='usualPrice'
                     value={form.usualPrice}
-                    onChange={handleChange} className='border-2 ' />
+                    onChange={handleChange} className='border-2 pl-3 py-1 w-[250px]' />
                 <input type="text"
-                    placeholder='Enter Product Discount Price'
+                    placeholder='Enter Product Dis. Price'
                     name='discountPrice'
                     value={form.discountPrice}
-                    onChange={handleChange} className='border-2 ' />
-                <input type="file" name="image" onChange={handleChange} className='border-2 ' />
-                <button type="submit" className='border-2'>Add Poduct</button>
+                    onChange={handleChange} className='border-2 pl-3  w-[250px]' />
+                <input type="file" name="image" onChange={handleChange} className='border-2 items-center pl-3  w-[250px] py-1' />
+                <button type="submit" className='border-2 py-1 px-3 bg-cyan-600 text-white cursor-pointer font-bold w-[250px] '>Add Poduct</button>
             </form>
         </>
     )

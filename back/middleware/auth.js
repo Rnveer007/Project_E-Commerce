@@ -14,7 +14,7 @@ export async function check(req, res, next) {
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
   // Find the user by id
-  const user = await User.findById(decoded.id).select("-password");
+  const user = await User.findById(decoded.id).select("userpassword");
 
   //USER NOT FOUND
   if (!user) {
@@ -36,7 +36,7 @@ export async function checkAdmin(req, res, next) {
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
   // Find the user by id
-  const admin = await Admin.findById(decoded.id).select("-password");
+  const admin = await Admin.findById(decoded.id).select("password");
 
   //USER NOT FOUND
   if (!admin) {

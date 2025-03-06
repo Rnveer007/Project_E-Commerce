@@ -2,7 +2,7 @@
     import { Link } from 'react-router-dom'
 
     function DisplayProducts({ products }) {
-       console.log("rishi" + products)
+    //    console.log("rishi" + products)
         return (
             <div className="flex flex-wrap gap-20 justify-center">
                 {products.length > 0 ?

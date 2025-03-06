@@ -49,17 +49,17 @@ function Cart() {
                         </div>
                         <h1 className="my-3"><strong>Brand :</strong> {item.product.brand}</h1>
                         <p className="my-3"><strong>Description :</strong> {item.product.description} </p>
-                        <div className="flex gap-10">
+                        <div className="flex justify-between border-2 px-3 w-[120px] rounded-2xl border-amber-600 py-1 items-center">
                           {
                             item.quantity === 1 ? (
-                              <p onClick={() => removeFromCart(item.product._id)} className="cursor-pointer">  <MdOutlineDeleteForever className="cursor-pointer" /> </p>
+                              <p onClick={() => removeFromCart(item.product._id)} className="cursor-pointer">  <MdOutlineDeleteForever className="cursor-pointer font-bold" /> </p>
                             ) : (
-                              <p onClick={() => updateProductQuantity(item.product._id, '-')} className="cursor-pointer"> - </p>
+                              <p onClick={() => updateProductQuantity(item.product._id, '-')} className="cursor-pointer font-bold"> - </p>
 
                             )
                           }
                           <p> {item.quantity} </p>
-                          <p onClick={() => updateProductQuantity(item.product._id, '+')} className="cursor-pointer">  + </p>
+                          <p onClick={() => updateProductQuantity(item.product._id, '+')} className="cursor-pointer font-bold">  + </p>
                         </div>
                       </div>
                     </div>
@@ -84,7 +84,7 @@ function Cart() {
 
                 <div className="spacer py-2 border-b-1 border-gray-400"></div>
 
-                <div className="cartTotal flex justify-between items-center py-1 text-red-500 text-xl font-bold">
+                <div className="cartTotal flex justify-between items-center py-1 text-green-700 text-xl font-bold">
                   <p>Order Total:</p>
                   <p className="inline-flex items-center">
                     <MdOutlineCurrencyRupee />{" "}

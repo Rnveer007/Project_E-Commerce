@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom';
 import instance from '../axiosConfig';
-import { useAuth } from '../Context/AuthProvider';
+import { useAuth } from '../Context/AuthProvider.jsx';
 
 
 function Login() {
@@ -24,13 +24,19 @@ function Login() {
         try {
             const response = await instance.post("/user/login", data, {
                 withCredentials: true
-            })
-            console.log(response.data);
+            });
             checkAuth();
             if (
                 response.status === 200 && response.data.message === "Login Successful"
-            )
-                navigate("/")
+            ) {
+                const searchParams = new URLSearchParams(window.location.search);
+                const URLParam = searchParams.get("referer");
+                if (URLParam) {
+                    window.location.href = URLParam
+                } else {
+                    navigate("/")
+                }
+            }
 
         } catch (error) {
             console.log(error);
@@ -51,7 +57,7 @@ function Login() {
                     value={data.password}
                     placeholder='Choose a Strong Password'
                     onChange={handleChange} className='border-2 px-3 w-[250px] rounded py-1' />
-                <button type="submit" className='border-2 rounded px-3 bg-cyan-600 text-white  cursor-pointer font-bold'>Login</button>
+                <button type="submit" className='border-2 rounded px-3 bg-cyan-600 text-white cursor-pointer font-bold'>Login</button>
             </form>
 
             <p className='mt-3'>

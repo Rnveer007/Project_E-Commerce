@@ -18,7 +18,7 @@ function DataProvider({ children }) {
             const response = await instance.get("/product/get", { withCredentials: true });
             setProducts(response.data);
             // console.log(response.data)
-            console.log("ranveer " + response.data)
+            // console.log("ranveer " + response.data)
         } catch (error) {
             console.log(error);
             setLoading(false);

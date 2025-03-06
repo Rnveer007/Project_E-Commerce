@@ -8,8 +8,8 @@ function Header() {
   const { cart, categories, fetchCategories } = useEcom();
   const { isUserLoggedIn, logout, isAdminLoggedIn } = useAuth()
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  console.log("isAdminLoggedin", isAdminLoggedIn)
-  console.log("isUserLoggedin", isUserLoggedIn)
+  // console.log("isAdminLoggedin", isAdminLoggedIn)
+  // console.log("isUserLoggedin", isUserLoggedIn)
   useEffect(() => {
     fetchCategories()
   }, [])

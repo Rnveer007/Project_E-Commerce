@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEcom } from "../Context/DataProvider";
 import DisplayProducts from "../Components/DisplayProducts";
 // import axios from "axios";
 import instance from "../axiosConfig";
+import { useAuth } from "../Context/AuthProvider.jsx";
 
 function SingleProduct() {
+    const { isUserLoggedIn } = useAuth();
+    const navigate = useNavigate();
     const [product, setProduct] = useState([]);
     const [loading, setLoading] = useState(false)
     const [categoryName, setCategoryName] = useState("");
+
 
     const { addToCart,
         existInCart,
@@ -32,6 +36,15 @@ function SingleProduct() {
             setLoading(false)
         } finally {
             setLoading(false)
+        }
+    }
+
+    function userCartAuthentication() {
+        if (isUserLoggedIn) {
+            addToCart(product)
+        }
+        else {
+            navigate("/user/login/?referer=" + window.location.href)
         }
     }
 
@@ -76,11 +89,11 @@ function SingleProduct() {
                     <div className="mt-5">
                         {
                             existInCart(product._id) ? (
-                                <button onClick={() => removeFromCart(product._id)} className="border-2 px-3 py-1 cursor-pointer ">Remove from Cart</button>
+                                <button onClick={() => removeFromCart(product._id)} className="border-2 px-3 py-1  bg-red-500 text-white  cursor-pointer font-bold  ">Remove from Cart</button>
                             ) :
-                                <button onClick={() => addToCart(product)} className="border-2 px-3 py-1 cursor-pointer  ">Add to Cart</button>
+                                <button onClick={userCartAuthentication} className="border-2 px-3 py-1 bg-cyan-600 text-white  cursor-pointer font-bold ">Add to Cart</button>
                         }
-                        <button className="border-2 px-3 py-1 cursor-pointer ml-3">Add to Wishlist</button>
+                        <button className="border-2 px-3 py-1 cursor-pointer ml-3 bg-black text-white font-bold">Buy Now</button>
                     </div>
                 </div>
             </div>
