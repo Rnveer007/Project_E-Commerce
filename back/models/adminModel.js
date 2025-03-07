@@ -5,12 +5,10 @@ const adminSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-
     email: {
         type: String,
         required: true,
     },
-
     password: {
         type: String,
         unique: true,
@@ -19,12 +17,6 @@ const adminSchema = new mongoose.Schema({
     image: {
         type: String,
     },
-    wishList: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "products",
-        }
-    ],
     role:
     {
         type: String,

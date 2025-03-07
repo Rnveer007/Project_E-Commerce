@@ -8,6 +8,7 @@ export async function addToProduct(req, res) {
         const file = req.file;
         if (!file) return res.status(404).send({ message: "File Not Found" })
         const secure_url = await uploadToCloudinary(req)
+    
         const latestProduct = new productData({ ...req.body, image: secure_url })
         await latestProduct.save()
         res.status(201).send({ message: "product Added" })
