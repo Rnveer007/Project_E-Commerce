@@ -9,6 +9,7 @@ import authRouter from './routes/authRoutes.js';
 import cookieParser from 'cookie-parser';
 import dealRouter from './routes/dealRoutes.js';
 import adminRouter from './routes/adminRoutes.js';
+import cartRouter from './routes/cartRoutes.js';
 // import bcrypt from "bcrypt"
 
 // console.log(await bcrypt.hash("123456", 10))
@@ -41,6 +42,8 @@ app.use("/api/product", productRouter);
 app.use("/api/user", userRouter);
 app.use("/api/deals", dealRouter);
 app.use("/api/admin", adminRouter);
+app.use("/api/cart",cartRouter);
+
 
 connectDb()
 

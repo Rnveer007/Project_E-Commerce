@@ -51,7 +51,13 @@ function AuthProvider({ children }) {
 
     }
     return (
-        <AuthContext.Provider value={{ isUserLoggedIn, isAdminLoggedIn, logout, checkAuth, checkAuthAdmin }}>
+        <AuthContext.Provider value={{
+            isUserLoggedIn,
+            isAdminLoggedIn,
+            logout,
+            checkAuth,
+            checkAuthAdmin
+        }}>
             {children}
         </AuthContext.Provider>
     )
