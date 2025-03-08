@@ -1,11 +1,12 @@
 import express from "express";
-import { addToCart, fetchCart } from "../controller/cart";
+import { addToCart, fetchCart } from "../controller/cart.js";
+import { check } from "../middleware/auth.js";
 
 
 const cartRouter = express.Router()
 
-cartRouter.get("/fetchCart", fetchCart);
-cartRouter.post('/add', addToCart);
+cartRouter.get("/fetchCart",check, fetchCart);
+cartRouter.post('/add',check, addToCart);
 
 
 export default cartRouter;

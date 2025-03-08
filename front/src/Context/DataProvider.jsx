@@ -59,19 +59,30 @@ function DataProvider({ children }) {
         }
     }
 
-    function addToCart(product) {
-        if (existInCart(product._id)) {
-            setCart(
-                cart.map((cartItem) =>
-                    cartItem.product._id === product._id
-                        ? { ...cartItem, quantity: Number(cartItem.quantity) + 1 }
-                        : cartItem
-                )
-            );
-        } else {
-            const cartObj = { product, quantity: 1 };
-            setCart([...cart, cartObj]);
-        }
+    async function addToCart(product) {
+      try{
+        const response = await instance.post("/cart/add" ,{product:product._id , quantity:1},{withCredentials:true})
+        console.log("cart update" , response.data);
+        
+      }catch(error){
+        console.log("product are not added to cart " ,error);
+        
+      }
+      
+      
+      
+        // if (existInCart(product._id)) {
+        //     setCart(
+        //         cart.map((cartItem) =>
+        //             cartItem.product._id === product._id
+        //                 ? { ...cartItem, quantity: Number(cartItem.quantity) + 1 }
+        //                 : cartItem
+        //         )
+        //     );
+        // } else {
+        //     const cartObj = { product, quantity: 1 };
+        //     setCart([...cart, cartObj]);
+        // }
     }
 
     function existInCart(productId) {

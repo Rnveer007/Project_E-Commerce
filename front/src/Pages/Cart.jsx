@@ -5,7 +5,7 @@ import { MdOutlineCurrencyRupee } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 function Cart() {
-  const { cart, updateProductQuantity, removeFromCart } = useEcom();
+  const { cart, updateProductQuantity, removeFromCart ,addToCart} = useEcom();
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
@@ -59,7 +59,8 @@ function Cart() {
                             )
                           }
                           <p> {item.quantity} </p>
-                          <p onClick={() => updateProductQuantity(item.product._id, '+')} className="cursor-pointer font-bold">  + </p>
+                          <p onClick={()=>addToCart(item.product)}
+                           className="cursor-pointer font-bold">  + </p>
                         </div>
                       </div>
                     </div>
