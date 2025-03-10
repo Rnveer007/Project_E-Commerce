@@ -8,7 +8,7 @@ export async function addToProduct(req, res) {
         const file = req.file;
         if (!file) return res.status(404).send({ message: "File Not Found" })
         const secure_url = await uploadToCloudinary(req)
-    
+
         const latestProduct = new productData({ ...req.body, image: secure_url })
         await latestProduct.save()
         res.status(201).send({ message: "product Added" })
@@ -32,9 +32,25 @@ export async function fetchProducts(req, res) {
             // query.category = { $regex: new RegExp(`^${req.query.category}$`, "i") }
         }
 
-        const products = await productData.find(query).populate('category')
+        // const page = parseInt(req.query.page) || 1;  //default page 1  
+        // const limit = parseInt(req.query.limit) || 10; // default 10 items per page
+
+        const page = req.query.page ? Number(req.query.page) : 1;
+        const limit = 3;
+        const skip = (page - 1) * limit
+
+        const totalCounts = await productData.countDocuments(query) // Get total count for pagination info
+        const products = await productData.find(query).populate('category').skip(skip).limit(limit)
+
+        if (!products)
+            return res.status(400).send({ message: "No Product Found" })
         // console.log(products)
-        res.send(products)
+
+        res.send({
+            products,
+            currentPage: page,
+            totalPages: Math.ceil(totalCounts / limit)
+        })
     } catch (error) {
         res.status(500).send({ message: "could not fetch product", error: error.message })
     }

@@ -9,7 +9,7 @@ function AdminProducts() {
         fetchData();
     }, []);
 
-    console.log(products);
+    console.log("pageItems " + products);
 
     return (
         <div className="min-h-screen flex">
@@ -30,11 +30,11 @@ function AdminProducts() {
                     </li>
                 </ul>
             </aside>
-            <main className="w-4/5 p-4">
-                <h2>Products</h2>
+            <main className="w-4/5 p-6">
+                <h2 className=" my-2">Products</h2>
                 <table className="w-full">
                     <thead>
-                        <tr>
+                        <tr className="text-left my-2 pb-4">
                             <th>Product Name</th>
                             <th>Original Price</th>
                             <th>Discounted Price</th>
@@ -43,14 +43,16 @@ function AdminProducts() {
                         </tr>
                     </thead>
                     <tbody>
-                        {products.map((item) => {
+                        {products?.products?.map((item, index) => {
                             return (
-                                <tr key={item._id}>
-                                    <td>{item.title}</td>
-                                    <td>{item.usualPrice}</td>
-                                    <td>{item.discountPrice}</td>
-                                    <td>{item.category.name}</td>
-                                    <td>
+                                <tr key={item._id}
+                                    className={`mb-2 mt-4 ${index % 2 === 0 ? "bg-gray-100" : "bg-gray-200"
+                                        }`}>
+                                    <td className="py-3">{item.title}</td>
+                                    <td className="py-3">{item.usualPrice}</td>
+                                    <td className="py-3">{item.discountPrice}</td>
+                                    <td className="py-3">{item.category.name}</td>
+                                    <td className="py-3">
                                         <button className="bg-red-500 text-white p-1 rounded">
                                             Delete
                                         </button>
@@ -60,6 +62,28 @@ function AdminProducts() {
                         })}
                     </tbody>
                 </table>
+
+
+                <div className="pagenation my-3">
+                    {products.currentPage > 1 && (
+                        <button className="bg-blue-500 text-white p-1 rounded mx-2 px-2 cursor-pointer">
+                            Previous
+                        </button>
+                    )}
+
+                    {Array.from({ length: products.totalPages }).map((_, index) => {
+                        return (
+                            <Link key={index} to={`?page = ${index + 1}`} className="bg-blue-500 text-white p-1 rounded mx-2 px-2 cursor-pointer">{index + 1}</Link>
+                        );
+                    })}
+                    {
+                        products.currentPage < products.totalPages && (
+                            <button className="bg-blue-500 text-white p-1 rounded mx-2 px-2 cursor-pointer">
+                                Next
+                            </button>
+                        )
+                    }
+                </div>
             </main>
         </div>
     );
