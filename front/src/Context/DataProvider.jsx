@@ -60,17 +60,18 @@ function DataProvider({ children }) {
     }
 
     async function addToCart(product) {
-      try{
-        const response = await instance.post("/cart/add" ,{product:product._id , quantity:1},{withCredentials:true})
-        console.log("cart update" , response.data);
-        
-      }catch(error){
-        console.log("product are not added to cart " ,error);
-        
-      }
-      
-      
-      
+        try {
+            const response = await instance.post("/cart/add",
+                { product: product._id, quantity: 1 },
+                { withCredentials: true });
+
+            console.log("cart update", response.data);
+
+        } catch (error) {
+            console.log("product are not added to cart ", error);
+        }
+
+
         // if (existInCart(product._id)) {
         //     setCart(
         //         cart.map((cartItem) =>
@@ -99,14 +100,13 @@ function DataProvider({ children }) {
             return;
         }
         setCart(
-            cart
-                .map((cartItem) =>
-                    cartItem.product._id === productId
-                        ? { ...cartItem, quantity: cartItem.quantity + (sign === "+" ? 1 : -1) }
-                        : cartItem
-                )
-        );
-    }
+            cart.map((cartItem) =>
+                cartItem.product._id === productId
+                    ? { ...cartItem, quantity: cartItem.quantity + (sign === "+" ? 1 : -1) }
+                    : cartItem
+            )
+        )
+    };
 
 
     async function fetchHotDeals() {

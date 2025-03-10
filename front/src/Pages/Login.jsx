@@ -9,6 +9,8 @@ function Login() {
         email: "",
         password: "",
     })
+    console.log("login data" + data)
+
     const { checkAuth } = useAuth();
     const navigate = useNavigate()
 
@@ -21,6 +23,7 @@ function Login() {
 
     async function handleSubmit(e) {
         e.preventDefault()
+      
         try {
             const response = await instance.post("/user/login", data, {
                 withCredentials: true

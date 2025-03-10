@@ -2,7 +2,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import First from "./First.jsx"
 import Home from "./Pages/Home.jsx"
 import About from "./Pages/About.jsx"
-import Cart from "./Pages/Cart.jsx"
 import Contact from "./Pages/Contact.jsx"
 import SingleProduct from "./Pages/SingleProduct.jsx"
 import DataProvider from "./Context/DataProvider.jsx"
@@ -13,10 +12,9 @@ import Login from "./Pages/Login.jsx"
 import AuthProvider from "./Context/AuthProvider.jsx"
 import AddCategory from "./admin/AddCategory.jsx"
 import DisplayHotDealsProducts from "./Components/DisplayHotDealsProducts.jsx"
-
 import AdminLogin from "./admin/AdminLogin.jsx"
 import ProtectedRoute from "./Components/ProtectedRoute.jsx"
-
+import AdminHome from "./admin/AdminHome.jsx"
 
 const router = createBrowserRouter([
   {
@@ -48,6 +46,10 @@ const router = createBrowserRouter([
         element: <Login />
       },
       {
+        path: "/admin",
+        element: <AdminLogin />
+      },
+      {
         path: "/admin/login",
         element: <AdminLogin />
       },
@@ -64,6 +66,13 @@ const router = createBrowserRouter([
         element: <SingleCatProduct />
       },
       {
+        path: "/admin/home",
+        element:
+          <ProtectedRoute>
+            <AdminHome fallback="admin/home" />
+          </ProtectedRoute >
+      },
+      {
         path: "/admin/Addproduct",
         element:
           <ProtectedRoute>
@@ -72,7 +81,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/admin/AddCategory",
-        element: <AddCategory />
+        element: (
+          <ProtectedRoute>
+            <AddCategory fallback="admin/login" />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/hotdeals",
