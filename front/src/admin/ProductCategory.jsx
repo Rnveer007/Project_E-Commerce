@@ -25,7 +25,8 @@ function ProductCategory() {
                     {categories.map((item, index) => {
                         return (
                             <tr key={item._id}
-                                className={`mb-2 mt-4`}>
+                                className={`mb-2 mt-4 ${index % 2 === 0 ? "bg-gray-100" : "bg-gray-200"
+                                    }`}>
                                 <td className="py-3">{item.name}</td>
                                 <td className="py-3">{item._id}</td>
                                 <td className="py-3"><img src={item.image} alt="" className='w-[100px]' /></td>
