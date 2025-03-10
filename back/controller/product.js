@@ -32,13 +32,16 @@ export async function fetchProducts(req, res) {
             // query.category = { $regex: new RegExp(`^${req.query.category}$`, "i") }
         }
 
-        const products = await productData.find(query)
+        const products = await productData.find(query).populate('category')
         // console.log(products)
         res.send(products)
     } catch (error) {
         res.status(500).send({ message: "could not fetch product", error: error.message })
     }
 }
+
+
+
 
 export async function fetchCategories(req, res) {
     try {

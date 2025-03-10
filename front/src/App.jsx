@@ -15,6 +15,7 @@ import DisplayHotDealsProducts from "./Components/DisplayHotDealsProducts.jsx"
 import AdminLogin from "./admin/AdminLogin.jsx"
 import ProtectedRoute from "./Components/ProtectedRoute.jsx"
 import AdminHome from "./admin/AdminHome.jsx"
+import AdminProducts from "./admin/AdminProducts.jsx"
 
 const router = createBrowserRouter([
   {
@@ -33,7 +34,7 @@ const router = createBrowserRouter([
         path: "/cart",
         element: (
           <ProtectedRoute>
-            <cart destination="user/login" />
+            <cart fallback="user/login" />
           </ProtectedRoute >
         )
       },
@@ -69,14 +70,21 @@ const router = createBrowserRouter([
         path: "/admin/home",
         element:
           <ProtectedRoute>
-            <AdminHome fallback="admin/home" />
+            <AdminHome fallback="admin/login" />
           </ProtectedRoute >
       },
       {
         path: "/admin/Addproduct",
         element:
           <ProtectedRoute>
-            <AddProduct destination="admin/login" />
+            <AddProduct fallback="admin/login" />
+          </ProtectedRoute >
+      },
+      {
+        path: "/admin/products",
+        element:
+          <ProtectedRoute>
+            <AdminProducts fallback="admin/login" />
           </ProtectedRoute >
       },
       {

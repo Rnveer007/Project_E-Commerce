@@ -10,11 +10,10 @@ function ProtectedRoute({ children }) {
   useEffect(() => {
     fetchAllowedStatus()
   }, []);
-
   async function fetchAllowedStatus() {
     try {
       setLoading(true)
-      if (children.props.destination.startWith("user/"))
+      if (children.props.fallback.startsWith("user/"))
         await instance.get("/auth/check", { withCredentials: true });
       else await instance.get("/admin/check", { withCredentials: true });
       setAllowed(true)
@@ -29,7 +28,7 @@ function ProtectedRoute({ children }) {
   return allowed ? (
     children
   ) :
-    <Navigate to={"/" + children.props.destination} replace />; //updated
+    <Navigate to={"/" + children.props.fallback} replace />; //updated
 }
 
 export default ProtectedRoute;
