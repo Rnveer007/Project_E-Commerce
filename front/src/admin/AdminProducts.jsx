@@ -1,15 +1,18 @@
 import { Link } from "react-router-dom";
 import { useEcom } from "../Context/DataProvider";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function AdminProducts() {
     const { products, fetchData } = useEcom();
+    const [page, setPage] = useState(1);
+
 
     useEffect(() => {
-        fetchData();
-    }, []);
+        if (page > 1) fetchData(page)
+        else fetchData();
+    }, [page]);
 
-    console.log("pageItems " + products);
+
 
     return (
         <div className="min-h-screen flex">
@@ -66,21 +69,32 @@ function AdminProducts() {
 
                 <div className="pagenation my-3">
                     {products.currentPage > 1 && (
-                        <button className="bg-blue-500 text-white p-1 rounded mx-2 px-2 cursor-pointer">
+                        <Link
+                            to={`?page=${products.currentPage - 1}`}
+                            className="bg-blue-500 text-white p-1 rounded mx-2 px-2 cursor-pointer"
+                            onClick={() => setPage(products.currentPage - 1)}
+                        >
                             Previous
-                        </button>
+
+                        </Link>
                     )}
 
                     {Array.from({ length: products.totalPages }).map((_, index) => {
                         return (
-                            <Link key={index} to={`?page = ${index + 1}`} className="bg-blue-500 text-white p-1 rounded mx-2 px-2 cursor-pointer">{index + 1}</Link>
+                            <Link key={index} to={`?page=${index + 1}`} className="bg-blue-500 text-white p-1 rounded mx-2 px-2 cursor-pointer"
+                                onClick={() => setPage(index + 1)}
+                            >{index + 1}</Link>
                         );
                     })}
                     {
                         products.currentPage < products.totalPages && (
-                            <button className="bg-blue-500 text-white p-1 rounded mx-2 px-2 cursor-pointer">
+                            <Link
+                                to={`?page=${products.currentPage + 1}`}
+                                className="bg-blue-500 text-white p-1 rounded mx-2 px-2 cursor-pointer"
+                                onClick={() => setPage(products.currentPage + 1)}
+                            >
                                 Next
-                            </button>
+                            </Link>
                         )
                     }
                 </div>

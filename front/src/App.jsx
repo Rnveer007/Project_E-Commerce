@@ -16,6 +16,7 @@ import AdminLogin from "./admin/AdminLogin.jsx"
 import ProtectedRoute from "./Components/ProtectedRoute.jsx"
 import AdminHome from "./admin/AdminHome.jsx"
 import AdminProducts from "./admin/AdminProducts.jsx"
+import ProductCategory from "./admin/ProductCategory.jsx"
 
 const router = createBrowserRouter([
   {
@@ -85,6 +86,13 @@ const router = createBrowserRouter([
         element:
           <ProtectedRoute>
             <AdminProducts fallback="admin/login" />
+          </ProtectedRoute >
+      },
+      {
+        path: "/admin/productCategory",
+        element:
+          <ProtectedRoute>
+            <ProductCategory fallback="admin/login" />
           </ProtectedRoute >
       },
       {

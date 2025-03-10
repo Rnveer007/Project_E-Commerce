@@ -41,7 +41,7 @@ function AdminHome() {
             <h2 className="text-2xl font-bold">Categories</h2>
             <p className="text-xl font-bold">3</p>
             <div className="flex gap-4">
-              <Link to="">View Categories</Link>
+              <Link to="/admin/productCategory">View Categories</Link>
               <Link to="/admin/addCategory">Add Category</Link>
             </div>
           </div>
