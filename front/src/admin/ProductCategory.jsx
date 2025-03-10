@@ -11,7 +11,7 @@ function ProductCategory() {
     console.log(categories)
 
     return (
-        <div>
+        <div className='p-4'>
             <h2 className=" my-2">Products Categories</h2>
             <table className="w-full">
                 <thead>
