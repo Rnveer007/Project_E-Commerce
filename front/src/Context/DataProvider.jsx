@@ -35,10 +35,13 @@ function DataProvider({ children }) {
 
     async function handleDelete(idToDelete, whatToDelete) {
         try {
-            const response = await instance.delete(`product/${idToDelete}`)
+            const response = await instance.delete(`/product/delete/${idToDelete}`,
+                { withCredentials: true }
+            )
             if (response.status === 200)
                 window.location.href =
-                    whatToDelete === "product" ? "/admin/product/products" : "admin/category/categories"
+                    whatToDelete === "product" ? "/admin/products"
+                        : "/admin/categories"
         } catch (error) {
             console.log(error)
         }

@@ -57,7 +57,7 @@ function AdminProducts() {
                                     <td className="py-3">{item.category.name}</td>
                                     <td className="py-3">
                                         <button className="bg-red-500 text-white p-1 rounded"
-                                            onClick={() => handleDelete(item._id)}
+                                            onClick={() => handleDelete(item._id, "products")}
                                         >
                                             Delete
                                         </button>
