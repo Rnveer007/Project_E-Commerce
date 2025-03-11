@@ -101,7 +101,7 @@ export async function deleteProductOrCategory(req, res) {
 
         let whatToDelete;
 
-        whatToDelete = await ProductCategory.findByIdAndDelete(id);
+        whatToDelete = await categoryModel.findByIdAndDelete(id);
 
         if (!whatToDelete) {
             whatToDelete = await categoryModel.findByIdAndDelete(id);
@@ -111,7 +111,7 @@ export async function deleteProductOrCategory(req, res) {
             return res.status(400)
                 .send({ message: "Could not delete the selected resource" })
 
-        return res.send({ message: error.message })
+        return res.send({ message: "Deleted successfully" });
     } catch (error) {
         console.log(error.message)
         return res.status(500).send({ message: error.message })
