@@ -1,7 +1,6 @@
 import express from 'express';
 import { addToProduct, fetchCategories, fetchProducts, addCategory, deleteProductOrCategory } from '../controller/product.js';
 import { upload } from "../middleware/multer.js"
-import productData from '../models/productModel.js';
 
 const productRouter = express.Router();
 

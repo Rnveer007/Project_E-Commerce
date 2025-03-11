@@ -31,20 +31,18 @@ function DataProvider({ children }) {
         }
     }
 
-    // async function deleteProduct(id) {
-    //     try {
-    //         setLoading(true)
-    //         const response = await instance.delete(`/product/delete/${id}`,
-    //             { withCredentials: true })
-    //         console.log("Product Deleted", response.data);
-    //         fetchData()
-    //     } catch (error) {
-    //         console.log(error)
-    //         setLoading(false)
-    //     } finally {
-    //         setLoading(false)
-    //     }
-    // }
+    //delete product and category
+
+    async function handleDelete(idToDelete, whatToDelete) {
+        try {
+            const response = await instance.delete(`product/${idToDelete}`)
+            if (response.status === 200)
+                window.location.href =
+                    whatToDelete === "product" ? "/admin/product/products" : "admin/category/categories"
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     async function fetchCategories() {
         try {
@@ -156,7 +154,7 @@ function DataProvider({ children }) {
                 fetchCategories,
                 productFilterByCategory,
                 fetchHotDeals,
-                // deleteProduct,
+                handleDelete,
             }}
         >
             {children}
