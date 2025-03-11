@@ -56,9 +56,6 @@ export async function fetchProducts(req, res) {
     }
 }
 
-
-
-
 export async function fetchCategories(req, res) {
     try {
         const category = await categoryModel.find({})
@@ -79,10 +76,8 @@ export async function addCategory(req, res) {
         res.status(201).send({ message: "category Added" })
     } catch (error) {
         res.status(500).send({ message: "category not found", error: error.message })
-
     }
 }
-
 
 export async function hotDeals(req, res) {
     try {
@@ -95,5 +90,30 @@ export async function hotDeals(req, res) {
     } catch (error) {
         console.error("Error fetching hot deals:", error)
         res.status(500).json({ error: "Internal Server Error" });
+    }
+}
+
+export async function deleteProductOrCategory(req, res) {
+    try {
+        const { id } = req.params
+
+        if (!id) return res.status(400).send({ message: "No ID Found" });
+
+        let whatToDelete;
+
+        whatToDelete = await ProductCategory.findByIdAndDelete(id);
+
+        if (!whatToDelete) {
+            whatToDelete = await categoryModel.findByIdAndDelete(id);
+        }
+
+        if (!whatToDelete)
+            return res.status(400)
+                .send({ message: "Could not delete the selected resource" })
+
+        return res.send({ message: error.message })
+    } catch (error) {
+        console.log(error.message)
+        return res.status(500).send({ message: error.message })
     }
 }
