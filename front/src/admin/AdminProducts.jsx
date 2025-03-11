@@ -3,7 +3,7 @@ import { useEcom } from "../Context/DataProvider";
 import { useEffect, useState } from "react";
 
 function AdminProducts() {
-    const { products, fetchData } = useEcom();
+    const { products, fetchData, deleteProduct } = useEcom();
     const [page, setPage] = useState(1);
 
 
@@ -56,7 +56,9 @@ function AdminProducts() {
                                     <td className="py-3">{item.discountPrice}</td>
                                     <td className="py-3">{item.category.name}</td>
                                     <td className="py-3">
-                                        <button className="bg-red-500 text-white p-1 rounded">
+                                        <button className="bg-red-500 text-white p-1 rounded"
+                                            onClick={() => deleteProduct(item._id)}
+                                        >
                                             Delete
                                         </button>
                                     </td>

@@ -31,6 +31,21 @@ function DataProvider({ children }) {
         }
     }
 
+    // async function deleteProduct(id) {
+    //     try {
+    //         setLoading(true)
+    //         const response = await instance.delete(`/product/delete/${id}`,
+    //             { withCredentials: true })
+    //         console.log("Product Deleted", response.data);
+    //         fetchData()
+    //     } catch (error) {
+    //         console.log(error)
+    //         setLoading(false)
+    //     } finally {
+    //         setLoading(false)
+    //     }
+    // }
+
     async function fetchCategories() {
         try {
             setLoading(true)
@@ -140,7 +155,8 @@ function DataProvider({ children }) {
                 updateProductQuantity,
                 fetchCategories,
                 productFilterByCategory,
-                fetchHotDeals
+                fetchHotDeals,
+                // deleteProduct,
             }}
         >
             {children}
