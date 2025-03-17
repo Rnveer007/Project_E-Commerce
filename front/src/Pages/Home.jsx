@@ -12,8 +12,13 @@ function Home() {
     fetchData()
   }, [])
 
-  return (loading) ?<Loader/>:<DisplayProducts products={products} />;
-  
+  return <>
+    <div className="flex justify-center">
+      <div className="border-1 border-gray-300 w-[25%]"><h1>Categories will show Here</h1></div>
+      <div className="w-[60%]"><DisplayProducts products={products} /></div>
+    </div>
+  </>
+
 }
 
 export default Home

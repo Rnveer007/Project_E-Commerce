@@ -12,7 +12,7 @@ function AdminProducts() {
         else fetchData();
     }, [page]);
 
-
+console.log(products)
 
     return (
         <div className="min-h-screen flex">
@@ -70,7 +70,7 @@ function AdminProducts() {
 
 
                 <div className="pagenation my-3">
-                    {products.currentPage > 1 && (
+                    {products?.currentPage > 1 && (
                         <Link
                             to={`?page=${products.currentPage - 1}`}
                             className="bg-blue-500 text-white p-1 rounded mx-2 px-2 cursor-pointer"
@@ -89,7 +89,7 @@ function AdminProducts() {
                         );
                     })}
                     {
-                        products.currentPage < products.totalPages && (
+                        products?.currentPage < products.totalPages && (
                             <Link
                                 to={`?page=${products.currentPage + 1}`}
                                 className="bg-blue-500 text-white p-1 rounded mx-2 px-2 cursor-pointer"

@@ -7,12 +7,14 @@ function DisplayProducts({ products }) {
 
 
         <>
-            <div className='w-40% '>
-                <div>
-                    <h1 className='text-2xl font-bold mb-8'>Products</h1>
-                </div>
-                <div className="flex flex-wrap gap-20 ">
-
+            <div className='pl-8'>
+                {/* <div>
+                    <h1 className='text-2xl font-bold my-8'>Products</h1>
+                 <div>
+                 <input type="search" name="" id="" placeholder='Search Products...' className='border-1 mb-8 w-[350px] py-2 pl-3 rounded'/>
+                 </div>
+                </div> */}
+                <div className="flex flex-wrap gap-10">
                     {/*Short Circuit Evaluation */}
                     {products?.products?.length > 0 ?
                         products?.products.map((item) => {
@@ -21,7 +23,7 @@ function DisplayProducts({ products }) {
                                     className=" text-center border-1 border-gray-300 p-4 ">
                                     <Link to={`/product/${item._id}`}>
                                         <img src={item.image} alt=""
-                                            className=" w-[200px] h-[200px] object-contain" />
+                                            className=" w-[150px] h-[150px] object-contain" />
                                     </Link>
                                     <h1 className=" my-4">
                                         {item.title.split(" ").slice(0, 5).join(" ") + "..."}

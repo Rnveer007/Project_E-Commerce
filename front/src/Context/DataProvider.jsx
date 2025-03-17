@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import instance from "../axiosConfig";
+import { useAuth } from "./AuthProvider";
 // import axios from "axios";
 
 export const dataContext = createContext();
@@ -12,15 +13,18 @@ function DataProvider({ children }) {
     const [singleProductByCat, setSingleProductByCat] = useState([]);
     const [dealProducts, setDealProducts] = useState([]);
 
-    console.log("single "+singleProductByCat)
+    const { isAdminLoggedIn } = useAuth();
+    console.log(isAdminLoggedIn)
 
-    async function fetchData(page = "na") {
+    console.log("single " + singleProductByCat)
+
+    async function fetchData(page = null) {
+        
         try {
+            // if (isAdminLoggedIn) page = 1;
             setLoading(true);
-            // console.log("page", page);
-            // const response = await instance.get(`/product/get?page =${page}`, { withCredentials: true });
             const response = await instance.get(
-                page ? `/product/get?page=${page}` : "/product/get",
+                 isAdminLoggedIn ? `/product/get?page=1` : "/product/get",
                 { withCredentials: true }
             )
             setProducts(response.data);

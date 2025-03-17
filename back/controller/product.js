@@ -34,14 +34,14 @@ export async function fetchProducts(req, res) {
 
         // const page = parseInt(req.query.page) || 1;  //default page 1  
         // const limit = parseInt(req.query.limit) || 10; // default 10 items per page
-        let limit = 0;
-        let page;
-        let skip = 0;
-        if (req.query.page !== "na") {
-            page = req.query.page ? Number(req.query.page) : 1;
-            limit = 3;
-            skip = (page - 1) * limit
-        }
+        
+        // if (req.query.page !== "na") {
+            let page = req.query.page ? Number(req.query.page) : 1;
+            let limit = req.query.page ? 3 : 0;
+            let skip = (page - 1) * limit
+        // }
+        console.log("page", page);
+        console.log("limit", limit)
         const products = await productData.find(query)
             .skip(skip)
             .limit(limit)
