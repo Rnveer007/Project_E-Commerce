@@ -38,7 +38,7 @@ function AdminLogin() {
     }
 
     return (
-        <div>
+        <div className='p-5'>
             <form action="" onSubmit={handleSubmit} className='flex gap-10'>
                 <input type="email"
                     name='email'

@@ -19,7 +19,7 @@ function Home() {
         <ul className="py-2 text-sm text-gray-700 capitalize mt-2">
           <li  >
             <NavLink to={`/`} className={({ isActive }) =>
-              `block px-4 py-3 font-bold text-xl cursor-pointerdark:hover:text-blue-500 ${isActive ? 'bg-blue-500 text-white rounded' : 'dark text-gray-700'
+              `block px-4 rounded py-3 font-bold text-xl cursor-pointerdark:hover:text-blue-500 ${isActive ? 'bg-blue-500 text-white rounded' : 'dark text-gray-700'
               }`
             }>All</NavLink>
           </li>
@@ -29,7 +29,7 @@ function Home() {
                 key={index}
                 to={`/category/${category.name.toLowerCase()}`}
                 className={({ isActive }) =>
-                  `block px-4 py-3 font-bold text-xl dark:hover:rounded dark:hover:bg-gray-100 dark:hover:text-blue-500 ${isActive ? 'bg-blue-500 text-white' : 'dark text-gray-700'
+                  `block px-4 py-3 font-bold text-xl dark:hover:rounded dark:hover:bg-gray-100 dark:hover:text-blue-500 ${isActive ? 'bg-blue-500 rounded text-white' : 'dark text-gray-700'
                   }`
                 }
               >

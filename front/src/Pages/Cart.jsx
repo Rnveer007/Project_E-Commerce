@@ -2,10 +2,12 @@ import { useContext, useEffect, useState } from "react";
 import { useEcom } from "../Context/DataProvider";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { MdOutlineCurrencyRupee } from "react-icons/md";
+import { IoCartOutline } from "react-icons/io5";
+
 import { Link } from "react-router-dom";
 
 function Cart() {
-  const { cart, updateProductQuantity, removeFromCart ,addToCart} = useEcom();
+  const { cart, updateProductQuantity, removeFromCart, addToCart } = useEcom();
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
@@ -22,9 +24,11 @@ function Cart() {
     <div>
       {
         cart.length === 0 ? (
-          <div>
-            <h2>Nothing to show</h2>
-            <p> <Link to="/">Go to home</Link> </p>
+          <div className="flex justify-center items-center gap-3 pt-8 text-2xl">
+            <span>
+              <IoCartOutline />
+            </span>
+            <h1 className="">Your cart is empty</h1>
           </div>
 
         ) : (
@@ -59,8 +63,8 @@ function Cart() {
                             )
                           }
                           <p> {item.quantity} </p>
-                          <p onClick={()=>addToCart(item.product)}
-                           className="cursor-pointer font-bold">  + </p>
+                          <p onClick={() => addToCart(item.product)}
+                            className="cursor-pointer font-bold">  + </p>
                         </div>
                       </div>
                     </div>

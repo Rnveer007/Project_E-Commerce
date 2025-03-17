@@ -19,7 +19,7 @@ export async function addToCart(req, res) {
         const userId = req.user._id;
         const { product, quantity } = req.body;
 
-        let cart = new cartModel({ user: userId})
+        let cart = new cartModel({ user: userId, items: [] })
         if (!cart) {
             cart = new cartModel({ user: userId, items: [] })
         }

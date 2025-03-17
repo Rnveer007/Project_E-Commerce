@@ -19,12 +19,12 @@ function DataProvider({ children }) {
     // console.log("single " + singleProductByCat)
 
     async function fetchData(page = null) {
-        
+
         try {
             // if (isAdminLoggedIn) page = 1;
             setLoading(true);
             const response = await instance.get(
-                 isAdminLoggedIn ? `/product/get?page=1` : "/product/get",
+                isAdminLoggedIn ? `/product/get?page=1` : "/product/get",
                 { withCredentials: true }
             )
             setProducts(response.data);
