@@ -101,7 +101,7 @@ function SingleProduct() {
                             ) : (
                                 <button
                                     onClick={userCartAuthentication}
-                                    className="border-2 px-4 py-2 bg-cyan-600 text-white rounded"
+                                    className="border-2 px-4 py-2 bg-cyan-600 text-white rounded cursor-pointer"
                                 >
                                     Add to Cart
                                 </button>

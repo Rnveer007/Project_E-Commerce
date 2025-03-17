@@ -9,6 +9,7 @@ import SingleCatProduct from "./Pages/SingleCatProduct.jsx"
 import AddProduct from "./admin/AddProduct.jsx"
 import Register from "./Pages/Register.jsx"
 import Login from "./Pages/Login.jsx"
+import Cart from "./Pages/Cart.jsx"
 import AuthProvider from "./Context/AuthProvider.jsx"
 import AddCategory from "./admin/AddCategory.jsx"
 import DisplayHotDealsProducts from "./Components/DisplayHotDealsProducts.jsx"
@@ -35,7 +36,7 @@ const router = createBrowserRouter([
         path: "/cart",
         element: (
           <ProtectedRoute>
-            <cart fallback="user/login" />
+            <Cart fallback="user/login" />
           </ProtectedRoute >
         )
       },

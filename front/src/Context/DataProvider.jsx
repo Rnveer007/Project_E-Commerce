@@ -14,9 +14,9 @@ function DataProvider({ children }) {
     const [dealProducts, setDealProducts] = useState([]);
 
     const { isAdminLoggedIn } = useAuth();
-    console.log(isAdminLoggedIn)
+    // console.log(isAdminLoggedIn)
 
-    console.log("single " + singleProductByCat)
+    // console.log("single " + singleProductByCat)
 
     async function fetchData(page = null) {
         
