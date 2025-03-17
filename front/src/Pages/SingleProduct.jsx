@@ -28,8 +28,8 @@ function SingleProduct() {
         try {
             setLoading(true);
             const response = await instance.get(`/product/get/${productId}`);
-            setProduct(response.data[0]); // Ensure fallback to empty object
-            console.log(response.data);
+            setProduct(response.data.products[0]); // Ensure fallback to empty object
+            console.log(response.data.products[0]);
         } catch (error) {
             console.error(error);
         } finally {
@@ -77,7 +77,7 @@ function SingleProduct() {
                         <img
                             src={product?.image}
                             alt={product?.title}
-                            className="w-[300px] h-[300px] object-cover"
+                            className="w-[300px] h-[300px] object-contain"
                         />
                     </div>
                     <div>
@@ -88,7 +88,7 @@ function SingleProduct() {
                             <p>{product?.totalRating}</p>
                         </div>
                         <p className="my-3"><strong>Brand :</strong> {product?.brand}</p>
-                        <p className="my-3"><strong>Category :</strong> {categoryName}</p>
+                        <p className="my-3"><strong>Category :</strong> {categoryName.name}</p>
                         <p className="my-3"><strong>Description :</strong> {product?.description}</p>
                         <div className="mt-5 flex gap-3">
                             {existInCart(product?._id) ? (
@@ -113,9 +113,9 @@ function SingleProduct() {
             )}
 
             <div>
-                <h1 className="text-center bg-blue-400 py-2 my-6">What other items do customers buy after viewing this item?</h1>
+                <h1 className="text-center bg-blue-400 py-2 my-6">Similiar Products</h1>
                 <div className="mt-8">
-                    <DisplayProducts products={singleProductByCat.filter((item) => item._id !== product._id)} />
+                    <DisplayProducts products={singleProductByCat?.filter((item) => item._id !== product._id)} />
                 </div>
             </div>
         </>

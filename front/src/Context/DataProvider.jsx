@@ -12,6 +12,8 @@ function DataProvider({ children }) {
     const [singleProductByCat, setSingleProductByCat] = useState([]);
     const [dealProducts, setDealProducts] = useState([]);
 
+    console.log("single "+singleProductByCat)
+
     async function fetchData(page = "na") {
         try {
             setLoading(true);
