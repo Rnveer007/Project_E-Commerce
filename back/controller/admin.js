@@ -1,5 +1,4 @@
 import bcrypt from "bcrypt"
-import mongoose from "mongoose";
 import "dotenv/config"
 import jwt from "jsonwebtoken"
 import Admin from "../models/adminModel.js";

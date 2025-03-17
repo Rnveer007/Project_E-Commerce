@@ -12,9 +12,10 @@ function DataProvider({ children }) {
     const [singleProductByCat, setSingleProductByCat] = useState([]);
     const [dealProducts, setDealProducts] = useState([]);
 
-    async function fetchData(page = null) {
+    async function fetchData(page = "na") {
         try {
             setLoading(true);
+            // console.log("page", page);
             // const response = await instance.get(`/product/get?page =${page}`, { withCredentials: true });
             const response = await instance.get(
                 page ? `/product/get?page=${page}` : "/product/get",

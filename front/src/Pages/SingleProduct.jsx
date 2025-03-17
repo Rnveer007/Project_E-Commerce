@@ -52,7 +52,7 @@ function SingleProduct() {
         if (id) {
             singleProductShow(id)
         }
-        if (product.category) {
+        if (product.category) { Í
             // productFilterByCategory(product.category)
             setCategoryName(
                 categories.find((obj) => {

@@ -2,7 +2,7 @@ import { v2 as cloudinary } from 'cloudinary';
 import "dotenv/config"
 
 async function uploadToCloudinary(req) {
-    console.log("req file path", req.file.path);
+    // console.log("req file path", req.file.path);
     // Configuration
     cloudinary.config({
         cloud_name: process.env.CLOUD_NAME,
@@ -16,7 +16,7 @@ async function uploadToCloudinary(req) {
             .upload(req.file.path, {
                 folder: "ecommerce",
             })
-        console.log(uploadResult);
+        // console.log(uploadResult);
         return uploadResult.secure_url
     } catch (error) {
         console.log(error);

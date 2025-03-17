@@ -5,8 +5,10 @@ function DisplayProducts({ products }) {
     //    console.log("rishi" + products)
     return (
         <div className="flex flex-wrap gap-20 justify-center">
-            {products.length > 0 ?
-                products.map((item) => {
+
+            {/*Short Circuit Evaluation */}
+            {products?.products?.length > 0 ?
+                products?.products.map((item) => {
                     return (
                         <div key={item._id}
                             className=" text-center ">
