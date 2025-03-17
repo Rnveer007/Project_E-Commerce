@@ -8,12 +8,7 @@ function DisplayProducts({ products }) {
 
         <>
             <div className='pl-8'>
-                {/* <div>
-                    <h1 className='text-2xl font-bold my-8'>Products</h1>
-                 <div>
-                 <input type="search" name="" id="" placeholder='Search Products...' className='border-1 mb-8 w-[350px] py-2 pl-3 rounded'/>
-                 </div>
-                </div> */}
+              
                 <div className="flex flex-wrap gap-10">
                     {/*Short Circuit Evaluation */}
                     {products?.products?.length > 0 ?

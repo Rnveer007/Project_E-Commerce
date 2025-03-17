@@ -1,11 +1,11 @@
 import { useContext, useEffect } from "react"
 import { dataContext, useEcom } from "../Context/DataProvider"
-import { Link } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 import Loader from "../Components/Loader"
 import DisplayProducts from "../Components/DisplayProducts"
 
 function Home() {
-  const { products, loading, fetchData } = useEcom()
+  const { products, loading, categories, fetchData } = useEcom()
   // console.log(products)
 
   useEffect(() => {
@@ -14,8 +14,39 @@ function Home() {
 
   return <>
     <div className="flex justify-center">
-      <div className="border-1 border-gray-300 w-[25%]"><h1>Categories will show Here</h1></div>
-      <div className="w-[60%]"><DisplayProducts products={products} /></div>
+      <div className=" border-r-2 border-gray-300 px-3 w-[25%]">
+        <h1 className="my-3 pl-3 text-2xl font-bold">Categories</h1>
+        <ul className="py-2 text-sm text-gray-700 capitalize mt-2">
+          <li  >
+            <NavLink to={`/`} className={({ isActive }) =>
+              `block px-4 py-3 font-bold text-xl cursor-pointerdark:hover:text-blue-500 ${isActive ? 'bg-blue-500 text-white rounded' : 'dark text-gray-700'
+              }`
+            }>All</NavLink>
+          </li>
+          {categories.length > 0 &&
+            categories.map((category, index) => (
+              <NavLink
+                key={index}
+                to={`/category/${category.name.toLowerCase()}`}
+                className={({ isActive }) =>
+                  `block px-4 py-3 font-bold text-xl dark:hover:rounded dark:hover:bg-gray-100 dark:hover:text-blue-500 ${isActive ? 'bg-blue-500 text-white' : 'dark text-gray-700'
+                  }`
+                }
+              >
+                {category.name}
+              </NavLink>
+            ))}
+        </ul>
+      </div>
+      <div className="w-[60%]">
+        <div className="pl-8">
+          <h1 className='text-2xl font-bold my-8'>Products</h1>
+          <div>
+            <input type="search" name="" id="" placeholder='Search Products...' className='border-1 mb-8 w-[350px] py-2 px-3 rounded' />
+          </div>
+        </div>
+        <DisplayProducts products={products} />
+      </div>
     </div>
   </>
 

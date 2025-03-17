@@ -98,20 +98,6 @@ function DataProvider({ children }) {
         } catch (error) {
             console.log("product are not added to cart ", error);
         }
-
-
-        // if (existInCart(product._id)) {
-        //     setCart(
-        //         cart.map((cartItem) =>
-        //             cartItem.product._id === product._id
-        //                 ? { ...cartItem, quantity: Number(cartItem.quantity) + 1 }
-        //                 : cartItem
-        //         )
-        //     );
-        // } else {
-        //     const cartObj = { product, quantity: 1 };
-        //     setCart([...cart, cartObj]);
-        // }
     }
 
     function existInCart(productId) {
