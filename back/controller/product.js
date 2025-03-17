@@ -143,3 +143,15 @@ export async function hotDeals(req, res) {
 // }
 
 
+export async function deleteProduct(req, res) {
+    const { id } = req.body;
+
+    if (!id) return res.status(400).send({ message: "No ID Found" });
+
+    const deletedCategory = await categoryModel.findByIdAndDelete(id);
+    if (!deletedCategory)
+        return res.status(400).send({ message: "No category with this ID found" });
+}
+
+
+export async function deleteCategory(req, res) { }
