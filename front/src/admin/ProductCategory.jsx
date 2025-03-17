@@ -2,10 +2,9 @@ import React, { useEffect } from 'react'
 import { useEcom } from '../Context/DataProvider';
 
 function ProductCategory() {
-    const { categories, fetchCategories } = useEcom();
+    const { categories, fetchCategories, handleDelete } = useEcom();
 
     useEffect(() => {
-
         fetchCategories();
     }, []);
     console.log(categories)
@@ -31,7 +30,9 @@ function ProductCategory() {
                                 <td className="py-3">{item._id}</td>
                                 <td className="py-3"><img src={item.image} alt="" className='w-[100px]' /></td>
                                 <td className="py-3">
-                                    <button className="bg-red-500 text-white p-1 rounded">
+                                    <button className="bg-red-500 text-white p-1 rounded"
+                                        onClick={() => handleDelete(item._id, "category")}
+                                    >
                                         Delete
                                     </button>
                                 </td>

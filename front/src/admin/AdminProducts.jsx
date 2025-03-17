@@ -54,10 +54,10 @@ function AdminProducts() {
                                     <td className="py-3">{item.title}</td>
                                     <td className="py-3">{item.usualPrice}</td>
                                     <td className="py-3">{item.discountPrice}</td>
-                                    <td className="py-3">{item.category.name}</td>
+                                    <td className="py-3">{item.category}</td>
                                     <td className="py-3">
                                         <button className="bg-red-500 text-white p-1 rounded"
-                                            onClick={() => handleDelete(item._id, "products")}
+                                            onClick={() => handleDelete(item._id, "product")}
                                         >
                                             Delete
                                         </button>

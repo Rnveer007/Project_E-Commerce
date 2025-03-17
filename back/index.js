@@ -42,7 +42,7 @@ app.use("/api/product", productRouter);
 app.use("/api/user", userRouter);
 app.use("/api/deals", dealRouter);
 app.use("/api/admin", adminRouter);
-app.use("/api/cart",cartRouter);
+app.use("/api/cart", cartRouter);
 
 
 connectDb()

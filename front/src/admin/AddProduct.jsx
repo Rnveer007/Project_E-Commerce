@@ -45,7 +45,7 @@ function AddProduct() {
             frm.append("category", form.category)
             frm.append("usualPrice", form.usualPrice)
             frm.append("discountPrice", form.discountPrice);
-            frm.append("discount", form.discount.discountType);
+            frm.append("discount", form.discountType);
             frm.append("image", form.image);
 
             // console.log(form); 
@@ -100,7 +100,10 @@ function AddProduct() {
                         <option value="%">In Percentage</option>
                         <option value="inr">In Rupees</option>
                     </select>
-                    <input type="text" name='discount' placeholder={form.discountType === "%" ? "Discount in Percentage" : "Discount in Rupees"} value={form.discount} onChange={handleChange} onBlur={handleDiscountPriceChange} />
+                    <input type="text" name='discount' placeholder={form.discountType === "%" ? "Discount in Percentage" : "Discount in Rupees"} value={form.discount} onChange={(e) => {
+                        handleChange(e);
+                        handleDiscountPriceChange(e);
+                    }} />
                 </div>
 
 

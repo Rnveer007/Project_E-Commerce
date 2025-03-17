@@ -96,12 +96,14 @@ export async function hotDeals(req, res) {
 export async function deleteProductOrCategory(req, res) {
     try {
         const { id } = req.params
+        console.log("Trying to delete ID:", id);  
+
 
         if (!id) return res.status(400).send({ message: "No ID Found" });
 
         let whatToDelete;
 
-        whatToDelete = await categoryModel.findByIdAndDelete(id);
+        whatToDelete = await productData.findByIdAndDelete(id);
 
         if (!whatToDelete) {
             whatToDelete = await categoryModel.findByIdAndDelete(id);
