@@ -16,7 +16,7 @@ function Header() {
 
   return (
     <div
-      className="flex justify-between px-16 py-3 mb-4 bg-amber-200 relative"
+      className="flex justify-between px-16 py-3 mb-4 bg-blue-500 relative text-white font-bold"
     >
       <Link to="/">
         <h1 className="font-bold text-xl">E-Commerce</h1>

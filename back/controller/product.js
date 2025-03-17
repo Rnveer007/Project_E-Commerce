@@ -39,8 +39,12 @@ export async function fetchProducts(req, res) {
         const limit = 3;
         const skip = (page - 1) * limit
 
+        const products = await productData.find(query)
+            .skip(skip)
+            .limit(limit)
+            .populate('category');
+
         const totalCounts = await productData.countDocuments(query) // Get total count for pagination info
-        const products = await productData.find(query).populate('category').skip(skip).limit(limit)
 
         if (!products)
             return res.status(400).send({ message: "No Product Found" })
@@ -58,10 +62,28 @@ export async function fetchProducts(req, res) {
 
 export async function fetchCategories(req, res) {
     try {
-        const category = await categoryModel.find({})
-        res.send(category)
+        let query = {}
+
+        const page = req.query.page ? Number(req.query.page) : 1
+        const limit = 10;
+        const skip = (page - 1) * limit;
+
+        const category = await categoryModel.find(query)
+            .skip(skip).limit(limit)
+        const totalCount = await categoryModel.countDocuments(query);
+
+        if (!category)
+            return res.status(400).send({ message: "No Categories found" });
+
+        res.send({
+            category,
+            currentPage: page,
+            totalPages: Math.ceil(totalCount / limit),
+        });
+        // const category = await categoryModel.find({})
+        // res.send(category)
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         res.status(500).send({ message: error.message })
     }
 }
@@ -93,29 +115,31 @@ export async function hotDeals(req, res) {
     }
 }
 
-export async function deleteProductOrCategory(req, res) {
-    try {
-        const { id } = req.params
-        console.log("Trying to delete ID:", id);  
+// export async function deleteProductOrCategory(req, res) {
+//     try {
+//         const { id } = req.params
+//         console.log("Trying to delete ID:", id);
 
 
-        if (!id) return res.status(400).send({ message: "No ID Found" });
+//         if (!id) return res.status(400).send({ message: "No ID Found" });
 
-        let whatToDelete;
+//         let whatToDelete;
 
-        whatToDelete = await productData.findByIdAndDelete(id);
+//         whatToDelete = await productData.findByIdAndDelete(id);
 
-        if (!whatToDelete) {
-            whatToDelete = await categoryModel.findByIdAndDelete(id);
-        }
+//         if (!whatToDelete) {
+//             whatToDelete = await categoryModel.findByIdAndDelete(id);
+//         }
 
-        if (!whatToDelete)
-            return res.status(400)
-                .send({ message: "Could not delete the selected resource" })
+//         if (!whatToDelete)
+//             return res.status(400)
+//                 .send({ message: "Could not delete the selected resource" })
 
-        return res.send({ message: "Deleted successfully" });
-    } catch (error) {
-        console.log(error.message)
-        return res.status(500).send({ message: error.message })
-    }
-}
+//         return res.send({ message: "Deleted successfully" });
+//     } catch (error) {
+//         console.log(error.message)
+//         return res.status(500).send({ message: error.message })
+//     }
+// }
+
+
