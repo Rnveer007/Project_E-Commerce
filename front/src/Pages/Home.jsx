@@ -17,7 +17,7 @@ function Home() {
       <div className=" border-r-2 border-gray-300 px-3 w-[25%]">
         <h1 className="my-3 pl-3 text-2xl font-bold">Categories</h1>
         <ul className="py-2 text-sm text-gray-700 capitalize mt-2">
-          <li  >
+          <li>
             <NavLink to={`/`} className={({ isActive }) =>
               `block px-4 rounded py-3 font-bold text-xl cursor-pointerdark:hover:text-blue-500 ${isActive ? 'bg-blue-500 text-white rounded' : 'dark text-gray-700'
               }`
@@ -49,7 +49,6 @@ function Home() {
       </div>
     </div>
   </>
-
 }
 
 export default Home

@@ -85,21 +85,36 @@ function DataProvider({ children }) {
         }
     }
 
-    async function addToCart(product) {
-        try {
-            const response = await instance.post("/cart/add",
-                { product: product._id, quantity: 1 },
-                { withCredentials: true });
+    // async function addToCart(product) {
+    //     try {
+    //         const response = await instance.post("/cart/add",
+    //             { product: product._id, quantity: 1 },
+    //             { withCredentials: true });
 
-            console.log("cart update", response.data);
+    //         console.log("cart update", response.data);
 
-        } catch (error) {
-            console.log("product are not added to cart ", error);
-        }
+    //     } catch (error) {
+    //         console.log("product are not added to cart ", error);
+    //     }
+    // }
+
+    function addToCart(product) {
+        setCart((prev) => {
+            const existingItem = prev.find((item) => item._id === product._id);
+            if (existingItem) {
+                return prev.map((item) =>
+                    item._id === product._id
+                        ? { ...item, quantity: item.quantity + 1 }
+                        : item
+                );
+            }
+            return [...prev, { ...product, quantity: 1 }];
+        });
     }
 
     function existInCart(productId) {
-        return cart.some((cartItem) => cartItem.product._id === productId);
+        return cart.some((cartItem) => cartItem.product?._id === productId);
+
     }
 
     function removeFromCart(productId) {

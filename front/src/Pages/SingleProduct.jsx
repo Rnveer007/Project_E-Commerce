@@ -23,13 +23,14 @@ function SingleProduct() {
 
     const { id } = useParams();
 
+
     // Fetch product
     async function singleProductShow(productId) {
         try {
             setLoading(true);
             const response = await instance.get(`/product/get/${productId}`);
-            setProduct(response.data.products[0]); // Ensure fallback to empty object
-            console.log(response.data.products[0]);
+            setProduct(response.data.products[0]);
+            // console.log(response.data.products[0]);
         } catch (error) {
             console.error(error);
         } finally {
@@ -106,6 +107,7 @@ function SingleProduct() {
                                     Add to Cart
                                 </button>
                             )}
+
                             <button className="border-2 px-4 py-2 bg-black text-white rounded">Buy Now</button>
                         </div>
                     </div>
@@ -115,7 +117,7 @@ function SingleProduct() {
             <div>
                 <h1 className="text-center bg-blue-400 py-2 my-6">Similiar Products</h1>
                 <div className="mt-8">
-                    <DisplayProducts products={singleProductByCat.filter((item) => item._id !== product._id)} />
+                    <DisplayProducts products={singleProductByCat.filter((item) => item._id !== product?._id)} />
                 </div>
             </div>
         </>

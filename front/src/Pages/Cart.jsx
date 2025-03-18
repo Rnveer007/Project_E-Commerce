@@ -14,7 +14,7 @@ function Cart() {
     if (cart) {
       setTotalPrice(
         cart.reduce((acc, curr) => {
-          return acc + curr.product.usualPrice * curr.quantity
+          return acc + curr.product?.usualPrice * curr.quantity
         }, 0)
       )
     }
@@ -37,28 +37,28 @@ function Cart() {
               {
                 cart.map((item) => {
                   return (
-                    <div key={item.product._id} className="flex gap-30 py-8">
+                    <div key={item.product?._id} className="flex gap-30 py-8">
                       <div>
-                        <img src={item.product.image} alt="" className="w-[300px] h-[300px]" />
+                        <img src={item.product?.image} alt="" className="w-[300px] h-[300px]" />
                       </div>
 
                       <div className="">
                         <h1 className="my-3 text-3xl font-bold ">
-                          {item.product.title}
+                          {item.product?.title}
                         </h1>
-                        <p className="my-3">$ {item.product.usualPrice} </p>
+                        <p className="my-3">$ {item.product?.usualPrice} </p>
                         <div>
-                          <h1 className="my-3"><strong>Rating :</strong> {item.product.totalRating}</h1>
+                          <h1 className="my-3"><strong>Rating :</strong> {item.product?.totalRating}</h1>
                           {/* <p>{product.totalRating.rating}</p> */}
                         </div>
-                        <h1 className="my-3"><strong>Brand :</strong> {item.product.brand}</h1>
-                        <p className="my-3"><strong>Description :</strong> {item.product.description} </p>
+                        <h1 className="my-3"><strong>Brand :</strong> {item.product?.brand}</h1>
+                        <p className="my-3"><strong>Description :</strong> {item.product?.description} </p>
                         <div className="flex justify-between border-2 px-3 w-[120px] rounded-2xl border-amber-600 py-1 items-center">
                           {
                             item.quantity === 1 ? (
-                              <p onClick={() => removeFromCart(item.product._id)} className="cursor-pointer">  <MdOutlineDeleteForever className="cursor-pointer font-bold" /> </p>
+                              <p onClick={() => removeFromCart(item.product?._id)} className="cursor-pointer">  <MdOutlineDeleteForever className="cursor-pointer font-bold" /> </p>
                             ) : (
-                              <p onClick={() => updateProductQuantity(item.product._id, '-')} className="cursor-pointer font-bold"> - </p>
+                              <p onClick={() => updateProductQuantity(item.product?._id, '-')} className="cursor-pointer font-bold"> - </p>
 
                             )
                           }
