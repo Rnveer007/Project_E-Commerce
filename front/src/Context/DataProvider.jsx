@@ -16,8 +16,6 @@ function DataProvider({ children }) {
     const { isAdminLoggedIn } = useAuth();
     // console.log(isAdminLoggedIn)
 
-    // console.log("single " + singleProductByCat)
-
     async function fetchData(page = null) {
 
         try {
@@ -28,8 +26,8 @@ function DataProvider({ children }) {
                 { withCredentials: true }
             )
             setProducts(response.data);
-            // console.log(response.data)
-            // console.log("ranveer " + response.data)
+            // console.log(response.data.products)
+
         } catch (error) {
             console.log(error);
             setLoading(false);

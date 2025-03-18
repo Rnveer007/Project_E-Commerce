@@ -61,7 +61,7 @@ function AddProduct() {
     return (
         <>
             <div className='p-4'>
-                <form action="" onSubmit={handleSubmit} encType='multipart/form-data' className='flex flex-col items-center py-8 gap-10 '>
+                <form action="" onSubmit={handleSubmit} encType='multipart/form-data' className='flex flex-col w-[500px] m-auto items-center py-8 gap-10 border-1 border-gray-300 '>
                     <input type="text"
                         placeholder='Enter Product Title'
                         name='title'
@@ -104,7 +104,9 @@ function AddProduct() {
                         <input type="text" name='discount' placeholder={form.discountType === "%" ? "Discount in Percentage" : "Discount in Rupees"} value={form.discount} onChange={(e) => {
                             handleChange(e);
                             handleDiscountPriceChange(e);
-                        }} />
+                        }}
+                            className='pl-2'
+                        />
                     </div>
 
 
@@ -112,7 +114,7 @@ function AddProduct() {
                         placeholder='Product Dis. Price'
                         name='discountPrice'
                         value={form.discountPrice}
-                        onChange={handleChange} className='border-2 pl-3 w-[250px]' />
+                        onChange={handleChange} className='border-2 pl-3 py-1 w-[250px]' />
 
                     <input type="file" name="image" onChange={handleChange} className='border-2 items-center pl-3 w-[250px] py-1' />
                     <button type="submit" className='border-2 py-1 px-3 bg-cyan-600 text-white cursor-pointer font-bold w-[250px] '>Add Poduct</button>

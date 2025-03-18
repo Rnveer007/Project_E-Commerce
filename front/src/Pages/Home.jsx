@@ -6,7 +6,7 @@ import DisplayProducts from "../Components/DisplayProducts"
 
 function Home() {
   const { products, loading, categories, fetchData } = useEcom()
-  // console.log(products)
+  // console.log("home" + products)
 
   useEffect(() => {
     fetchData()

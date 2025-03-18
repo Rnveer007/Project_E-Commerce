@@ -31,20 +31,24 @@ function AddCategory() {
 
     return (
         <>
-            <form action="" encType='multipart/form-data' onSubmit={handleSubmit} className=' w-[800px] px-10 flex   gap-10'>
-                <input type="text"
-                    name='name'
-                    value={form.name}
-                    onChange={handleChange}
-                    placeholder='Enter Category' className='border-2 px-3 py-1' />
+            <div className='p-4'>
+                <h1 className='text-center font-bold my-3 text-2xl'>List Your Prodocut's Categories Here</h1>
+                <form action="" encType='multipart/form-data' onSubmit={handleSubmit}
+                    className=' w-[600px] m-auto mt-8 p-4 px-10'>
+                    <input type="text"
+                        name='name'
+                        value={form.name}
+                        onChange={handleChange}
+                        placeholder='Enter Category' className='border-2 px-3 py-1' />
 
-                <input type="file"
-                    name='image'
-                    onChange={handleChange}
-                    className='cursor-pointer'
-                />
-                <button type='submit' className='border-2 rounded px-3 py-1 bg-cyan-600 text-white  cursor-pointer font-bold' > submit</button>
-            </form>
+                    <input type="file"
+                        name='image'
+                        onChange={handleChange}
+                        className='cursor-pointer border-1 py-1 mt-5'
+                    />
+                    <button type='submit' className='border-2 rounded px-3 py-1 ml-5 bg-cyan-600 text-white  cursor-pointer font-bold' > submit</button>
+                </form>
+            </div>
         </>
     )
 }
