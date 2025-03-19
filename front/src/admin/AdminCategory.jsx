@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useEcom } from '../Context/DataProvider';
 
-function ProductCategory() {
+function AdminCategory() {
     const { categories, fetchCategories, handleDelete } = useEcom();
 
     useEffect(() => {
@@ -45,4 +45,4 @@ function ProductCategory() {
     )
 }
 
-export default ProductCategory
+export default AdminCategory

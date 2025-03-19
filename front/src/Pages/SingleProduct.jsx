@@ -6,12 +6,10 @@ import instance from "../axiosConfig";
 import { useAuth } from "../Context/AuthProvider.jsx";
 
 function SingleProduct() {
-    const { isUserLoggedIn } = useAuth();
     const navigate = useNavigate();
     const [product, setProduct] = useState([]);
     const [loading, setLoading] = useState(false);
     const [categoryName, setCategoryName] = useState("");
-
     const {
         addToCart,
         existInCart,
@@ -21,7 +19,10 @@ function SingleProduct() {
         categories,
     } = useEcom();
 
-    const { id } = useParams();
+    const { isUserLoggedIn } = useAuth();
+
+
+    const { id } = useParams();  // It retrieves the 'id' parameter from the URL.
 
 
     // Fetch product
@@ -30,7 +31,7 @@ function SingleProduct() {
             setLoading(true);
             const response = await instance.get(`/product/get/${productId}`);
             setProduct(response.data.products[0]);
-            // console.log(response.data.products[0]);
+            console.log(response.data.products[0]);
         } catch (error) {
             console.error(error);
         } finally {
@@ -55,7 +56,7 @@ function SingleProduct() {
 
     // Second: Set category name when product or categories change
     useEffect(() => {
-        if (product && product.category && categories.length > 0) {
+        if (product && product?.category && categories?.length > 0) {
             const foundCategory = categories.find((obj) => obj._id === product.category);
             setCategoryName(foundCategory?.name || "");
         }
@@ -89,7 +90,7 @@ function SingleProduct() {
                             <p>{product?.totalRating}</p>
                         </div>
                         <p className="my-3"><strong>Brand :</strong> {product?.brand}</p>
-                        <p className="my-3"><strong>Category :</strong> {categoryName.name}</p>
+                        <p className="my-3"><strong>Category :</strong> {categoryName}</p>
                         <p className="my-3"><strong>Description :</strong> {product?.description}</p>
                         <div className="mt-5 flex gap-3">
                             {existInCart(product?._id) ? (

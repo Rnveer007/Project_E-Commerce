@@ -21,7 +21,7 @@ function Cart() {
   }, [totalPrice, cart]);
 
   return (
-    <div>
+    <div className="flex justify-around">
       {
         cart.length === 0 ? (
           <div className="flex justify-center items-center gap-3 pt-8 text-2xl">
@@ -33,7 +33,7 @@ function Cart() {
 
         ) : (
           <>
-            <div className="flex items-center justify-around">
+            <div className=" items-center">
               {
                 cart.map((item) => {
                   return (
@@ -71,31 +71,32 @@ function Cart() {
                   )
                 })
               }
+            </div>
 
-              <div className="cartTotal w-1/3 max-h-64 bg-amber-100 rounded-lg p-4">
-                <h2 className="text-xl font-bold text-center">Order Summary</h2>
 
-                <div className="itemTotalPrice flex justify-between items-center py-1">
-                  <p>Items:</p>
-                  <p className="inline-flex items-center">
-                    <MdOutlineCurrencyRupee /> <span>{(totalPrice).toFixed(2)}</span>
-                  </p>
-                </div>
+            <div className="cartTotal w-1/3 mt-8 max-h-64 bg-amber-100 rounded-lg p-4">
+              <h2 className="text-xl font-bold text-center">Order Summary</h2>
 
-                <div className="deliveryCharges flex justify-between items-center py-1">
-                  <p>Delivery:</p>
-                  <p>--</p>
-                </div>
+              <div className="itemTotalPrice flex justify-between items-center py-1">
+                <p>Items:</p>
+                <p className="inline-flex items-center">
+                  <MdOutlineCurrencyRupee /> <span>{(totalPrice).toFixed(2)}</span>
+                </p>
+              </div>
 
-                <div className="spacer py-2 border-b-1 border-gray-400"></div>
+              <div className="deliveryCharges flex justify-between items-center py-1">
+                <p>Delivery:</p>
+                <p>--</p>
+              </div>
 
-                <div className="cartTotal flex justify-between items-center py-1 text-green-700 text-xl font-bold">
-                  <p>Order Total:</p>
-                  <p className="inline-flex items-center">
-                    <MdOutlineCurrencyRupee />{" "}
-                    <span>{(totalPrice).toFixed(2)}</span>
-                  </p>
-                </div>
+              <div className="spacer py-2 border-b-1 border-gray-400"></div>
+
+              <div className="cartTotal flex justify-between items-center py-1 text-green-700 text-xl font-bold">
+                <p>Order Total:</p>
+                <p className="inline-flex items-center">
+                  <MdOutlineCurrencyRupee />{" "}
+                  <span>{(totalPrice).toFixed(2)}</span>
+                </p>
               </div>
             </div>
           </>

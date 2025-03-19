@@ -17,6 +17,19 @@ export async function addToProduct(req, res) {
     }
 };
 
+export async function addCategory(req, res) {
+    try {
+        const file = req.file;
+        if (!file) return res.status(404).send({ message: "File Not Found" })
+        const secure_url = await uploadToCloudinary(req)
+    
+        const newCategory = new categoryModel({ ...req.body, image: secure_url })
+        await newCategory.save()
+        res.status(201).send({ message: "category Added" })
+    } catch (error) {
+        res.status(500).send({ message: "category not found", error: error.message })
+    }
+}
 export async function fetchProducts(req, res) {
     // console.log("Ranveer")
     try {
@@ -29,12 +42,7 @@ export async function fetchProducts(req, res) {
                 name: { $regex: new RegExp(`^${req.query.category}$`, "i") }
             });
             query.category = categoryId
-            // query.category = { $regex: new RegExp(`^${req.query.category}$`, "i") }
         }
-
-        // const page = parseInt(req.query.page) || 1;  //default page 1  
-        // const limit = parseInt(req.query.limit) || 10; // default 10 items per page
-        
         // if (req.query.page !== "na") {
             let page = req.query.page ? Number(req.query.page) : 1;
             let limit = req.query.page ? 3 : 0;
@@ -70,19 +78,6 @@ export async function fetchCategories(req, res) {
     } catch (error) {
         console.log(error)
         res.status(500).send({ message: error.message })
-    }
-}
-
-export async function addCategory(req, res) {
-    try {
-        const file = req.file;
-        if (!file) return res.status(404).send({ message: "File Not Found" })
-        const secure_url = await uploadToCloudinary(req)
-        const newCategory = new categoryModel({ ...req.body, image: secure_url })
-        await newCategory.save()
-        res.status(201).send({ message: "category Added" })
-    } catch (error) {
-        res.status(500).send({ message: "category not found", error: error.message })
     }
 }
 

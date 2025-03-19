@@ -10,7 +10,7 @@ async function uploadToCloudinary(req) {
         api_secret: process.env.API_SECRET
     });
 
-    try {
+try {
         // Upload an image
         const uploadResult = await cloudinary.uploader
             .upload(req.file.path, {

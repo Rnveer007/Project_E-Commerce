@@ -19,7 +19,6 @@ export async function registerUser(req, res) {
     }
 }
 
-
 export async function loginUser(req, res) {
 
     try {
@@ -32,8 +31,6 @@ export async function loginUser(req, res) {
         if (!passwordMatches) return res.status(404).send({ message: "Invalid Crendentials" });
 
         // create token & send it back to clint  as cookies
-
-        // res.send({ message: "User login", user: user });
 
         const loginToken = jwt.sign(
             {

@@ -74,7 +74,8 @@ function DataProvider({ children }) {
             setSingleProductByCat([]);
             // const response = await axios.get("https://ecommerce-api-8ga2.onrender.com/api/product/?category=" + category)
             const response = await instance.get("/product/get/?category=" + category)
-            setSingleProductByCat(response.data)
+            setSingleProductByCat(response.data.products)
+            console.log(response.data.products)
 
         } catch (error) {
             console.log(error)
@@ -88,7 +89,7 @@ function DataProvider({ children }) {
     // async function addToCart(product) {
     //     try {
     //         const response = await instance.post("/cart/add",
-    //             { product: product._id, quantity: 1 },
+    //             { product: product?._id, quantity: 1 },
     //             { withCredentials: true });
 
     //         console.log("cart update", response.data);
@@ -100,10 +101,10 @@ function DataProvider({ children }) {
 
     function addToCart(product) {
         setCart((prev) => {
-            const existingItem = prev.find((item) => item._id === product._id);
+            const existingItem = prev.find((item) => item._id === product?._id);
             if (existingItem) {
                 return prev.map((item) =>
-                    item._id === product._id
+                    item?._id === product?._id
                         ? { ...item, quantity: item.quantity + 1 }
                         : item
                 );
@@ -113,12 +114,12 @@ function DataProvider({ children }) {
     }
 
     function existInCart(productId) {
-        return cart.some((cartItem) => cartItem.product?._id === productId);
+        return cart.some((cartItem) => cartItem?._id === productId);
 
     }
 
     function removeFromCart(productId) {
-        setCart(cart.filter((cartItem) => cartItem.product._id !== productId));
+        setCart(cart.filter((cartItem) => cartItem?._id !== productId));
     }
 
     function updateProductQuantity(productId, sign) {
@@ -128,7 +129,7 @@ function DataProvider({ children }) {
         }
         setCart(
             cart.map((cartItem) =>
-                cartItem.product._id === productId
+                cartItem?._id === productId
                     ? { ...cartItem, quantity: cartItem.quantity + (sign === "+" ? 1 : -1) }
                     : cartItem
             )

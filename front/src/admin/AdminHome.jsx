@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
+import { useAdminEcom } from "./Context/AdminEcomProvider";
+import { useEffect } from "react";
 
 function AdminHome() {
+  const { count, getCount } = useAdminEcom();
+
+  useEffect(() => {
+    getCount();
+  }, []);
   return (
     <div className="min-h-screen flex">
       <aside className="w-1/5 p-4 bg-gray-200 rounded h-screen">
@@ -25,6 +32,8 @@ function AdminHome() {
           <div className="bg-gray-200 p-4 rounded-lg">
             <h2 className="text-2xl font-bold">Products</h2>
             <p className="text-xl font-bold">10</p>
+            <p className="text-xl font-bold">{count.products}</p>
+
             <div className="flex gap-4">
               <Link to="/admin/products">View Products</Link>
               <Link to="/admin/addProduct">Add Product</Link>
@@ -32,7 +41,7 @@ function AdminHome() {
           </div>
           <div className="bg-gray-200 p-4 rounded-lg">
             <h2 className="text-2xl font-bold">Orders</h2>
-            <p className="text-xl font-bold">5</p>
+            <p className="t ext-xl font-bold">{count.orders}</p>
             <div className="flex gap-4">
               <Link to="">View Orders</Link>
             </div>
