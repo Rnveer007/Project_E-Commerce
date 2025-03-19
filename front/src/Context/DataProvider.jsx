@@ -17,7 +17,6 @@ function DataProvider({ children }) {
     // console.log(isAdminLoggedIn)
 
     async function fetchData(page = null) {
-
         try {
             // if (isAdminLoggedIn) page = 1;
             setLoading(true);
@@ -27,7 +26,6 @@ function DataProvider({ children }) {
             )
             setProducts(response.data);
             // console.log(response.data.products)
-
         } catch (error) {
             console.log(error);
             setLoading(false);
@@ -36,8 +34,7 @@ function DataProvider({ children }) {
         }
     }
 
-    //delete product and category
-
+    // Handle Product/Category Delete
     async function handleDelete(idToDelete, whatToDelete) {
         console.log("Deleting ID:", idToDelete);
         try {
@@ -53,6 +50,7 @@ function DataProvider({ children }) {
         }
     }
 
+    // Fetch All Categories
     async function fetchCategories() {
         try {
             setLoading(true)
@@ -68,6 +66,9 @@ function DataProvider({ children }) {
         }
     }
 
+
+
+    // Filter Products by Category
     async function productFilterByCategory(category) {
         try {
             setLoading(true)
@@ -75,8 +76,7 @@ function DataProvider({ children }) {
             // const response = await axios.get("https://ecommerce-api-8ga2.onrender.com/api/product/?category=" + category)
             const response = await instance.get("/product/get/?category=" + category)
             setSingleProductByCat(response.data.products)
-            console.log(response.data.products)
-
+            // console.log(response.data.products)
         } catch (error) {
             console.log(error)
             setLoading(false)
@@ -99,47 +99,62 @@ function DataProvider({ children }) {
     //     }
     // }
 
+    // Add Product to Cart (Fixed)
     function addToCart(product) {
         setCart((prev) => {
-            const existingItem = prev.find((item) => item._id === product?._id);
+            const existingItem = prev.find((item) => item?._id === product?._id);
             if (existingItem) {
+                // Increase quantity if item already exists
                 return prev.map((item) =>
                     item?._id === product?._id
                         ? { ...item, quantity: item.quantity + 1 }
                         : item
                 );
             }
+            // Add new product to the cart with quantity 1
             return [...prev, { ...product, quantity: 1 }];
         });
     }
 
+    // Check if Product Exists in Cart
     function existInCart(productId) {
         return cart.some((cartItem) => cartItem?._id === productId);
-
     }
 
+    // Remove Product from Cart  
     function removeFromCart(productId) {
-        setCart(cart.filter((cartItem) => cartItem?._id !== productId));
+        setCart((prev) => prev.filter((cartItem) => cartItem?._id !== productId));
     }
 
+    // Update Product Quantity in Cart
     function updateProductQuantity(productId, sign) {
         if (!existInCart(productId)) {
             alert("Incorrect Id");
             return;
         }
-        setCart(
-            cart.map((cartItem) =>
-                cartItem?._id === productId
-                    ? { ...cartItem, quantity: cartItem.quantity + (sign === "+" ? 1 : -1) }
-                    : cartItem
-            )
-        )
+        setCart((prev) =>
+            prev
+                .map((cartItem) =>
+                    cartItem?._id === productId
+                        ? {
+                            ...cartItem,
+                            quantity:
+                                sign === "+"
+                                    ? cartItem.quantity + 1
+                                    : Math.max(cartItem.quantity - 1, 1), // Prevent quantity from going below 1
+                        }
+                        : cartItem
+                )
+                .filter((item) => item.quantity > 0) // Remove item if quantity becomes 0
+        );
     };
 
 
+    // Fetch Hot Deals
     async function fetchHotDeals() {
         try {
-            const response = await instance.get("/deals", { withCredentials: true })
+            const response = await instance.get("/deals",
+                { withCredentials: true })
             // console.log(response.data)
             setDealProducts(response.data)
         } catch (error) {
@@ -174,6 +189,7 @@ function DataProvider({ children }) {
 
 }
 
+// Custom Hook to Use Ecom Context
 export function useEcom() {
     return useContext(dataContext);
 }

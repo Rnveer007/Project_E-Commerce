@@ -19,18 +19,11 @@ const userSchema = new mongoose.Schema({
     image: {
         type: String,
     },
-    wishList: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "products",
-        }
-    ],
     role:
     {
         type: String,
         default: "user",
     }
-
 })
 
 

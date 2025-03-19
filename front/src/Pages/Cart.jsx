@@ -18,7 +18,7 @@ function Cart() {
         }, 0)
       )
     }
-  }, [totalPrice, cart]);
+  }, [ cart]);
 
   return (
     <div className="flex justify-around">
@@ -35,9 +35,9 @@ function Cart() {
           <>
             <div className=" items-center">
               {
-                cart.map((item) => {
+                cart.map((item, index) => {
                   return (
-                    <div key={item.product?._id} className="flex gap-30 py-8">
+                    <div key={item.product?._id || index} className="flex gap-30 py-8">
                       <div>
                         <img src={item.product?.image} alt="" className="w-[300px] h-[300px]" />
                       </div>
