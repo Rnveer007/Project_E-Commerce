@@ -22,7 +22,7 @@ export async function addCategory(req, res) {
         const file = req.file;
         if (!file) return res.status(404).send({ message: "File Not Found" })
         const secure_url = await uploadToCloudinary(req)
-    
+
         const newCategory = new categoryModel({ ...req.body, image: secure_url })
         await newCategory.save()
         res.status(201).send({ message: "category Added" })
@@ -30,46 +30,48 @@ export async function addCategory(req, res) {
         res.status(500).send({ message: "category not found", error: error.message })
     }
 }
+
 export async function fetchProducts(req, res) {
-    // console.log("Ranveer")
     try {
         let query = {};
         if (req.params.id) {
-            query._id = req.params.id
+            query._id = req.params.id;
         }
+
         if (req.query.category) {
-            const categoryId = await categoryModel.find({
-                name: { $regex: new RegExp(`^${req.query.category}$`, "i") }
-            });
-            query.category = categoryId
+            query.category = new mongoose.Types.ObjectId(req.query.category);
         }
-        // if (req.query.page !== "na") {
-            let page = req.query.page ? Number(req.query.page) : 1;
-            let limit = req.query.page ? 3 : 0;
-            let skip = (page - 1) * limit
-        // }
-        console.log("page", page);
-        console.log("limit", limit)
+        const page = req.query.page ? Number(req.query.page) : 1;
+        const limit = Number(req.query.limit) === -1 ? 0 : 10;
+        const skip = (page - 1) * limit;
+
+        // console.log(query);
+
         const products = await productData.find(query)
             .skip(skip)
             .limit(limit)
-            .populate('category');
+            .populate("category");
+        const TotalCount = await productData.countDocuments(query);
 
-        const totalCounts = await productData.countDocuments(query) // Get total count for pagination info
+        // console.log(products);
 
-        if (!products)
-            return res.status(400).send({ message: "No Product Found" })
-        // console.log(products)
+        if (!products) {
+            return res.status(500).send({ message: "No products Data found" });
+        }
 
         res.send({
             products,
             currentPage: page,
-            totalPages: Math.ceil(totalCounts / limit)
-        })
+            totalPage: Math.ceil(TotalCount / limit),
+        });
     } catch (error) {
-        res.status(500).send({ message: "could not fetch product", error: error.message })
+        res.status(500).send({
+            message: "Couldn't fetch Product not added",
+            Error: error.message,
+        });
     }
 }
+
 
 export async function fetchCategories(req, res) {
     try {

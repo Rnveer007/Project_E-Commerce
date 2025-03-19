@@ -12,6 +12,7 @@ function DataProvider({ children }) {
     const [categories, setCategories] = useState([]);
     const [singleProductByCat, setSingleProductByCat] = useState([]);
     const [dealProducts, setDealProducts] = useState([]);
+    const [singleProduct, setSingleProduct] = useState([]);
 
     const { isAdminLoggedIn } = useAuth();
     // console.log(isAdminLoggedIn)
@@ -31,6 +32,15 @@ function DataProvider({ children }) {
             setLoading(false);
         } finally {
             setLoading(false);
+        }
+    }
+
+    async function fetchSingleProduct(id) {
+        try {
+            const response = await instance.get(`/product/get/${id}`)
+            setSingleProduct(response.data.products[0])
+        } catch (error) {
+            console.log(error)
         }
     }
 
@@ -75,6 +85,7 @@ function DataProvider({ children }) {
             setSingleProductByCat([]);
             // const response = await axios.get("https://ecommerce-api-8ga2.onrender.com/api/product/?category=" + category)
             const response = await instance.get("/product/get/?category=" + category)
+            console.log("product"+response.data)
             setSingleProductByCat(response.data.products)
             // console.log(response.data.products)
         } catch (error) {
@@ -167,6 +178,7 @@ function DataProvider({ children }) {
             value={{
                 products,
                 cart,
+                singleProduct,
                 loading,
                 categories,
                 singleProductByCat,
@@ -181,6 +193,7 @@ function DataProvider({ children }) {
                 productFilterByCategory,
                 fetchHotDeals,
                 handleDelete,
+                fetchSingleProduct,
             }}
         >
             {children}

@@ -18,6 +18,8 @@ import ProtectedRoute from "./Components/ProtectedRoute.jsx"
 import AdminHome from "./admin/AdminHome.jsx"
 import AdminProducts from "./admin/AdminProducts.jsx"
 import AdminCategory from "./admin/AdminCategory.jsx"
+import AdminEcomProvider from "./admin/Context/AdminEcomProvider.jsx"
+import AdminAuthProvider from "./admin/Context/AdminAuthProvider.jsx"
 
 const router = createBrowserRouter([
   {
@@ -118,11 +120,15 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <AuthProvider>
-      <DataProvider>
-        <RouterProvider router={router} />
-      </DataProvider>
-    </AuthProvider>
+    <AdminAuthProvider>
+      <AdminEcomProvider>
+        <AuthProvider>
+          <DataProvider>
+            <RouterProvider router={router} />
+          </DataProvider>
+        </AuthProvider>
+      </AdminEcomProvider>
+    </AdminAuthProvider>
   )
 }
 
