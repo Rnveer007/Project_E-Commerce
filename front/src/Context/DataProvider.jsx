@@ -14,6 +14,8 @@ function DataProvider({ children }) {
     const [dealProducts, setDealProducts] = useState([]);
     const [singleProduct, setSingleProduct] = useState([]);
 
+    // console.log(categories)
+
     const { isAdminLoggedIn } = useAuth();
     // console.log(isAdminLoggedIn)
 
@@ -85,9 +87,7 @@ function DataProvider({ children }) {
             setSingleProductByCat([]);
             // const response = await axios.get("https://ecommerce-api-8ga2.onrender.com/api/product/?category=" + category)
             const response = await instance.get("/product/get/?category=" + category)
-            console.log("product"+response.data)
             setSingleProductByCat(response.data.products)
-            // console.log(response.data.products)
         } catch (error) {
             console.log(error)
             setLoading(false)

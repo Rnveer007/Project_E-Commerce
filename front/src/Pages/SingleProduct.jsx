@@ -8,13 +8,15 @@ function SingleProduct() {
         fetchSingleProduct,
         singleProduct,
         categories,
-        productsByCat,
+        singleProductByCat,
         productFilterByCategory,
     } = useEcom();
 
     // console.log(categories)
 
     const [categoryName, setCategoryName] = useState("");
+    const [similiarProduct, setSimiliarProduct] = useState([])
+
     // console.log(categoryName)
     useEffect(() => {
         fetchSingleProduct(id);
@@ -22,14 +24,21 @@ function SingleProduct() {
     }, []);
 
     useEffect(() => {
-            console.log(
-                categories.find((obj) => obj._id === singleProduct.category)?.name
-            );
-        
-        // productFilterByCategory(singleProduct.category);
+        setCategoryName(
+            categories?.find((obj) => obj._id === singleProduct.category?._id)?.name
+        );
+
+        productFilterByCategory(singleProduct.category)
+
     }, [categories, singleProduct]);
 
-    // console.log(singleProduct);
+    useEffect(() => {
+        fetchSimilarProducts()
+    }, [singleProduct, singleProductByCat])
+
+    function fetchSimilarProducts() {
+        setSimiliarProduct(singleProductByCat.filter((item) => item._id !== singleProduct.Id))
+    }
     return (
         <>
             {singleProduct && (
