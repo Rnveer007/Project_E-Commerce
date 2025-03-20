@@ -12,23 +12,24 @@ function SingleProduct() {
         productFilterByCategory,
     } = useEcom();
 
+    // console.log(categories)
 
     const [categoryName, setCategoryName] = useState("");
+    // console.log(categoryName)
     useEffect(() => {
         fetchSingleProduct(id);
 
     }, []);
 
     useEffect(() => {
-        if (singleProduct && categories) {
-            setCategoryName(
+            console.log(
                 categories.find((obj) => obj._id === singleProduct.category)?.name
             );
-        }
-        productFilterByCategory(singleProduct.category);
+        
+        // productFilterByCategory(singleProduct.category);
     }, [categories, singleProduct]);
 
-    console.log(singleProduct);
+    // console.log(singleProduct);
     return (
         <>
             {singleProduct && (
