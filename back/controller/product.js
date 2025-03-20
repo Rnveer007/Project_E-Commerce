@@ -1,6 +1,7 @@
 import uploadToCloudinary from "../middleware/cloudinary.js";
 import categoryModel from "../models/categoryModel.js";
 import productData from "../models/productModel.js";
+import mongoose from "mongoose";
 
 export async function addToProduct(req, res) {
     // console.log(req.file)
@@ -40,12 +41,12 @@ export async function fetchProducts(req, res) {
 
         if (req.query.category) {
             query.category = new mongoose.Types.ObjectId(req.query.category);
+            // console.log(req.query.category);
         }
         const page = req.query.page ? Number(req.query.page) : 1;
         const limit = Number(req.query.limit) === -1 ? 0 : 10;
         const skip = (page - 1) * limit;
 
-        // console.log(query);
 
         const products = await productData.find(query)
             .skip(skip)

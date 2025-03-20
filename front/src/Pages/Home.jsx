@@ -27,7 +27,7 @@ function Home() {
             categories.map((category, index) => (
               <NavLink
                 key={index}
-                to={`/category/${category.name.toLowerCase()}`}
+                to={`/category/${category._id}`}
                 className={({ isActive }) =>
                   `block px-4 py-3 font-bold text-xl dark:hover:rounded dark:hover:bg-gray-100 dark:hover:text-blue-500 ${isActive ? 'bg-blue-500 rounded text-white' : 'dark text-gray-700'
                   }`

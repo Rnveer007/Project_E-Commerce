@@ -12,12 +12,9 @@ function SingleProduct() {
         productFilterByCategory,
     } = useEcom();
 
-    // console.log(categories)
-
     const [categoryName, setCategoryName] = useState("");
     const [similiarProduct, setSimiliarProduct] = useState([])
 
-    // console.log(categoryName)
     useEffect(() => {
         fetchSingleProduct(id);
 
@@ -28,7 +25,7 @@ function SingleProduct() {
             categories?.find((obj) => obj._id === singleProduct.category?._id)?.name
         );
 
-        productFilterByCategory(singleProduct.category)
+        productFilterByCategory(singleProduct.category?._id)
 
     }, [categories, singleProduct]);
 
@@ -37,7 +34,7 @@ function SingleProduct() {
     }, [singleProduct, singleProductByCat])
 
     function fetchSimilarProducts() {
-        setSimiliarProduct(singleProductByCat.filter((item) => item._id !== singleProduct.Id))
+        setSimiliarProduct(singleProductByCat.filter((item) => item._id !== singleProduct._id))
     }
     return (
         <>
@@ -45,7 +42,7 @@ function SingleProduct() {
                 <>
                     <div>
                         <div className="left">
-                            <img src={singleProduct.image} />
+                            <img src={singleProduct.image} className="w-[200px]" />
                         </div>
                         <div className="right">
                             <h2>{singleProduct.title}</h2>
@@ -62,7 +59,21 @@ function SingleProduct() {
                             <button>Add To Wishlist</button>
                         </div>
                     </div>
-                    <div>SIMILAR PRODUCTS HERE</div>
+
+                    <div>
+                        <h1>SIMILAR PRODUCTS HERE</h1>
+                        {
+                            similiarProduct.map((item) => {
+                                return (
+                                    <div key={item._id}>
+                                        <img src={item.image} alt="" className="w-[200px]" />
+                                        <p>{item.title}</p>
+
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
                 </>
             )}
         </>

@@ -13,22 +13,19 @@ function DataProvider({ children }) {
     const [singleProductByCat, setSingleProductByCat] = useState([]);
     const [dealProducts, setDealProducts] = useState([]);
     const [singleProduct, setSingleProduct] = useState([]);
-
     // console.log(categories)
 
-    const { isAdminLoggedIn } = useAuth();
-    // console.log(isAdminLoggedIn)
+    // const { isAdminLoggedIn } = useAuth();
 
     async function fetchData(page = null) {
         try {
             // if (isAdminLoggedIn) page = 1;
             setLoading(true);
             const response = await instance.get(
-                isAdminLoggedIn ? `/product/get?page=1` : "/product/get",
+                page ? `/product/get?page=1` : "/product/get",
                 { withCredentials: true }
             )
             setProducts(response.data);
-            // console.log(response.data.products)
         } catch (error) {
             console.log(error);
             setLoading(false);
@@ -66,7 +63,6 @@ function DataProvider({ children }) {
     async function fetchCategories() {
         try {
             setLoading(true)
-            // const response = await axios.get("https://ecommerce-api-8ga2.onrender.com/api/product/categories/all");
             const response = await instance.get("/product/category");
             setCategories(response.data);
         } catch (error) {
@@ -85,7 +81,6 @@ function DataProvider({ children }) {
         try {
             setLoading(true)
             setSingleProductByCat([]);
-            // const response = await axios.get("https://ecommerce-api-8ga2.onrender.com/api/product/?category=" + category)
             const response = await instance.get("/product/get/?category=" + category)
             setSingleProductByCat(response.data.products)
         } catch (error) {
@@ -97,44 +92,29 @@ function DataProvider({ children }) {
         }
     }
 
-    // async function addToCart(product) {
-    //     try {
-    //         const response = await instance.post("/cart/add",
-    //             { product: product?._id, quantity: 1 },
-    //             { withCredentials: true });
+    async function addToCart(product) {
+        try {
+            const response = await instance.post("/cart/add",
+                { product: product?._id, quantity: 1 },
+                { withCredentials: true });
 
-    //         console.log("cart update", response.data);
+            console.log("cart update", response.data);
 
-    //     } catch (error) {
-    //         console.log("product are not added to cart ", error);
-    //     }
-    // }
-
-    // Add Product to Cart (Fixed)
-    function addToCart(product) {
-        setCart((prev) => {
-            const existingItem = prev.find((item) => item?._id === product?._id);
-            if (existingItem) {
-                // Increase quantity if item already exists
-                return prev.map((item) =>
-                    item?._id === product?._id
-                        ? { ...item, quantity: item.quantity + 1 }
-                        : item
-                );
-            }
-            // Add new product to the cart with quantity 1
-            return [...prev, { ...product, quantity: 1 }];
-        });
+        } catch (error) {
+            console.log("product are not added to cart ", error);
+        }
     }
+
 
     // Check if Product Exists in Cart
     function existInCart(productId) {
-        return cart.some((cartItem) => cartItem?._id === productId);
+        const productAlreadyExist = cart.find((cartItem) => cartItem.product._id === productId)
+        return productAlreadyExist ? true : false
     }
 
     // Remove Product from Cart  
     function removeFromCart(productId) {
-        setCart((prev) => prev.filter((cartItem) => cartItem?._id !== productId));
+        setCart(cart.filter((cartItem) => cartItem?._id !== productId));
     }
 
     // Update Product Quantity in Cart
