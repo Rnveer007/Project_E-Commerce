@@ -12,7 +12,7 @@ function AdminProducts() {
         else fetchData();
     }, [page]);
 
-console.log(products)
+    console.log(products)
 
     return (
         <div className="min-h-screen flex">
@@ -46,7 +46,7 @@ console.log(products)
                         </tr>
                     </thead>
                     <tbody>
-                        {products?.products?.map((item, index) => {
+                        {products.map((item, index) => {
                             return (
                                 <tr key={item._id}
                                     className={`mb-2 mt-4 ${index % 2 === 0 ? "bg-gray-100" : "bg-gray-200"
@@ -72,16 +72,15 @@ console.log(products)
                 <div className="pagenation my-3">
                     {products?.currentPage > 1 && (
                         <Link
-                            to={`?page=${products.currentPage - 1}`}
+                            to={`?page=${products?.currentPage - 1}`}
                             className="bg-blue-500 text-white p-1 rounded mx-2 px-2 cursor-pointer"
                             onClick={() => setPage(products.currentPage - 1)}
                         >
                             Previous
-
                         </Link>
                     )}
 
-                    {Array.from({ length: products.totalPages }).map((_, index) => {
+                    {Array.from({ length: products?.totalPages }).map((_, index) => {
                         return (
                             <Link key={index} to={`?page=${index + 1}`} className="bg-blue-500 text-white p-1 rounded mx-2 px-2 cursor-pointer"
                                 onClick={() => setPage(index + 1)}
@@ -89,11 +88,11 @@ console.log(products)
                         );
                     })}
                     {
-                        products?.currentPage < products.totalPages && (
+                        products?.currentPage < products?.totalPages && (
                             <Link
-                                to={`?page=${products.currentPage + 1}`}
+                                to={`?page=${products?.currentPage + 1}`}
                                 className="bg-blue-500 text-white p-1 rounded mx-2 px-2 cursor-pointer"
-                                onClick={() => setPage(products.currentPage + 1)}
+                                onClick={() => setPage(products?.currentPage + 1)}
                             >
                                 Next
                             </Link>

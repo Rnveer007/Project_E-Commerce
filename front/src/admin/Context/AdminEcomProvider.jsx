@@ -14,12 +14,12 @@ function AdminEcomProvider({ children }) {
   const [categories, setCategories] = useState([]);
   const [productsByCat, setProductsByCat] = useState([]);
   const [dealProduct, setDealProduct] = useState([]);
-  const [count, setCount] = useState({
-    categories: 0,
-    orders: 0,
-    products: 0,
-    users: 0,
-  });
+  // const [count, setCount] = useState({
+  //   categories: 0,
+  //   orders: 0,
+  //   products: 0,
+  //   users: 0,
+  // });
 
   // fetching all Products
   async function fetchProduct(page = null) {
@@ -195,8 +195,6 @@ function AdminEcomProvider({ children }) {
         filterByCategory,
         fetchHotDeals,
         handleDelete,
-        getCount,
-        count,
       }}
     >
       {children}

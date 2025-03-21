@@ -21,6 +21,7 @@ import AdminCategory from "./admin/AdminCategory.jsx"
 import AdminEcomProvider from "./admin/Context/AdminEcomProvider.jsx"
 import AdminAuthProvider from "./admin/Context/AdminAuthProvider.jsx"
 
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -114,6 +115,10 @@ const router = createBrowserRouter([
         path: "/hotdeals",
         element: <DisplayHotDealsProducts />
       },
+      {
+        path:"/admin/productCategory",
+        element:<AdminCategory/>
+      }
     ]
   }
 ])

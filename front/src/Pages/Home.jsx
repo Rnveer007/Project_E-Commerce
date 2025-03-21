@@ -1,16 +1,25 @@
 import { useContext, useEffect } from "react"
 import { dataContext, useEcom } from "../Context/DataProvider"
-import { Link, NavLink } from "react-router-dom"
+import { Link, NavLink, useParams } from "react-router-dom"
 import Loader from "../Components/Loader"
 import DisplayProducts from "../Components/DisplayProducts"
 
 function Home() {
-  const { products, loading, categories, fetchData } = useEcom()
-  // console.log("home" + products)
+  const { products, loading, categories, fetchData, productFilterByCategory, singleProductByCat, setSingleProductByCat
+  } = useEcom()
 
+  const params = useParams();
+
+  //  console.log(categories)
   useEffect(() => {
-    fetchData()
-  }, [])
+    fetchData();
+    if (Object.keys(params).length > 0) {
+      if (params.categoryName) productFilterByCategory(params.categoryName);
+    }
+    else setSingleProductByCat([])
+  }, [params])
+
+  // console.log(singleProductByCat)
 
   return <>
     <div className="flex justify-center">
@@ -23,11 +32,11 @@ function Home() {
               }`
             }>All</NavLink>
           </li>
-          {categories.length > 0 &&
-            categories.map((category, index) => (
+          {categories?.length > 0 &&
+            categories?.map((category, index) => (
               <NavLink
                 key={index}
-                to={`/category/${category._id}`}
+                to={`/category/${category?._id}`}
                 className={({ isActive }) =>
                   `block px-4 py-3 font-bold text-xl dark:hover:rounded dark:hover:bg-gray-100 dark:hover:text-blue-500 ${isActive ? 'bg-blue-500 rounded text-white' : 'dark text-gray-700'
                   }`
@@ -45,7 +54,11 @@ function Home() {
             <input type="search" name="" id="" placeholder='Search Products...' className='border-1 mb-8 w-[350px] py-2 px-3 rounded' />
           </div>
         </div>
-        <DisplayProducts products={products} />
+        <DisplayProducts products={
+          singleProductByCat.length === 0 && Object.keys(params).length === 0
+            ? products
+            : singleProductByCat
+        } />
       </div>
     </div>
   </>

@@ -17,8 +17,7 @@ const productSchema = new mongoose.Schema({
         required: true
     },
     category: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "category",
+        type: {},
         required: true
     },
     usualPrice: {
@@ -26,7 +25,7 @@ const productSchema = new mongoose.Schema({
         required: true
     },
     discount: {
-        type: Number,
+        type: String,
         required: true,
     },
     discountPrice: {

@@ -45,10 +45,10 @@ function AddProduct() {
             frm.append("category", form.category)
             frm.append("usualPrice", form.usualPrice)
             frm.append("discountPrice", form.discountPrice);
-            frm.append("discount", form.discountType);
+            frm.append("discount", form.discount + "" + form.discountType);
             frm.append("image", form.image);
 
-            // console.log(form); 
+            console.log(frm); 
 
             const response = await instance.post("/product/add", frm, { withCredentials: true })
             console.log(response)

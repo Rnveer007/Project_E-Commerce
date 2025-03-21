@@ -4,15 +4,12 @@ import { Link } from 'react-router-dom'
 function DisplayProducts({ products }) {
     //    console.log("rishi" + products)
     return (
-
-
         <>
             <div className='pl-8'>
-              
                 <div className="flex flex-wrap gap-10">
                     {/*Short Circuit Evaluation */}
-                    {products?.products?.length > 0 ?
-                        products?.products.map((item) => {
+                    {products?.length > 0 ?
+                        products?.map((item) => {
                             return (
                                 <div key={item._id}
                                     className=" text-center border-1 border-gray-300 p-4 ">

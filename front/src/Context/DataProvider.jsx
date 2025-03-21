@@ -25,7 +25,8 @@ function DataProvider({ children }) {
                 page ? `/product/get?page=1` : "/product/get",
                 { withCredentials: true }
             )
-            setProducts(response.data);
+            setProducts(response.data.products);
+            // console.log(response.data)
         } catch (error) {
             console.log(error);
             setLoading(false);
@@ -74,8 +75,6 @@ function DataProvider({ children }) {
         }
     }
 
-
-
     // Filter Products by Category
     async function productFilterByCategory(category) {
         try {
@@ -83,6 +82,7 @@ function DataProvider({ children }) {
             setSingleProductByCat([]);
             const response = await instance.get("/product/get/?category=" + category)
             setSingleProductByCat(response.data.products)
+            // console.log(response.data.products)
         } catch (error) {
             console.log(error)
             setLoading(false)
@@ -174,6 +174,7 @@ function DataProvider({ children }) {
                 fetchHotDeals,
                 handleDelete,
                 fetchSingleProduct,
+                setSingleProductByCat
             }}
         >
             {children}
