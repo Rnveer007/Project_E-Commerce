@@ -13,20 +13,15 @@ function DataProvider({ children }) {
     const [singleProductByCat, setSingleProductByCat] = useState([]);
     const [dealProducts, setDealProducts] = useState([]);
     const [singleProduct, setSingleProduct] = useState([]);
-    // console.log(categories)
-
-    // const { isAdminLoggedIn } = useAuth();
-
+ 
     async function fetchData(page = null) {
         try {
-            // if (isAdminLoggedIn) page = 1;
             setLoading(true);
             const response = await instance.get(
                 page ? `/product/get?page=1` : "/product/get",
                 { withCredentials: true }
             )
             setProducts(response.data.products);
-            // console.log(response.data)
         } catch (error) {
             console.log(error);
             setLoading(false);
@@ -163,7 +158,6 @@ function DataProvider({ children }) {
                 categories,
                 singleProductByCat,
                 dealProducts,
-                // similiarProduct,
                 fetchData,
                 addToCart,
                 existInCart,
