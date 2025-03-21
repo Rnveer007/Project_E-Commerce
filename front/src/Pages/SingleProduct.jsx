@@ -11,7 +11,6 @@ function SingleProduct() {
         singleProductByCat,
         productFilterByCategory,
     } = useEcom();
-    // console.log(singleProductByCat)
 
     const [categoryName, setCategoryName] = useState("");
     const [similiarProduct, setSimiliarProduct] = useState([])

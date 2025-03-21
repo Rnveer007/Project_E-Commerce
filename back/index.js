@@ -33,10 +33,6 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// app.post("/api/product/add", (req, res) => {
-//     console.log(req.body);
-// })
-
 app.use("/api/auth", authRouter);
 app.use("/api/product", productRouter);
 app.use("/api/user", userRouter);
