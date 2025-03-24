@@ -10,7 +10,8 @@ export async function addToProduct(req, res) {
         if (!file) return res.status(404).send({ message: "File Not Found" })
         const secure_url = await uploadToCloudinary(req)
         const categoryObjId = new mongoose.Types.ObjectId(req.body.category)
-        const latestProduct = new productData({ ...req.body, image: secure_url, category: categoryObjId})
+
+        const latestProduct = new productData({ ...req.body, image: secure_url, category: categoryObjId })
         await latestProduct.save()
         res.status(201).send({ message: "product Added" })
     } catch (error) {
@@ -22,13 +23,22 @@ export async function addCategory(req, res) {
     try {
         const file = req.file;
         if (!file) return res.status(404).send({ message: "File Not Found" })
+
+        //CHECKING IF CATEGORY ALREADY EXISTS
+        const exists = await categoryModel.find({ name: req.body.name });
+        if (exists.length > 0)
+            return res.status(400).send({ message: "Category Already Exists" });
+
+        //UPLOADING CATEGORY ICON
         const secure_url = await uploadToCloudinary(req)
 
         const newCategory = new categoryModel({ ...req.body, image: secure_url })
         await newCategory.save()
+
         res.status(201).send({ message: "category Added" })
     } catch (error) {
-        res.status(500).send({ message: "category not found", error: error.message })
+        res.status(500)
+            .send({ message: "category not found", error: error.message })
     }
 }
 
@@ -36,13 +46,18 @@ export async function fetchProducts(req, res) {
     try {
         let query = {};
         if (req.params.id) {
-            query._id = req.params.id;
+            // query._id = req.params.id;
+            query.slug = req.params.id
         }
 
-        if (req.query.category) {
-            query.category = new mongoose.Types.ObjectId(req.query.category);
-            // console.log(req.query.category);
+        if (req.query.categoryName) {
+            const category = await categoryModel.find({
+                name: { $regex: new RegExp(`^${req.query.categoryName}$`, "i") },
+            });
+            query.category = category[0]._id;
         }
+
+
         const page = req.query.page ? Number(req.query.page) : 1;
         const limit = Number(req.query.limit) === -1 ? 0 : 10;
         const skip = (page - 1) * limit;
@@ -76,13 +91,28 @@ export async function fetchProducts(req, res) {
 
 export async function fetchCategories(req, res) {
     try {
-        const category = await categoryModel.find({})
-        res.send(category)
+      let query = {};
+  
+      const page = req.query.page ? Number(req.query.page) : 1;
+      const limit = 10;
+      const skip = (page - 1) * limit;
+  
+      const category = await categoryModel.find(query).skip(skip).limit(limit);
+  
+      const totalCount = await categoryModel.countDocuments(query);
+  
+      if (!category)
+        return res.status(400).send({ message: "No Categories found" });
+  
+      res.send({
+        category,
+        currentPage: page,
+        totalPages: Math.ceil(totalCount / limit),
+      });
     } catch (error) {
-        console.log(error)
-        res.status(500).send({ message: error.message })
+      res.status(500).send({ message: error.message });
     }
-}
+  }
 
 export async function hotDeals(req, res) {
     try {
