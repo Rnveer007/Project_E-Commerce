@@ -1,9 +1,9 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState } from "react"; // create and use context are react hooks used to manage and consume context.
 import instance from "../axiosConfig";
 import { useAuth } from "./AuthProvider";
 // import axios from "axios";
 
-export const dataContext = createContext();
+export const dataContext = createContext(); //created a context called dataContext which  will be used to share state and functions across the app without passing props manually.
 
 function DataProvider({ children }) {
     const [products, setProducts] = useState([]);
@@ -13,7 +13,7 @@ function DataProvider({ children }) {
     const [singleProductByCat, setSingleProductByCat] = useState([]);
     const [dealProducts, setDealProducts] = useState([]);
     const [singleProduct, setSingleProduct] = useState([]);
- 
+
     async function fetchData(page = null) {
         try {
             setLoading(true);
@@ -33,7 +33,8 @@ function DataProvider({ children }) {
     async function fetchSingleProduct(id) {
         try {
             const response = await instance.get(`/product/get/${id}`)
-            setSingleProduct(response.data.products[0])
+            // setSingleProduct(response.data.products[0])
+            return response.data.products[0]
         } catch (error) {
             console.log(error)
         }
@@ -60,7 +61,8 @@ function DataProvider({ children }) {
         try {
             setLoading(true)
             const response = await instance.get("/product/category");
-            setCategories(response.data);
+            // setCategories(response.data);
+            return response.data;
         } catch (error) {
             console.log(error)
             setLoading(false)
@@ -71,13 +73,18 @@ function DataProvider({ children }) {
     }
 
     // Filter Products by Category
-    async function productFilterByCategory(category) {
+    async function productFilterByCategory(category, isName = false) {
         try {
             setLoading(true)
-            setSingleProductByCat([]);
-            const response = await instance.get("/product/get/?category=" + category)
-            setSingleProductByCat(response.data.products)
-            // console.log(response.data.products)
+            // setSingleProductByCat([]);
+            // const response = await instance.get("/product/get/?category=" + category)
+            // setSingleProductByCat(response.data.products)
+
+            const url = isName
+                ? "/product/get/?categoryName="
+                : "/product/get/?category=";
+            const response = await instance.get(url + category);
+            return response.data;
         } catch (error) {
             console.log(error)
             setLoading(false)

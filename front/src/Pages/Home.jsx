@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useEcom } from "../Context/DataProvider"
 import { NavLink, useParams } from "react-router-dom"
 import Loader from "../Components/Loader"
@@ -17,16 +17,14 @@ function Home() {
 
   const params = useParams();
 
-  //  console.log(categories)
   useEffect(() => {
     fetchData();
-    if (Object.keys(params).length > 0) {
-      if (params.categoryName) productFilterByCategory(params.categoryName);
-    }
-    else setSingleProductByCat([])
-  }, [params])
+  }, []);
 
-  // console.log(singleProductByCat)
+  async function fetchData() {
+    const categories = await fetchCategories();
+    setCategories(categories.category);
+  }
 
   return <>
     <div className="flex justify-center">
