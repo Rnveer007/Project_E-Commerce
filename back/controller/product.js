@@ -151,6 +151,7 @@ export async function deleteProductOrCategory(req, res) {
         return res.send({ message: "Deleted successfully" });
     } catch (error) {
         console.log(error.message)
-        return res.status(500).send({ message: error.message })
+        return res.status(500)
+        .send({ message: error.message })
     }
 }

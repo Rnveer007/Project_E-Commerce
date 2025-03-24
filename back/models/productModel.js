@@ -12,9 +12,13 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    slug: {
+        type: String,
+        unique: true
+    },
     brand: {
         type: String,
-        required: true
+        required: true,
     },
     category: {
         type: {},

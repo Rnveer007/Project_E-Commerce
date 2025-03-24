@@ -72,7 +72,8 @@ const router = createBrowserRouter([
         element: <SingleProduct />
       },
       {
-        path: "/category/:id",
+        // path: "/category/:id",
+        path: "/category/:categoryName",
         element: <SingleCatProduct />
       },
       {
@@ -116,8 +117,8 @@ const router = createBrowserRouter([
         element: <DisplayHotDealsProducts />
       },
       {
-        path:"/admin/productCategory",
-        element:<AdminCategory/>
+        path: "/admin/productCategory",
+        element: <AdminCategory />
       }
     ]
   }
