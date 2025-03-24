@@ -1,12 +1,19 @@
-import { useContext, useEffect } from "react"
-import { dataContext, useEcom } from "../Context/DataProvider"
-import { Link, NavLink, useParams } from "react-router-dom"
+import { useEffect } from "react"
+import { useEcom } from "../Context/DataProvider"
+import { NavLink, useParams } from "react-router-dom"
 import Loader from "../Components/Loader"
 import DisplayProducts from "../Components/DisplayProducts"
+import { useAuth } from "../Context/AuthProvider"
+import { useAdminAuth } from "../admin/Context/AdminAuthProvider"
 
 function Home() {
-  const { products, loading, categories, fetchData, productFilterByCategory, singleProductByCat, setSingleProductByCat
-  } = useEcom()
+  const { cart, fetchCategories, } = useEcom()
+  const { isUserLoggedIn, logout } = useAuth();
+  const { isAdminLoggedIn } = useAdminAuth();
+
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [categories, setCategories] = useState([]);
+
 
   const params = useParams();
 
