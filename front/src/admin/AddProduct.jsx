@@ -1,19 +1,35 @@
-import React, { useState } from 'react'
+import { useEffect, useState } from "react";
 import instance from '../axiosConfig'
+import slugify from "slugify"
 import { useEcom } from '../Context/DataProvider';
 
 function AddProduct() {
-    const { categories } = useEcom()
+    const { fetchCategories } = useEcom();
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    async function fetchData() {
+        const response = await fetchCategories();
+        setCategories(response.category);
+    }
+
     const [form, setForm] = useState({
         title: "",
+        slug: "",
         brand: "",
         category: "",
-        usualPrice: "",
-        discountType: "",
+        OriginalPrice: "",
+        discountType: "%",
         discount: "",
-        discountPrice: "",
+        discountedPrice: "",
         image: "",
-    })
+        description: "",
+    });
+
+    const [error, setError] = useState("");
 
     function handleDiscountPriceChange(e) {
         const a =
@@ -26,12 +42,19 @@ function AddProduct() {
     }
 
     function handleChange(e) {
+        // if (e.target.name === "image") {
+        //     // console.log("Selected File:", e.target.files[0]); // Debugging
+        //     setForm(prevForm => ({ ...prevForm, image: e.target.files[0] }));
+        // } else {
+        //     const { name, value } = e.target;
+        //     setForm(prevForm => ({ ...prevForm, [name]: value }));
+        // }
+
         if (e.target.name === "image") {
-            // console.log("Selected File:", e.target.files[0]); // Debugging
-            setForm(prevForm => ({ ...prevForm, image: e.target.files[0] }));
+            setForm((form) => ({ ...form, image: e.target.files[0] }));
         } else {
             const { name, value } = e.target;
-            setForm(prevForm => ({ ...prevForm, [name]: value }));
+            setForm((form) => ({ ...form, [name]: value }));
         }
     };
 
@@ -42,16 +65,19 @@ function AddProduct() {
             const frm = new FormData();
             frm.append("title", form.title)
             frm.append("brand", form.brand)
+            frm.append("slug", form.slug)
             frm.append("category", form.category)
             frm.append("usualPrice", form.usualPrice)
             frm.append("discountPrice", form.discountPrice);
             frm.append("discount", form.discount + "" + form.discountType);
             frm.append("image", form.image);
 
-            console.log(frm); 
+            // console.log(frm);
 
-            const response = await instance.post("/product/add", frm, { withCredentials: true })
-            console.log(response)
+            const response = await instance.post("/product/add", frm, {
+                withCredentials: true
+            })
+            // console.log(response)
 
         } catch (error) {
             console.log(error)
@@ -66,12 +92,22 @@ function AddProduct() {
                         placeholder='Enter Product Title'
                         name='title'
                         value={form.title}
-                        onChange={handleChange} className='border-2 pl-3 w-[250px]  py-1' />
+                        onChange={handleChange}
+                        onBlur={(e) =>
+                            setForm((form) => ({
+                                ...form,
+                                slug: slugify(e.target.value, {
+                                    lower: true,
+                                    remove: /[*+~.()'"!:@/]/g,
+                                }),
+                            }))
+                        }
+                        className='border-2 pl-3 w-[250px]  py-1' />
                     <input type="text"
-                        placeholder='Enter Product Brand'
-                        name='brand'
-                        value={form.brand}
-                        onChange={handleChange} className='border-2 pl-3 w-[250px]  py-1' />
+                        placeholder='Enter Product Slug'
+                        name='slug'
+                        value={form.slug}
+                        onChange={handleChange} className='border-2 pl-3 w-[250px] focus:ring-2 focus:ring-blue-500 py-1' />
 
                     {/* <input type="text"
                     placeholder='Enter Product Category'
@@ -80,7 +116,7 @@ function AddProduct() {
                     onChange={handleChange} className='border-2 ' /> */}
 
                     <select name="category" id="" value={form.category} onChange={handleChange} className='capitalize border-2 w-[250px] py-1'>
-                        <option value="" selected disabled>Select Category</option>
+                        <option value="" disabled placeholder>Select Category</option>
                         {categories.map((category, index) => {
                             return (
                                 <option value={category._id} key={index} > {category.name} </option>
