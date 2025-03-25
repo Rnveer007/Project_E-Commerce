@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { MdOutlineCurrencyRupee } from "react-icons/md";
 
 function DisplayProduct({ product }) {
-    console.log(product)
+    // console.log(product)
     if(product.products){
         product = product.products
     }

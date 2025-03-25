@@ -8,11 +8,7 @@ function SingleProduct() {
     const { id } = useParams();
     const {
         fetchSingleProduct,
-        // singleProduct,
-        // categories,
         fetchCategories
-        // singleProductByCat,
-        // productFilterByCategory,
     } = useEcom();
 
     const [categoryName, setCategoryName] = useState("");
@@ -21,7 +17,6 @@ function SingleProduct() {
     const [singleProduct, setSingleProduct] = useState([]);
 
     const { isUserLoggedIn } = useAuth()
-
 
     useEffect(() => {
         if (id) initial();
@@ -35,15 +30,12 @@ function SingleProduct() {
         setCategories(categories);
         // setLoading(false);
     }
-    // console.log("cat", categories)
+    // console.log("cat", categories.category)
     // console.log("sing", singleProduct)
 
-    useEffect(() => {
-        setCategoryName(
-            categories.find((category) => category._id === singleProduct.category)
-        );
-    }, [singleProduct, categories]);
-
+    console.log(
+        categories?.category?.find((category) => category?._id === singleProduct.category_id)?.name
+    );
     if (loading) return <Loader />;
 
     return (

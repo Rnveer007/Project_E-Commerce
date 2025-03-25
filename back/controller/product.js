@@ -50,14 +50,16 @@ export async function fetchProducts(req, res) {
             query.slug = req.params.id
         }
 
+        if (req.query.category) {
+            query.category = new mongoose.Types.ObjectId(req.query.category)
+        }
+
         if (req.query.categoryName) {
             const category = await categoryModel.find({
                 name: { $regex: new RegExp(`^${req.query.categoryName}$`, "i") },
             });
             query.category = category[0]._id;
         }
-
-
         const page = req.query.page ? Number(req.query.page) : 1;
         const limit = Number(req.query.limit) === -1 ? 0 : 10;
         const skip = (page - 1) * limit;

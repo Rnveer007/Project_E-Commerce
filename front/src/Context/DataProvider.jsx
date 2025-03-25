@@ -35,6 +35,7 @@ function DataProvider({ children }) {
         try {
             const response = await instance.get(`/product/get/${id}`)
         
+            console.log("res",response.data)
             return response.data.products[0]
         } catch (error) {
             console.log(error)
