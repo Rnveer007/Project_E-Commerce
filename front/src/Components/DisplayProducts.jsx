@@ -3,11 +3,15 @@ import { Link } from "react-router-dom";
 import { MdOutlineCurrencyRupee } from "react-icons/md";
 
 function DisplayProduct({ product }) {
+    console.log(product)
+    if(product.products){
+        product = product.products
+    }
     return (
         <>
             <div className="flex flex-wrap justify-center gap-16 pt-8 pb-10">
-                {product?.products?.length > 0
-                    ? product?.products?.map((item) => {
+                {product.length > 0
+                    ? product.map((item) => {
                         return (
                             <div key={item._id} className="text-center">
                                 <Link

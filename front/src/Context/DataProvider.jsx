@@ -6,13 +6,13 @@ import { useAuth } from "./AuthProvider";
 export const dataContext = createContext(); //created a context called dataContext which  will be used to share state and functions across the app without passing props manually.
 
 function DataProvider({ children }) {
-    const [products, setProducts] = useState([]);
+    // const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [categories, setCategories] = useState([]);
+    // const [categories, setCategories] = useState([]);
     const [singleProductByCat, setSingleProductByCat] = useState([]);
     const [dealProducts, setDealProducts] = useState([]);
-    const [singleProduct, setSingleProduct] = useState([]);
+    // const [singleProduct, setSingleProduct] = useState([]);
 
     async function fetchData(page = null) {
         try {
@@ -21,7 +21,8 @@ function DataProvider({ children }) {
                 page ? `/product/get?page=1` : "/product/get",
                 { withCredentials: true }
             )
-            setProducts(response.data.products);
+            // setProducts(response.data.products);
+            return(response.data.products);
         } catch (error) {
             console.log(error);
             setLoading(false);
@@ -33,7 +34,7 @@ function DataProvider({ children }) {
     async function fetchSingleProduct(id) {
         try {
             const response = await instance.get(`/product/get/${id}`)
-            // setSingleProduct(response.data.products[0])
+        
             return response.data.products[0]
         } catch (error) {
             console.log(error)
@@ -84,6 +85,7 @@ function DataProvider({ children }) {
                 ? "/product/get/?categoryName="
                 : "/product/get/?category=";
             const response = await instance.get(url + category);
+            // console.log(response);
             return response.data;
         } catch (error) {
             console.log(error)
@@ -158,11 +160,11 @@ function DataProvider({ children }) {
     return (
         <dataContext.Provider
             value={{
-                products,
+                // products,
                 cart,
-                singleProduct,
+                // singleProduct,
                 loading,
-                categories,
+                // categories,
                 singleProductByCat,
                 dealProducts,
                 fetchData,

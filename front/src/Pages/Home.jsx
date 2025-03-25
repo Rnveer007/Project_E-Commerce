@@ -7,24 +7,41 @@ import { useAuth } from "../Context/AuthProvider"
 import { useAdminAuth } from "../admin/Context/AdminAuthProvider"
 
 function Home() {
-  const { cart, fetchCategories, singleProductByCat, products } = useEcom()
+  const { cart, fetchCategories, productFilterByCategory, fetchData } = useEcom()
   const { isUserLoggedIn, logout } = useAuth();
   const { isAdminLoggedIn } = useAdminAuth();
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([])
+  const [productsByCat, setProductsByCat] = useState({})
 
 
   const params = useParams();
 
   useEffect(() => {
-    fetchData();
+    initial();
   }, []);
 
-  async function fetchData() {
-    const categories = await fetchCategories();
-    setCategories(categories.category);
+  useEffect(() => {getProductsByCat();}, [params])
+
+  async function getProductsByCat() {
+    const productsByCat = await productFilterByCategory(params.categoryName, true);
+    setProductsByCat(productsByCat)
   }
+
+  // console.log(productsByCat)
+
+  async function initial() {
+    const categories = await fetchCategories();
+    const products = await fetchData();
+    // console.log(products);
+    setCategories(categories.category);
+    setProducts(products);
+  }
+
+  // console.log(singleProductByCat)
+  console.log("params", params)
 
   return <>
     <div className="flex justify-center">
@@ -41,7 +58,7 @@ function Home() {
             categories.map((category, index) => (
               <NavLink
                 key={index}
-                to={`/category/${category._id}`}
+                to={`/category/${category.name}`}
                 className={({ isActive }) =>
                   `block px-4 py-3 font-bold text-xl dark:hover:rounded dark:hover:bg-gray-100 dark:hover:text-blue-500 ${isActive ? 'bg-blue-500 rounded text-white' : 'dark text-gray-700'
                   }`
@@ -59,10 +76,10 @@ function Home() {
             <input type="search" name="" id="" placeholder='Search Products...' className='border-1 mb-8 w-[350px] py-2 px-3 rounded' />
           </div>
         </div>
-        <DisplayProducts products={
-          singleProductByCat.length === 0 && Object.keys(params).length === 0
-            ? products
-            : singleProductByCat
+        <DisplayProducts product={
+          productsByCat?.products?.length > 0 ? productsByCat :
+            products
+
         } />
       </div>
     </div>
