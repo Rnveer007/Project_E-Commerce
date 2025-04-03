@@ -41,7 +41,7 @@ function Home() {
   }
 
   // console.log(singleProductByCat)
-  console.log("params", params)
+  // console.log("params", params)
 
   return <>
     <div className="flex justify-center">

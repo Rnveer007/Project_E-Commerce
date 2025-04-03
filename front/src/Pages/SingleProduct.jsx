@@ -3,70 +3,106 @@ import { useParams } from "react-router-dom";
 import { useEcom } from "../Context/DataProvider";
 import Loader from "../Components/Loader";
 import { useAuth } from "../Context/AuthProvider";
+import { Link } from "react-router-dom";
 
 function SingleProduct() {
-    const { id } = useParams();
-    const {
-        fetchSingleProduct,
-        fetchCategories
-    } = useEcom();
+  const { id } = useParams();
+  const { fetchSingleProduct, fetchCategories, addToWishlist, addToCart } = useEcom();
+  const { isUserLoggedIn } = useAuth();
 
-    const [categoryName, setCategoryName] = useState("");
-    const [loading, setLoading] = useState(false)
-    const [categories, setCategories] = useState([]);
-    const [singleProduct, setSingleProduct] = useState([]);
+  const [categoryName, setCategoryName] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([]); // ✅ Ensure it's always an array
+  const [singleProduct, setSingleProduct] = useState(null); // ✅ Initialize as null
 
-    const { isUserLoggedIn } = useAuth()
+  useEffect(() => {
+    fetchData();
+  }, [id]);
 
-    useEffect(() => {
-        if (id) initial();
-    }, [id]);
-
-    async function initial() {
-        // setLoading(true);
-        const product = await fetchSingleProduct(id);
-        setSingleProduct(product);
-        const categories = await fetchCategories();
-        setCategories(categories);
-        // setLoading(false);
+  async function fetchData() {
+    setLoading(true);
+    
+    try {
+      const product = await fetchSingleProduct(id);
+      setSingleProduct(product || {}); // ✅ Ensure product is always an object
+      
+      const categoryList = await fetchCategories();
+      setCategories(Array.isArray(categoryList) ? categoryList : []); // ✅ Ensure categories is always an array
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
-    // console.log("cat", categories.category)
-    // console.log("sing", singleProduct)
 
-    console.log(
-        categories?.category?.find((category) => category?._id === singleProduct.category_id)?.name
-    );
-    if (loading) return <Loader />;
+    setLoading(false);
+  }
 
-    return (
+  useEffect(() => {
+    if (Array.isArray(categories) && singleProduct?.category) {
+      const category = categories.find((obj) => obj._id === singleProduct.category);
+      setCategoryName(category ? category.name : "Unknown");
+    }
+  }, [singleProduct, categories]);
+
+  function handleAddToWishlist() {
+    isUserLoggedIn
+      ? addToWishlist(singleProduct.slug)
+      : (window.location.href = `/user/login?referer=/product/${singleProduct.slug}`);
+  }
+
+  function handleAddToCart() {
+    isUserLoggedIn
+      ? addToCart(singleProduct.slug)
+      : (window.location.href = `/user/login?referer=/product/${singleProduct.slug}`);
+  }
+
+  if (loading) return <Loader />;
+
+  return (
+    <>
+      {singleProduct && (
         <>
-            {singleProduct && (
-                <div>
-                    <div className="left">
-                        <img src={singleProduct.image} alt={singleProduct.title} />
-                    </div>
-                    <div className="right">
-                        <h2>{singleProduct.title}</h2>
-                        <p>
-                            <strong>Brand: </strong>
-                            {singleProduct.brand}
-                        </p>
-                        <p>
-                            <strong>Category: </strong>
-                            {categoryName}
-                        </p>
-                        <p>{singleProduct.description}</p>
+          <div className="flex items-center gap-10">
+            <div className="left">
+              <img src={singleProduct.image} alt={singleProduct.title} />
+            </div>
+            <div className="right">
+              <span className="flex py-2">
+                <span className="text-4xl">{singleProduct.brand}</span>
+                <h1 className="text-4xl px-2">{singleProduct.title}</h1>
+              </span>
+              <div>
+                <strong>Brand: </strong>{singleProduct.brand}
+              </div>
+              <div>
+                <strong>Category: </strong>{categoryName}
+              </div>
+              <div>
+                <strong>Description: </strong>{singleProduct.description}
+              </div>
+              <div className="flex gap-3 py-2">
+                <button
+                  className="rounded px-2 py-1 bg-blue-400 text-white"
+                  onClick={handleAddToCart}
+                >
+                  Add To Cart
+                </button>
+                <button
+                  className="rounded px-2 py-1 bg-blue-400 text-white"
+                  onClick={handleAddToWishlist}
+                >
+                  Add to Wishlist
+                </button>
+              </div>
+            </div>
+          </div>
 
-                        <button>Add To Cart</button>
-                        <button>Add To Wishlist</button>
-                    </div>
-                </div>
-            )}
+          <div>
+            <h1>SIMILAR PRODUCTS HERE</h1>
+            {/* Add logic to display similar products */}
+          </div>
         </>
-    );
-
+      )}
+    </>
+  );
 }
-
-
 
 export default SingleProduct;
