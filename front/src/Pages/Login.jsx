@@ -3,7 +3,6 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import instance from '../axiosConfig';
 import { useAuth } from '../Context/AuthProvider.jsx';
 
-
 function Login() {
     const [data, setData] = useState({
         email: "",

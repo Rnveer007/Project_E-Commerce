@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../models/userModels.js";
-import "dotenv/config";
 import Admin from "../models/adminModel.js";
+import "dotenv/config";
 
 export async function checkUser(req, res, next) {
   //   console.log(req);

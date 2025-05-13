@@ -1,18 +1,13 @@
-import { createContext, useContext, useState } from "react"; // create and use context are react hooks used to manage and consume context.
+import { createContext, useContext, useState } from "react"; // create and useContext are react hooks used to manage and consume context.
 import instance from "../axiosConfig";
-import { useAuth } from "./AuthProvider";
-// import axios from "axios";
 
 export const dataContext = createContext(); //created a context called dataContext which  will be used to share state and functions across the app without passing props manually.
 
 function DataProvider({ children }) {
-    // const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
     const [loading, setLoading] = useState(false);
-    // const [categories, setCategories] = useState([]);
     const [singleProductByCat, setSingleProductByCat] = useState([]);
     const [dealProducts, setDealProducts] = useState([]);
-    // const [singleProduct, setSingleProduct] = useState([]);
 
     async function fetchData(page = null) {
         try {
@@ -22,7 +17,7 @@ function DataProvider({ children }) {
                 { withCredentials: true }
             )
             // setProducts(response.data.products);
-            return(response.data.products);
+            return (response.data.products);
         } catch (error) {
             console.log(error);
             setLoading(false);
@@ -34,8 +29,6 @@ function DataProvider({ children }) {
     async function fetchSingleProduct(id) {
         try {
             const response = await instance.get(`/product/get/${id}`)
-        
-            // console.log("res",response.data)
             return response.data.products[0]
         } catch (error) {
             console.log(error)
@@ -78,10 +71,6 @@ function DataProvider({ children }) {
     async function productFilterByCategory(category, isName = false) {
         try {
             setLoading(true)
-            // setSingleProductByCat([]);
-            // const response = await instance.get("/product/get/?category=" + category)
-            // setSingleProductByCat(response.data.products)
-
             const url = isName
                 ? "/product/get/?categoryName="
                 : "/product/get/?category=";
@@ -161,11 +150,8 @@ function DataProvider({ children }) {
     return (
         <dataContext.Provider
             value={{
-                // products,
                 cart,
-                // singleProduct,
                 loading,
-                // categories,
                 singleProductByCat,
                 dealProducts,
                 fetchData,
@@ -187,7 +173,6 @@ function DataProvider({ children }) {
 
 }
 
-// Custom Hook to Use Ecom Context
 export function useEcom() {
     return useContext(dataContext);
 }

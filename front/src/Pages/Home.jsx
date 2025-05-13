@@ -5,7 +5,6 @@ import DisplayProducts from "../Components/DisplayProducts"
 
 function Home() {
   const { fetchCategories, productFilterByCategory, fetchData } = useEcom()
-
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([])
   const [productsByCat, setProductsByCat] = useState({})
@@ -27,7 +26,6 @@ function Home() {
   async function initial() {
     const categories = await fetchCategories();
     const products = await fetchData();
-    // console.log(products);
     setCategories(categories.category);
     setProducts(products);
   }

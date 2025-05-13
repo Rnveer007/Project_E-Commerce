@@ -7,7 +7,7 @@ import "dotenv/config";
 export async function registerUser(req, res) {
     try {
         const { name, email, password } = req.body;
-        console.log(name, email.password);
+        // console.log(name, email,password);
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const newUser = new User({ name, email, password: hashedPassword, role: "user" });
@@ -28,7 +28,8 @@ export async function loginUser(req, res) {
         if (!user) return res.status(404).send({ message: "Email not found" });
 
         const passwordMatches = await bcrypt.compare(password, user.password);
-        if (!passwordMatches) return res.status(404).send({ message: "Invalid Crendentials" });
+
+        if (!passwordMatches) return res.status(401).send({ message: "Invalid email or password" });
 
         // create token & send it back to clint  as cookies
 

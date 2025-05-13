@@ -11,7 +11,8 @@ export async function loginAdmin(req, res) {
         if (!admin) return res.status(404).send({ message: "Email not found" });
 
         const passwordMatches = await bcrypt.compare(password, admin.password);
-        if (!passwordMatches) return res.status(404).send({ message: "Invalid Crendentials" });
+
+        if (!passwordMatches) return res.status(401).send({ message: "Invalid email or password" });
 
         // create token & send it back to clint  as cookies
 
@@ -59,8 +60,8 @@ export async function count(req, res) {
     const count = { categories: 0, orders: 0, products: 0, users: 0 };
     try {
         count.categories = await categoryModel.countDocuments();
-        // const orderCount = await Order.countDocuments();
         count.products = await Product.countDocuments();
+        // const orderCount = await Order.countDocuments();
         // const userCount = await User.countDocuments();
 
         return res.send({ count });

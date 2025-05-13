@@ -8,12 +8,10 @@ function SingleProduct() {
   const { id } = useParams();
   const { fetchSingleProduct, fetchCategories, addToWishlist, addToCart } = useEcom();
   const { isUserLoggedIn } = useAuth();
-  // console.log("singleProduct", fetchSingleProduct)
-
   const [categoryName, setCategoryName] = useState("");
   const [loading, setLoading] = useState(false);
-  const [categories, setCategories] = useState([]); // ✅ Ensure it's always an array
-  const [singleProduct, setSingleProduct] = useState(null); // ✅ Initialize as null
+  const [categories, setCategories] = useState([]);
+  const [singleProduct, setSingleProduct] = useState(null); 
 
   useEffect(() => {
     fetchData();
@@ -24,10 +22,10 @@ function SingleProduct() {
     
     try {
       const product = await fetchSingleProduct(id);
-      setSingleProduct(product || {}); // ✅ Ensure product is always an object
+      setSingleProduct(product || {}); 
       
       const categoryList = await fetchCategories();
-      setCategories(Array.isArray(categoryList) ? categoryList : []); // ✅ Ensure categories is always an array
+      setCategories(Array.isArray(categoryList) ? categoryList : []);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
