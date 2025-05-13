@@ -40,6 +40,20 @@ export async function loginAdmin(req, res) {
     }
 }
 
+export async function logOutAdmin(req, res) {
+    try {
+        res.clearCookie("adminToken", {
+            httpOnly: false,
+            secure: false,
+            sameSite: "strict",
+        })
+        res.status(200).send({ message: "Admin Logged out" });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({ mesage: error.message })
+    }
+
+}
 
 export async function count(req, res) {
     const count = { categories: 0, orders: 0, products: 0, users: 0 };

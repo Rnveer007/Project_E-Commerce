@@ -54,3 +54,18 @@ export async function loginUser(req, res) {
         return res.status(500).send({ message: "User not login", errorString: error.message });
     }
 }
+
+export async function logOutUser(req, res) {
+    try {
+        res.clearCookie("loginToken", {
+            httpOnly: false,
+            secure: false,
+            sameSite: "strict",
+        })
+        res.status(200).send({ message: "User Logged out" });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({ mesage: error.message })
+    }
+
+}

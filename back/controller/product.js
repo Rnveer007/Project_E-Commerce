@@ -71,7 +71,7 @@ export async function fetchProducts(req, res) {
             .populate("category");
         const TotalCount = await productData.countDocuments(query);
 
-        // console.log(products);
+        // console.log("products", products);
 
         if (!products) {
             return res.status(500).send({ message: "No products Data found" });
@@ -89,7 +89,6 @@ export async function fetchProducts(req, res) {
         });
     }
 }
-
 
 export async function fetchCategories(req, res) {
     try {

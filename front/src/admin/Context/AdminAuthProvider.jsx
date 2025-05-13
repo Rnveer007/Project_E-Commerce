@@ -29,7 +29,7 @@ function AdminAuthProvider({ children }) {
     }
   }
 
-  async function logout() {
+  async function logoutAdmin() {
     try {
       await instance.post(
         "/admin/logout",
@@ -48,8 +48,8 @@ function AdminAuthProvider({ children }) {
   return (
     <AdminAuth.Provider
       value={{
-        logout,
         isAdminLoggedIn,
+        logoutAdmin,
         checkAuthAdmin,
       }}
     >

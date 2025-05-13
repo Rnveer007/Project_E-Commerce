@@ -40,9 +40,6 @@ function Home() {
     setProducts(products);
   }
 
-  // console.log(singleProductByCat)
-  // console.log("params", params)
-
   return <>
     <div className="flex justify-center">
       <div className=" border-r-2 border-gray-300 px-3 w-[25%]">

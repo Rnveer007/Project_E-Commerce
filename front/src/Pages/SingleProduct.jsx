@@ -3,12 +3,12 @@ import { useParams } from "react-router-dom";
 import { useEcom } from "../Context/DataProvider";
 import Loader from "../Components/Loader";
 import { useAuth } from "../Context/AuthProvider";
-import { Link } from "react-router-dom";
 
 function SingleProduct() {
   const { id } = useParams();
   const { fetchSingleProduct, fetchCategories, addToWishlist, addToCart } = useEcom();
   const { isUserLoggedIn } = useAuth();
+  // console.log("singleProduct", fetchSingleProduct)
 
   const [categoryName, setCategoryName] = useState("");
   const [loading, setLoading] = useState(false);

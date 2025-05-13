@@ -3,7 +3,7 @@ import User from "../models/userModels.js";
 import "dotenv/config";
 import Admin from "../models/adminModel.js";
 
-export async function check(req, res, next) {
+export async function checkUser(req, res, next) {
   //   console.log(req);
   //   console.log("cookies", req.cookies);
 
@@ -18,9 +18,8 @@ export async function check(req, res, next) {
 
   //USER NOT FOUND
   if (!user) {
-    return res.status(401).json({ message: "USER NOT FOUND" });
+    return res.status(401).json({ message: "User not found" });
   }
-
   req.user = user;
   next();
 }
@@ -35,12 +34,12 @@ export async function checkAdmin(req, res, next) {
   // Verify the token
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-  // Find the user by id
+  // Find Admin by id
   const admin = await Admin.findById(decoded.id).select("password");
 
-  //USER NOT FOUND
+  //Admin NOT FOUND
   if (!admin) {
-    return res.status(401).json({ message: "USER NOT FOUND" });
+    return res.status(401).json({ message: "Admin not found" });
   }
 
   req.admin = admin;

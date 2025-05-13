@@ -19,7 +19,10 @@ export async function addToCart(req, res) {
         const userId = req.user._id;
         const { product, quantity } = req.body;
 
+        // console.log("product", product);
+        
         let cart = new cartModel({ user: userId, items: [] })
+
         if (!cart) {
             cart = new cartModel({ user: userId, items: [] })
         }
@@ -34,6 +37,7 @@ export async function addToCart(req, res) {
         }
 
         await cart.save()
+
         const updateCart = await cartModel.findOne({ user: userId }).populate("items.product")
         res.status(200).send({ updateCart })
     } catch (error) {
