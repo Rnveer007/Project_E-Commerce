@@ -1,5 +1,4 @@
 import { createContext, useEffect, useState, useContext } from "react";
-
 import instance from "../../axiosConfig";
 
 const AdminAuth = createContext(null);
@@ -12,6 +11,7 @@ function AdminAuthProvider({ children }) {
     checkAuthAdmin();
   }, []);
 
+  // Function to check if admin is logged in
   async function checkAuthAdmin() {
     try {
       const response = await instance.get("/admin/check", {
@@ -19,7 +19,7 @@ function AdminAuthProvider({ children }) {
       });
       if (response.status === 200) {
         setIsAdminLoggedIn(true);
-        setLoggedInAdmin(response.admin);
+        setLoggedInAdmin(response.data.admin); 
       }
     } catch (error) {
       console.log(error);
@@ -28,6 +28,7 @@ function AdminAuthProvider({ children }) {
     }
   }
 
+  // Function to log out the admin
   async function logout() {
     try {
       await instance.post(
@@ -38,7 +39,7 @@ function AdminAuthProvider({ children }) {
         }
       );
       setIsAdminLoggedIn(false);
-      checkAuthAdmin();
+      setLoggedInAdmin({});
     } catch (error) {
       console.log(error);
     }
@@ -48,6 +49,7 @@ function AdminAuthProvider({ children }) {
     <AdminAuth.Provider
       value={{
         isAdminLoggedIn,
+        loggedInAdmin,
         logout,
         checkAuthAdmin,
       }}

@@ -4,44 +4,37 @@ import Admin from "../models/adminModel.js";
 import "dotenv/config";
 
 export async function checkUser(req, res, next) {
-  //   console.log(req);
-  //   console.log("cookies", req.cookies);
-
   const token = req.cookies.loginToken;
   if (!token) return res.status(401).send({ message: "No Token Found" });
 
-  // Verify the token
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(decoded.id).select("password");
 
-  // Find the user by id
-  const user = await User.findById(decoded.id).select("userpassword");
-
-  //USER NOT FOUND
-  if (!user) {
-    return res.status(401).json({ message: "User not found" });
+    if (!user) {
+      return res.status(401).json({ message: "User not found" });
+    }
+    req.user = user;
+    next();
+  } catch (error) {
+    return res.status(401).send({ message: "Invalid or expired token" });
   }
-  req.user = user;
-  next();
 }
 
 export async function checkAdmin(req, res, next) {
-  //   console.log(req);
-  //   console.log("cookies", req.cookies);
-
   const token = req.cookies.adminToken;
   if (!token) return res.status(401).send({ message: "No Token Found" });
 
-  // Verify the token
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const admin = await Admin.findById(decoded.id).select("password");
 
-  // Find Admin by id
-  const admin = await Admin.findById(decoded.id).select("password");
-
-  //Admin NOT FOUND
-  if (!admin) {
-    return res.status(401).json({ message: "Admin not found" });
+    if (!admin) {
+      return res.status(401).json({ message: "Admin not found" });
+    }
+    req.admin = admin;
+    next();
+  } catch (error) {
+    return res.status(401).send({ message: "Invalid or expired token" });
   }
-
-  req.admin = admin;
-  next();
 }

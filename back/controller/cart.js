@@ -17,9 +17,11 @@ export async function fetchCart(req, res) {
 export async function addToCart(req, res) {
     try {
         const userId = req.user._id;
+        console.log("cartid", userId)
         const { product, quantity } = req.body;
 
         let cart = await cartModel.findOne({ user: userId });
+        console.log("cartfile", cart)
 
         if (!cart) {
             cart = new cartModel({ user: userId, items: [] });
