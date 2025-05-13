@@ -1,4 +1,3 @@
-
 import { createContext, useEffect, useState, useContext } from "react";
 
 import instance from "../../axiosConfig";
@@ -29,7 +28,7 @@ function AdminAuthProvider({ children }) {
     }
   }
 
-  async function logoutAdmin() {
+  async function logout() {
     try {
       await instance.post(
         "/admin/logout",
@@ -49,7 +48,7 @@ function AdminAuthProvider({ children }) {
     <AdminAuth.Provider
       value={{
         isAdminLoggedIn,
-        logoutAdmin,
+        logout,
         checkAuthAdmin,
       }}
     >

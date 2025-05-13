@@ -1,6 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
-/* eslint-disable react/prop-types */
-
 import { createContext, useContext, useState } from "react";
 import instance from "../../axiosConfig";
 
@@ -42,7 +39,7 @@ function AdminEcomProvider({ children }) {
       const response = await instance.get("/admin/count", {
         withCredentials: true,
       });
-      setCount(response.data.count);
+      // setCount(response.data.count);
     } catch (error) {
       console.log(error);
     }

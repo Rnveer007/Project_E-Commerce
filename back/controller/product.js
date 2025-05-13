@@ -4,11 +4,12 @@ import productData from "../models/productModel.js";
 import mongoose from "mongoose";
 
 export async function addToProduct(req, res) {
-    // console.log(req.file)
     try {
         const file = req.file;
+
         if (!file) return res.status(404).send({ message: "File Not Found" })
         const secure_url = await uploadToCloudinary(req)
+    
         const categoryObjId = new mongoose.Types.ObjectId(req.body.category)
 
         const latestProduct = new productData({ ...req.body, image: secure_url, category: categoryObjId })
