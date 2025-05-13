@@ -18,26 +18,27 @@ export async function addToCart(req, res) {
     try {
         const userId = req.user._id;
         const { product, quantity } = req.body;
-        
-        let cart = new cartModel({ user: userId, items: [] })
+
+        let cart = await cartModel.findOne({ user: userId });
 
         if (!cart) {
-            cart = new cartModel({ user: userId, items: [] })
+            cart = new cartModel({ user: userId, items: [] });
         }
-        const exitingItem = cart.items.find(items.product.tostring() === product)
 
-        if (exitingItem) {
-            exitingItem.quantity += quantity;
+        const existingItem = cart.items.find(item => item.product.toString() === product);
+
+        if (existingItem) {
+            existingItem.quantity += quantity;
         } else {
-            cart.items.push({ product, quantity })
+            cart.items.push({ product, quantity });
         }
-        await cart.save()
 
-        const updateCart = await cartModel.findOne({ user: userId }).populate("items.product")
-        res.status(200).send({ updateCart })
+        await cart.save();
+
+        const updatedCart = await cartModel.findOne({ user: userId }).populate("items.product");
+        res.status(200).send({ updatedCart });
     } catch (error) {
-        console.log(error)
-        res.status(500).send({ message: "Problem adding product to cart" })
+        console.log(error);
+        res.status(500).send({ message: "Problem adding product to cart" });
     }
-
 }

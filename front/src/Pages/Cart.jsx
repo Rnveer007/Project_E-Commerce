@@ -1,10 +1,8 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useEcom } from "../Context/DataProvider";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { MdOutlineCurrencyRupee } from "react-icons/md";
 import { IoCartOutline } from "react-icons/io5";
-
-import { Link } from "react-router-dom";
 
 function Cart() {
   const { cart, updateProductQuantity, removeFromCart, addToCart } = useEcom();

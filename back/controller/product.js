@@ -9,10 +9,15 @@ export async function addToProduct(req, res) {
 
         if (!file) return res.status(404).send({ message: "File Not Found" })
         const secure_url = await uploadToCloudinary(req)
-    
+
         const categoryObjId = new mongoose.Types.ObjectId(req.body.category)
 
-        const latestProduct = new productData({ ...req.body, image: secure_url, category: categoryObjId })
+        const latestProduct = new productData({
+            ...req.body,
+            image: secure_url,
+            category: categoryObjId
+        })
+
         await latestProduct.save()
         res.status(201).send({ message: "product Added" })
     } catch (error) {
@@ -119,10 +124,8 @@ export async function fetchCategories(req, res) {
 export async function hotDeals(req, res) {
     try {
         const hotDeals = await productData.find(
-            {
-                discountPrice: { $gte: 500 }
-            })
-        console.log(hotDeals)
+            { discountPrice: { $gte: 500 } })
+        // console.log(hotDeals)
         res.status(200).json(hotDeals)
     } catch (error) {
         console.error("Error fetching hot deals:", error)

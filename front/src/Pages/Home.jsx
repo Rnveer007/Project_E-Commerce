@@ -1,17 +1,11 @@
 import { useEffect, useState } from "react"
 import { useEcom } from "../Context/DataProvider"
 import { NavLink, useParams } from "react-router-dom"
-import Loader from "../Components/Loader"
 import DisplayProducts from "../Components/DisplayProducts"
-import { useAuth } from "../Context/AuthProvider"
-import { useAdminAuth } from "../admin/Context/AdminAuthProvider"
 
 function Home() {
-  const { cart, fetchCategories, productFilterByCategory, fetchData } = useEcom()
-  const { isUserLoggedIn, logout } = useAuth();
-  const { isAdminLoggedIn } = useAdminAuth();
+  const { fetchCategories, productFilterByCategory, fetchData } = useEcom()
 
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([])
   const [productsByCat, setProductsByCat] = useState({})
@@ -23,14 +17,12 @@ function Home() {
     initial();
   }, []);
 
-  useEffect(() => {getProductsByCat();}, [params])
+  useEffect(() => { getProductsByCat(); }, [params])
 
   async function getProductsByCat() {
     const productsByCat = await productFilterByCategory(params.categoryName, true);
     setProductsByCat(productsByCat)
   }
-
-  // console.log(productsByCat)
 
   async function initial() {
     const categories = await fetchCategories();
